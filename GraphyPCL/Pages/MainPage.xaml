@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:GraphyPCL;assembly=GraphyPCL"
+	x:Class="GraphyPCL.MainPage">
+	<ContentPage
+		Title="Hello XAML Page 1"
+		Padding="10, 40, 10, 10"
+		Icon="contact_icon.png">
+		<StackLayout>
+			<Label
+				Text="Hello, XAML!"
+				TextColor="Green" />
+			<Image
+				Source="contact_icon.png">
+			</Image>
+		</StackLayout>
+	</ContentPage>
+	<ContentPage
+		Title="Hello XAML Page 2"
+		Padding="10, 40, 10, 10">
+		<Label
+			Text="Hello, XAML!"
+			VerticalOptions="Start"
+			XAlign="Center"
+			Rotation="-15"
+			IsVisible="true"
+			Font="Bold, Large"
+			TextColor="Red" />
+	</ContentPage>
+	<local:MyPage></local:MyPage>
+</TabbedPage>
