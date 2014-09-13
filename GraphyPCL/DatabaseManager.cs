@@ -27,6 +27,9 @@ namespace GraphyPCL
 //            DbConnection.Execute(foreignKeyOn);
 
             // Create tables using SQL commands
+            // It seems SQLite-net make query base on table name. Therefore, our custom tables still work with
+            // their queries even the database objects may have more properties than the fields in the table.
+            // For example: DbConnection.Insert(new Contact()) still insert to the Contact table.
             var createContact = "CREATE TABLE Contact (Id INTEGER PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Birthday DATETIME, Favourite BOOL DEFAULT 0)";
             DbConnection.Execute(createContact);
             var createPhoneNumber = "CREATE TABLE PhoneNumber (Id INTEGER PRIMARY KEY NOT NULL, Type VARCHAR, Number VARCHAR, ContactId INTEGER, FOREIGN KEY(ContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
@@ -64,6 +67,7 @@ namespace GraphyPCL
             contact1.Id = 1;
             contact1.FirstName = "Andy";
             contact1.LastName = "Rubin";
+            contact1.ImageName = "andy.jpg";
             DbConnection.Insert(contact1);
                 
             var contact2 = new Contact();
@@ -73,7 +77,7 @@ namespace GraphyPCL
             contact2.LastName = "Gates";
             contact2.Organization = "Microsoft";
             contact2.Birthday = new DateTime(1955, 11, 28);
-            contact2.ImageName = "Bill.jpg";
+            contact2.ImageName = "bill.jpg";
             contact2.Favourite = true;
             DbConnection.Insert(contact2);
 

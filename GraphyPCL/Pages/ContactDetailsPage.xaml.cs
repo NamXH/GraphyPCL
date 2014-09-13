@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public partial class MainPage : TabbedPage
+    public partial class ContactDetailsPage : ContentPage
     {
-        public MainPage()
+        public ContactDetailsPage(Contact contact)
         {
             InitializeComponent();
-            this.SelectedItem = _allContactsNavigator;
+            BindingContext = contact;
         }
     }
 }

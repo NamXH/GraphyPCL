@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite.Net.Attributes;
+using Xamarin.Forms;
 
 namespace GraphyPCL
 {
@@ -19,10 +20,15 @@ namespace GraphyPCL
 
     public class Contact : IIdContainer
     {
+        private const string c_imageFolder = "GraphyPCL.Images";
+        private const string c_defaultImageName = "unknown.jpg";
+
         [PrimaryKey]
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName { 
+            get; 
+            set; }
 
         public string MiddleName { get; set; }
 
@@ -36,13 +42,26 @@ namespace GraphyPCL
 
         public bool Favourite { get; set; }
 
-        public string GetFullName()
+        public string FullName
         {
-            string firstName = !string.IsNullOrEmpty(FirstName) ? FirstName+" " : FirstName;
-            string middleName = !string.IsNullOrEmpty(MiddleName) ? MiddleName+" " : MiddleName;
-            string lastName = !string.IsNullOrEmpty(LastName) ? LastName : LastName;
+            get
+            {
+                string firstName = !string.IsNullOrEmpty(FirstName) ? FirstName + " " : FirstName;
+                string middleName = !string.IsNullOrEmpty(MiddleName) ? MiddleName + " " : MiddleName;
+                string lastName = !string.IsNullOrEmpty(LastName) ? LastName : LastName;
 
-            return firstName + middleName + lastName;
+                return firstName + middleName + lastName;
+            }
+        }
+
+        public ImageSource Photo
+        {
+            get
+            {
+                var imageName = this.ImageName ?? c_defaultImageName;
+                var imagePath = c_imageFolder + "." + imageName;
+                return ImageSource.FromResource(imagePath);
+            }
         }
     }
 
