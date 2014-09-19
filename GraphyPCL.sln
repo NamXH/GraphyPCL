@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphyPCL", "GraphyPCL\Grap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphyPCL.iOS", "GraphyPCL.iOS\GraphyPCL.iOS.csproj", "{9FDE488E-30B9-45CF-9789-2A354091F661}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphyPCL.Android", "GraphyPCL.Android\GraphyPCL.Android.csproj", "{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,22 @@ Global
 		{9FDE488E-30B9-45CF-9789-2A354091F661}.Release|iPhone.Build.0 = Release|iPhone
 		{9FDE488E-30B9-45CF-9789-2A354091F661}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{9FDE488E-30B9-45CF-9789-2A354091F661}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|iPhone.Build.0 = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = GraphyPCL.iOS\GraphyPCL.iOS.csproj

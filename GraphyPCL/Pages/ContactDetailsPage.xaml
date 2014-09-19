@@ -1,4 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GraphyPCL.ContactDetailsPage">
-  <Entry Text="{Binding FirstName, Mode=TwoWay}" ></Entry>
+	<TableView x:Name="_tableView">
+		<TableView.Root>
+			<TableRoot x:Name="_tableRoot">
+				<TableSection Title="{Binding Organization}">
+					<ImageCell Text="{Binding Contact.FullName}" ImageSource="{Binding Contact.Photo}" />
+					<SwitchCell Text="Favorite" On="{Binding Contact.Favorite}" />
+				</TableSection>
+			</TableRoot>
+		</TableView.Root>
+	</TableView>
 </ContentPage>

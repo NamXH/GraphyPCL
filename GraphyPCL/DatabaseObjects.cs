@@ -40,7 +40,7 @@ namespace GraphyPCL
 
         public DateTime Birthday { get; set; }
 
-        public bool Favourite { get; set; }
+        public bool Favorite { get; set; }
 
         public string FullName
         {

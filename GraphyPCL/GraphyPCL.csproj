@@ -47,6 +47,12 @@
       <DependentUpon>ContactDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContactsGroup.cs" />
+    <Compile Include="ViewModel\ContactDetailsViewModel.cs" />
+    <Compile Include="RelatedContact.cs" />
+    <Compile Include="Pages\AddContactPage.xaml.cs">
+      <DependentUpon>AddContactPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AddContactViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -86,6 +92,9 @@
     <EmbeddedResource Include="Images\bill.jpg" />
     <EmbeddedResource Include="Images\unknown.jpg" />
     <EmbeddedResource Include="Pages\ContactDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AddContactPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

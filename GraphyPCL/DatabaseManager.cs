@@ -30,7 +30,7 @@ namespace GraphyPCL
             // It seems SQLite-net make query base on table name. Therefore, our custom tables still work with
             // their queries even the database objects may have more properties than the fields in the table.
             // For example: DbConnection.Insert(new Contact()) still insert to the Contact table.
-            var createContact = "CREATE TABLE Contact (Id INTEGER PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Birthday DATETIME, Favourite BOOL DEFAULT 0)";
+            var createContact = "CREATE TABLE Contact (Id INTEGER PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Birthday DATETIME, Favorite BOOL DEFAULT 0)";
             DbConnection.Execute(createContact);
             var createPhoneNumber = "CREATE TABLE PhoneNumber (Id INTEGER PRIMARY KEY NOT NULL, Type VARCHAR, Number VARCHAR, ContactId INTEGER, FOREIGN KEY(ContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createPhoneNumber);
@@ -78,7 +78,7 @@ namespace GraphyPCL
             contact2.Organization = "Microsoft";
             contact2.Birthday = new DateTime(1955, 11, 28);
             contact2.ImageName = "bill.jpg";
-            contact2.Favourite = true;
+            contact2.Favorite = true;
             DbConnection.Insert(contact2);
 
             var contact3 = new Contact();
@@ -208,20 +208,20 @@ namespace GraphyPCL
             DbConnection.Insert(date1);
 
             // Tags
-//                var tag2 = new Tag()
-//                { 
-//                    Id = 2,
-//                    Name = "Important",
-//                };
-//                db.Insert(tag2);
-
             var tag1 = new Tag()
             {
                 Id = 1,
-                Name = "",
+                Name = "Colleague",
                 Detail = "Chairman of Microsoft",
             };
             DbConnection.Insert(tag1);
+
+            var tag2 = new Tag()
+            { 
+                Id = 2,
+                Name = "Important",
+            };
+            DbConnection.Insert(tag2);
 
             var tagMap1 = new ContactTagMap()
             {
@@ -316,13 +316,18 @@ namespace GraphyPCL
         /// <summary>
         /// Gets the relationships start from a contact to other contacts
         /// </summary>
-        /// <returns>The relationships from contact.</returns>
-        /// <param name="contactId">Contact identifier.</param>
+        /// <returns>Relationships from the contact</returns>
+        /// <param name="contactId">Contact identifier</param>
         public static IList<Relationship> GetRelationshipsFromContact(int contactId)
         {
             return DbConnection.Table<Relationship>().Where(x => x.FromContactId == contactId).ToList();
         }
 
+        /// <summary>
+        /// Gets the relationships start from other contacts to a contact
+        /// </summary>
+        /// <returns>Relationships to the contact</returns>
+        /// <param name="contactId">Contact identifier</param>
         public static IList<Relationship> GetRelationshipsToContact(int contactId)
         {
             return DbConnection.Table<Relationship>().Where(x => x.ToContactId == contactId).ToList();

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GraphyPCL.AddContactPage">
+  <TableView x:Name="_tableView">
+    <TableView.Root>
+      <TableRoot x:Name="_tableRoot">
+        <TableSection Title=" ">
+          <ImageCell Text="Change Photo" ImageSource="{Binding Contact.Photo}" />
+          <EntryCell Label="First Name" Text="{Binding Contact.FirstName}"/>
+          <EntryCell Label="Middle Name" Text="{Binding Contact.MiddleName}"/>
+          <EntryCell Label="Last Name" Text="{Binding Contact.LastName}"/>
+        </TableSection>
+        <TableSection x:Name="_phoneSection" Title="PHONE">
+        </TableSection>
+      </TableRoot>
+    </TableView.Root>
+  </TableView>
+</ContentPage>
