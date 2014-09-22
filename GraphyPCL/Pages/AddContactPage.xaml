@@ -10,7 +10,18 @@
           <EntryCell Label="Last Name" Text="{Binding Contact.LastName}" />
         </TableSection>
         <TableSection x:Name="_phoneSection" Title="PHONE">
-          <TextCell Text="Add Another Phone Number" TextColor="Blue" Tapped="OnAddMoreButtonClick" />
+          <!--          <TextCell Text="Add Another Phone Number" Tapped="OnAddMoreButtonClick">
+            <TextCell.TextColor>
+              <OnPlatform x:TypeArguments="Color">
+                <OnPlatform.iOS>
+                  
+                </OnPlatform.iOS>
+              </OnPlatform>
+            </TextCell.TextColor>
+          </TextCell>
+          -->
+          <TextCell>
+          </TextCell>
         </TableSection>
       </TableRoot>
     </TableView.Root>
