@@ -25,6 +25,7 @@ namespace GraphyPCL
         {
             var a = new TextCell{ Text = "abc" };
             _phoneSection.Insert(_phoneSection.Count - 1, a);
+            _tableView.Refresh();
         }
 
         private void OnDoneButtonClick()
