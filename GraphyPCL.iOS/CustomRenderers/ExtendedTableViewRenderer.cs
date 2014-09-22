@@ -10,9 +10,13 @@ namespace GraphyPCL.iOS
 {
     public class ExtendedTableViewRenderer : TableViewRenderer
     {
-        public void Refresh()
+        protected override void OnElementChanged(ElementChangedEventArgs<TableView> e)
         {
-            Control.ReloadData();
+            base.OnElementChanged(e);
+            if (e.OldElement == null)
+            {
+                ((ExtendedTableView)e.NewElement).DataChanged += (object sender, EventArgs args) => { Control.ReloadData(); };
+            }
         }
     }
 }
