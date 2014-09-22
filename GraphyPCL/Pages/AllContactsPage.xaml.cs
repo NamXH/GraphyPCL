@@ -12,7 +12,7 @@ namespace GraphyPCL
         public AllContactsPage()
         {
             InitializeComponent();
-            this.ToolbarItems.Add(new ToolbarItem("Add", "plus_icon.png", () => AddButtonClicked()));
+            this.ToolbarItems.Add(new ToolbarItem("Add", "plus_icon.png", OnAddButtonClick));
             _viewModel = new AllContactsViewModel();
             BindingContext = _viewModel;
         }
@@ -28,7 +28,7 @@ namespace GraphyPCL
             }
         }
 
-        private void AddButtonClicked()
+        private void OnAddButtonClick()
         {
             var addContactPage = new AddContactPage();
             Navigation.PushAsync(addContactPage);
