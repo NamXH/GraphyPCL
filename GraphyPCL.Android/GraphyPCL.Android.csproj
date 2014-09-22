@@ -69,6 +69,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DatabaseManagerAndroid.cs" />
+    <Compile Include="CustomRenderers\ExtendedTableViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -90,5 +91,8 @@
       <Project>{63EC28D8-5AB0-4DCF-9B00-56BC88D0B309}</Project>
       <Name>GraphyPCL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomRenderers\" />
   </ItemGroup>
 </Project>
