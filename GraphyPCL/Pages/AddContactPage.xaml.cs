@@ -18,7 +18,6 @@ namespace GraphyPCL
             _viewModel = new ContactDetailsViewModel();
             BindingContext = _viewModel;
 
-
         }
 
         private void OnAddMoreButtonClick(object sender, EventArgs args)
