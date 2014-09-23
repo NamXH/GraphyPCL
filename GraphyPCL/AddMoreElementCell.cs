@@ -9,7 +9,7 @@ namespace GraphyPCL
 
         public AddMoreElementCell()
         {
-            this.Text = "Add More";
+            this.Text = "add more";
             this.TextColor = Device.OnPlatform(_iOSBlue, Color.Default, Color.Default);
         }
     }
