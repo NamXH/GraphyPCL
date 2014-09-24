@@ -30,13 +30,11 @@ namespace GraphyPCL
             viewCell.View = layout;
 
             var deleteImage = new Image();
-            deleteImage.HeightRequest = 12;
-            deleteImage.WidthRequest = 12;
-            deleteImage.Source = ImageSource.FromFile("plus_icon.png");
+            deleteImage.Source = ImageSource.FromFile("minus_icon.png");
             layout.Children.Add(deleteImage);
 
             var label = new Label();
-            label.Text = "Home";
+            label.Text = "home";
             label.VerticalOptions = LayoutOptions.CenterAndExpand;
             label.WidthRequest = 70;
             layout.Children.Add(label);
@@ -49,8 +47,8 @@ namespace GraphyPCL
 
             var entry = new Entry();
             entry.Placeholder = "Enter number";
-            entry.HorizontalOptions = LayoutOptions.EndAndExpand;
             entry.Keyboard = Keyboard.Numeric;
+            entry.HorizontalOptions = LayoutOptions.FillAndExpand;
             layout.Children.Add(entry);
 
             _phoneSection.Insert(_phoneSection.Count - 1, viewCell);

@@ -103,8 +103,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\contact_icon.png" />
-    <BundleResource Include="Resources\plus_icon.png" />
+    <BundleResource Include="Resources\contact_icon%401x.png" />
+    <BundleResource Include="Resources\contact_icon%402x.png" />
+    <BundleResource Include="Resources\contact_icon%403x.png" />
+    <BundleResource Include="Resources\plus_icon%401x.png" />
+    <BundleResource Include="Resources\plus_icon%402x.png" />
+    <BundleResource Include="Resources\plus_icon%403x.png" />
+    <BundleResource Include="Resources\minus_icon%401x.png" />
+    <BundleResource Include="Resources\minus_icon%402x.png" />
+    <BundleResource Include="Resources\minus_icon%403x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%401x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%402x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
