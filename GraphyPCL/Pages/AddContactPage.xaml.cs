@@ -23,35 +23,41 @@ namespace GraphyPCL
         private void AddMorePhoneNumber(object sender, EventArgs args)
         {
             var viewCell = new ViewCell();
+            _phoneSection.Insert(_phoneSection.Count - 1, viewCell);
 
             var layout = new StackLayout();
+            viewCell.View = layout;
             layout.Orientation = StackOrientation.Horizontal;
             layout.Padding = new Thickness(20, 5, 20, 5);
-            viewCell.View = layout;
 
             var deleteImage = new Image();
-            deleteImage.Source = ImageSource.FromFile("minus_icon.png");
             layout.Children.Add(deleteImage);
+            deleteImage.Source = ImageSource.FromFile("minus_icon.png");
 
             var label = new Label();
+            layout.Children.Add(label);
             label.Text = "home";
             label.VerticalOptions = LayoutOptions.CenterAndExpand;
             label.WidthRequest = 70;
-            layout.Children.Add(label);
+            var labelTapped = new TapGestureRecognizer();
+            label.GestureRecognizers.Add(labelTapped);
+            labelTapped.Tapped += (object s, EventArgs e) =>
+            {
+                var a = new ElementTypePage();
+                this.Navigation.PushAsync(a);
+            };
 
             var box = new BoxView();
+            layout.Children.Add(box);
             box.Color = Color.Gray;
             box.WidthRequest = 1;
             box.HeightRequest = layout.Height;
-            layout.Children.Add(box);
 
             var entry = new Entry();
+            layout.Children.Add(entry);
             entry.Placeholder = "Enter number";
             entry.Keyboard = Keyboard.Numeric;
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
-            layout.Children.Add(entry);
-
-            _phoneSection.Insert(_phoneSection.Count - 1, viewCell);
 
             _tableView.OnDataChanged();
         }
