@@ -18,6 +18,10 @@ namespace GraphyPCL
             _viewModel = new ContactDetailsViewModel();
             BindingContext = _viewModel;
 
+            var a = new AddMoreElementCell();
+            _phoneSection.Add(a);
+            a.Foo();
+
         }
 
         private void AddMorePhoneNumber(object sender, EventArgs args)
@@ -33,6 +37,13 @@ namespace GraphyPCL
             var deleteImage = new Image();
             layout.Children.Add(deleteImage);
             deleteImage.Source = ImageSource.FromFile("minus_icon.png");
+            var deleteTapped = new TapGestureRecognizer();
+            deleteImage.GestureRecognizers.Add(deleteTapped);
+            deleteTapped.Tapped += (s, e) =>
+            {
+                _phoneSection.Remove(viewCell);
+                _tableView.OnDataChanged();
+            };
 
             var label = new Label();
             layout.Children.Add(label);
@@ -43,15 +54,15 @@ namespace GraphyPCL
             label.GestureRecognizers.Add(labelTapped);
             labelTapped.Tapped += (object s, EventArgs e) =>
             {
-                var a = new ElementTypePage();
-                this.Navigation.PushAsync(a);
+                var typePage = new ElementTypePage();
+                this.Navigation.PushAsync(typePage);
             };
 
-            var box = new BoxView();
-            layout.Children.Add(box);
-            box.Color = Color.Gray;
-            box.WidthRequest = 1;
-            box.HeightRequest = layout.Height;
+            var seperator = new BoxView();
+            layout.Children.Add(seperator);
+            seperator.Color = Color.Gray;
+            seperator.WidthRequest = 1;
+            seperator.HeightRequest = layout.Height;
 
             var entry = new Entry();
             layout.Children.Add(entry);

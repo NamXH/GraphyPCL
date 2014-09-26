@@ -24,5 +24,10 @@ namespace GraphyPCL
             label.VerticalOptions = LayoutOptions.CenterAndExpand;
             layout.Children.Add(label);
         }
+
+        public void Foo()
+        {
+
+        }
     }
 }
