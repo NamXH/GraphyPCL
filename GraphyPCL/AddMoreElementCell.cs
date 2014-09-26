@@ -85,7 +85,7 @@ namespace GraphyPCL
             {
                 Title = "type",
                 WidthRequest = c_entryWidth,
-                BackgroundColor = Device.OnPlatform(_iOSBlue, Color.Default, Color.Default),
+                BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
             };
             foreach (var item in Types)
             {
