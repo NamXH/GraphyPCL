@@ -14,7 +14,7 @@ namespace GraphyPCL
 
         public ExtendedTableView ContainerTable { get; set; }
 
-        public IList<string> LabelsList { get; set; }
+        public IList<string> Types { get; set; }
 
         public string EntryPlaceHolder { get; set; }
 
@@ -24,16 +24,16 @@ namespace GraphyPCL
         /// Note: A table section can only have 1 AddMoreElementCell
         /// </summary>
         /// <param name="containerTableSection">Container table section.</param>
-        public AddMoreElementCell(ExtendedTableView table, TableSection tableSection, IList<string> labelsList, string entryPlaceHolder, Keyboard entryKeyboardType)
+        public AddMoreElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType)
             : base()
         {
             ContainerTable = table;
             ContainerSection = tableSection;
-            if ((labelsList == null) || (labelsList.Count == 0))
+            if ((types == null) || (types.Count == 0))
             {
                 throw new Exception("The labelsList should not be null or empty");
             }
-            LabelsList = labelsList;
+            Types = types;
             EntryPlaceHolder = entryPlaceHolder;
             if (entryKeyboardType == null)
             {
@@ -87,7 +87,7 @@ namespace GraphyPCL
                 WidthRequest = c_entryWidth,
                 BackgroundColor = Device.OnPlatform(_iOSBlue, Color.Default, Color.Default),
             };
-            foreach (var item in LabelsList)
+            foreach (var item in Types)
             {
                 picker.Items.Add(item);
             }

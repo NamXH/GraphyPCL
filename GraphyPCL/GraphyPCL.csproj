@@ -31,9 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DatabaseManager.cs" />
-    <Compile Include="DatabaseObjects.cs" />
-    <Compile Include="ISQLite.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -54,9 +51,9 @@
     </Compile>
     <Compile Include="CustomControls\ExtendedTableView.cs" />
     <Compile Include="AddMoreElementCell.cs" />
-    <Compile Include="Pages\ElementTypePage.xaml.cs">
-      <DependentUpon>ElementTypePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="Database\DatabaseObjects.cs" />
+    <Compile Include="Database\ISQLite.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -85,6 +82,7 @@
     <Folder Include="ViewModel\" />
     <Folder Include="Images\" />
     <Folder Include="CustomControls\" />
+    <Folder Include="Database\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MainPage.xaml">
@@ -100,9 +98,6 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AddContactPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Pages\ElementTypePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
