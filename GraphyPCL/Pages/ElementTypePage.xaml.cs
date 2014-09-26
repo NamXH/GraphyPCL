@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace GraphyPCL
-{    
+{
     public partial class ElementTypePage : ContentPage
-    {   
-        public ElementTypePage ()
+    {
+        public IList<string> LabelsList { get; set; }
+
+        public ElementTypePage(IList<string> labelList)
         {
-            InitializeComponent ();
+            InitializeComponent();
+            LabelsList = labelList;
         }
     }
 }
