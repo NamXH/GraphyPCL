@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GraphyPCL
@@ -12,7 +14,6 @@ namespace GraphyPCL
         private List<string> c_imTypes = new List<string>() { "skype", "hangouts", "facebook", "msn", "yahoo", "aim", "qq", "other" };
 
         private ContactDetailsViewModel _viewModel;
-
 
         public AddContactPage()
         {
@@ -33,6 +34,33 @@ namespace GraphyPCL
 
         private void OnDoneButtonClick()
         {
+        }
+
+        private async void OnImageTapped(object sender, EventArgs args)
+        {
+            if (sender.GetType() != typeof(ImageCell))
+            {
+                throw new Exception("Sender object is of type " + sender.GetType().Name + ". It shoulde be ImageCell instead.");
+            }
+
+            var mediaPicker = DependencyService.Get<IMediaPicker>();
+            MediaFile mediaFile = null;
+            try
+            {
+                mediaFile = await mediaPicker.SelectPhotoAsync(new CameraMediaStorageOptions
+                    {
+                        MaxPixelDimension = 1024
+                    });
+            }
+            catch (TaskCanceledException)
+            {
+                // If TaskCanceledException is thrown: user cancel then do nothing!!
+            }
+
+            var imageSource = ImageSource.FromStream(() => mediaFile.Source);
+            DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo");
+
+            _viewModel.Contact.ImageName = "foo.jpg";
         }
     }
 }

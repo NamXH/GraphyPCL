@@ -68,8 +68,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DatabaseManagerAndroid.cs" />
     <Compile Include="CustomRenderers\ExtendedTableViewRenderer.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -83,6 +83,9 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\drawable\contact_icon.png" />
     <AndroidResource Include="Resources\drawable\plus_icon.png" />
+    <AndroidResource Include="Resources\drawable\andy.jpg" />
+    <AndroidResource Include="Resources\drawable\bill.jpg" />
+    <AndroidResource Include="Resources\drawable\unknown.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -94,5 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CustomRenderers\" />
+    <Folder Include="Database\" />
   </ItemGroup>
 </Project>

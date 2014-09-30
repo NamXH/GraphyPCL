@@ -20,7 +20,6 @@ namespace GraphyPCL
 
     public class Contact : IIdContainer
     {
-        private const string c_imageFolder = "GraphyPCL.Images";
         private const string c_defaultImageName = "unknown.jpg";
 
         [PrimaryKey]
@@ -58,9 +57,9 @@ namespace GraphyPCL
         {
             get
             {
-                var imageName = this.ImageName ?? c_defaultImageName;
-                var imagePath = c_imageFolder + "." + imageName;
-                return ImageSource.FromResource(imagePath);
+//                var imageName = this.ImageName ?? c_defaultImageName;
+//                return ImageSource.FromFile(imageName);
+                return DependencyService.Get<IPhotoService>().LoadImageFromDisk("foo");
             }
         }
     }
