@@ -25,6 +25,8 @@ namespace GraphyPCL
             _viewModel = new ContactDetailsViewModel();
             BindingContext = _viewModel;
 
+            _image.ImageSource = _viewModel.Contact.Photo;
+
             _phoneSection.Add(new AddMoreElementCell(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
             _emailSection.Add(new AddMoreElementCell(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));
             _urlSection.Add(new AddMoreElementCell(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url));
@@ -61,8 +63,7 @@ namespace GraphyPCL
             DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo");
 
             _viewModel.Contact.ImageName = "foo.jpg";
-
-            _tableView.OnDataChanged();
+            _image.ImageSource = imageSource;
         }
     }
 }
