@@ -61,6 +61,8 @@ namespace GraphyPCL
             DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo");
 
             _viewModel.Contact.ImageName = "foo.jpg";
+
+            _tableView.OnDataChanged();
         }
     }
 }

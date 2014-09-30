@@ -9,6 +9,10 @@ namespace GraphyPCL.iOS
 {
     public class PhotoService : IPhotoService
     {
+        public PhotoService()
+        {
+        }
+
         public async void SaveImageToDisk(ImageSource imgSrc, string name)
         {
             var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -31,11 +35,12 @@ namespace GraphyPCL.iOS
             folder = (folder) ?? Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var fullFilePath = Path.Combine(folder, fileName + "." + extension);
 
-            return ImageSource.FromFile(fullFilePath);
-        }
+            if (!File.Exists(fullFilePath))
+            {
+                return null;
+            }
 
-        public PhotoService()
-        {
+            return ImageSource.FromFile(fullFilePath);
         }
     }
 }

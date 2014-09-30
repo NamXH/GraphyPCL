@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,52 +17,6 @@ namespace GraphyPCL
     public interface IContactIdRelated
     {
         int ContactId { get; set; }
-    }
-
-    public class Contact : IIdContainer
-    {
-        private const string c_defaultImageName = "unknown.jpg";
-
-        [PrimaryKey]
-        public int Id { get; set; }
-
-        public string FirstName { 
-            get; 
-            set; }
-
-        public string MiddleName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string Organization { get; set; }
-
-        public string ImageName { get; set; }
-
-        public DateTime Birthday { get; set; }
-
-        public bool Favorite { get; set; }
-
-        public string FullName
-        {
-            get
-            {
-                string firstName = !string.IsNullOrEmpty(FirstName) ? FirstName + " " : FirstName;
-                string middleName = !string.IsNullOrEmpty(MiddleName) ? MiddleName + " " : MiddleName;
-                string lastName = !string.IsNullOrEmpty(LastName) ? LastName : LastName;
-
-                return firstName + middleName + lastName;
-            }
-        }
-
-        public ImageSource Photo
-        {
-            get
-            {
-//                var imageName = this.ImageName ?? c_defaultImageName;
-//                return ImageSource.FromFile(imageName);
-                return DependencyService.Get<IPhotoService>().LoadImageFromDisk("foo");
-            }
-        }
     }
 
     public class PhoneNumber : IIdContainer, IContactIdRelated
