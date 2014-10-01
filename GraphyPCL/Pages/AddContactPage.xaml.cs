@@ -60,7 +60,7 @@ namespace GraphyPCL
             }
 
             var imageSource = ImageSource.FromStream(() => mediaFile.Source);
-//            await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo");
+            DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo");
 
             _viewModel.Contact.ImageName = "foo";
 //            _image.ImageSource = imageSource;

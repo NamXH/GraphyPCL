@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using MonoTouch.Foundation;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -14,32 +13,27 @@ namespace GraphyPCL.iOS
         {
         }
 
-//        public async Task<bool> SaveImageToDisk(ImageSource imgSrc, string name)
-//        {
-//            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-//            var fullFilePath = Path.Combine(documentsDirectory, name);
-//
-//            var renderer = new StreamImagesourceHandler();
-//            var photo = await renderer.LoadImageAsync(imgSrc);
-//            var imgData = photo.AsJPEG();
-//
-//            if (File.Exists(fullFilePath))
-//            {
-//                return false;
-//            }
-//
-//            NSError err = null;
-//            if (!imgData.Save(fullFilePath, false, out err))
-//            {
-//                throw new Exception(err.LocalizedDescription);
-//            }
-//            return true;
-//        }
+        public async void SaveImageToDisk(ImageSource imgSrc, string name)
+        {
+            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var fullFilePath = Path.Combine(documentsDirectory, name + ".jpg");
 
-        public ImageSource LoadImageFromDisk(string name, string folder = null)
+            var renderer = new StreamImagesourceHandler();
+            var photo = await renderer.LoadImageAsync(imgSrc);
+            var imgData = photo.AsJPEG();
+            NSError err = null;
+
+            // Need check if exist!!
+            if (!imgData.Save(fullFilePath, false, out err))
+            {
+                throw new Exception(err.LocalizedDescription);
+            }
+        }
+
+        public ImageSource LoadImageFromDisk(string fileName, string folder = null, string extension = "jpg")
         {
             folder = (folder) ?? Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var fullFilePath = Path.Combine(folder, name);
+            var fullFilePath = Path.Combine(folder, fileName + "." + extension);
 
             if (!File.Exists(fullFilePath))
             {
