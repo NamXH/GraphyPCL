@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using System.Windows.Input;
 
 namespace GraphyPCL
 {
@@ -30,11 +33,28 @@ namespace GraphyPCL
 
         public IList<RelatedContact> ContactsLinkedToThisContact { get; set; }
 
+        private ICommand _selectContactPhotoCommand;
+
+        public ICommand SelectContactPhotoCommand
+        {
+            get
+            {
+                return _selectContactPhotoCommand;
+            }
+        }
+
+        /// <summary>
+        /// Use when creating new Contact
+        /// </summary>
         public ContactDetailsViewModel()
         {
             Contact = new Contact();
+            _selectContactPhotoCommand = new Command(OnSelectingContactPhoto);
         }
 
+        /// <summary>
+        /// Use when editting an existing Contact
+        /// </summary>
         public ContactDetailsViewModel(Contact contact)
         {
             this.Contact = contact;
@@ -88,6 +108,29 @@ namespace GraphyPCL
                 var relationshipDetail = relationship.ExtraInfo;
                 ContactsLinkedToThisContact.Add(new RelatedContact(relatedContact, type, relationshipDetail));
             }
+        }
+
+        private async void OnSelectingContactPhoto()
+        {
+            var mediaPicker = DependencyService.Get<IMediaPicker>();
+            MediaFile mediaFile = null;
+            try
+            {
+                mediaFile = await mediaPicker.SelectPhotoAsync(new CameraMediaStorageOptions
+                    {
+                        MaxPixelDimension = 1024
+                    });
+            }
+            catch (TaskCanceledException)
+            {
+                // If TaskCanceledException is thrown: user cancel then do nothing!!
+            }
+
+            var randomName = Guid.NewGuid().ToString() + ".jpg";
+            var imageSource = ImageSource.FromStream(() => mediaFile.Source);
+            await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, randomName);
+
+            Contact.ImageName = randomName;
         }
     }
 }

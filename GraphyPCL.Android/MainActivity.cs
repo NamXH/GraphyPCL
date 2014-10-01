@@ -10,7 +10,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace GraphyPCL.Android
 {
-    [Activity(Label = "GraphyPCL.Android", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "GraphyPCL.Android", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, Theme = "@android:style/Theme.Holo.Light")]
     public class MainActivity : AndroidActivity
     {
         protected override void OnCreate(Bundle bundle)

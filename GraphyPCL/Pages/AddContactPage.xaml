@@ -4,14 +4,15 @@
     <TableView.Root>
       <TableRoot x:Name="_tableRoot">
         <TableSection Title=" ">
-          <ImageCell Text="Change Photo" ImageSource="{Binding Contact.Photo}" />
+          <ImageCell x:Name="_image" Text="Change Photo" ImageSource="{Binding Contact.Photo, Mode=TwoWay}" Command="{Binding SelectContactPhotoCommand}"/>
           <EntryCell Label="First Name" Text="{Binding Contact.FirstName}" />
           <EntryCell Label="Middle Name" Text="{Binding Contact.MiddleName}" />
           <EntryCell Label="Last Name" Text="{Binding Contact.LastName}" />
         </TableSection>
-        <TableSection x:Name="_phoneSection" Title="PHONE">
-          <local:AddMoreElementCell />
-        </TableSection>
+        <TableSection x:Name="_phoneSection" Title="PHONE" />
+        <TableSection x:Name="_emailSection" Title="EMAIL" />
+        <TableSection x:Name="_urlSection" Title="URL" />
+        <TableSection x:Name="_imSection" Title="INSTANT MESSAGE" />
       </TableRoot>
     </TableView.Root>
   </local:ExtendedTableView>

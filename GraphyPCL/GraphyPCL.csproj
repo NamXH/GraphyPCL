@@ -31,9 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DatabaseManager.cs" />
-    <Compile Include="DatabaseObjects.cs" />
-    <Compile Include="ISQLite.cs" />
     <Compile Include="App.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -52,9 +49,30 @@
     <Compile Include="Pages\AddContactPage.xaml.cs">
       <DependentUpon>AddContactPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\AddContactViewModel.cs" />
     <Compile Include="CustomControls\ExtendedTableView.cs" />
-    <Compile Include="AddMoreElementCell.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="Database\ISQLite.cs" />
+    <Compile Include="CustomControls\AddMoreElementCell.cs" />
+    <Compile Include="XFLabsMedia\IMediaPicker.cs" />
+    <Compile Include="XFLabsMedia\MediaFile.cs" />
+    <Compile Include="XFLabsMedia\MediaStorageOptions.cs" />
+    <Compile Include="IPhotoService.cs" />
+    <Compile Include="Database\Contact.cs" />
+    <Compile Include="NotifyPropertyChangedObject.cs" />
+    <Compile Include="Database\PhoneNumber.cs" />
+    <Compile Include="Database\Address.cs" />
+    <Compile Include="Database\Email.cs" />
+    <Compile Include="Database\SpecialDate.cs" />
+    <Compile Include="Database\Url.cs" />
+    <Compile Include="Database\InstantMessage.cs" />
+    <Compile Include="Database\Organization.cs" />
+    <Compile Include="Database\ContactOrganizationMap.cs" />
+    <Compile Include="Database\Tag.cs" />
+    <Compile Include="Database\ContactTagMap.cs" />
+    <Compile Include="Database\RelationshipType.cs" />
+    <Compile Include="Database\Relationship.cs" />
+    <Compile Include="Database\IIdContainer.cs" />
+    <Compile Include="Database\IContactIdRelated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -74,6 +92,9 @@
     <Reference Include="Xamarin.Forms.Xaml">
       <HintPath>..\packages\Xamarin.Forms.1.2.2.6243\lib\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
+    <Reference Include="ExifLib">
+      <HintPath>..\packages\ExifLib.PCL.1.0.0\lib\portable-net45+sl50+win+WindowsPhoneApp81+wp80+MonoAndroid10+MonoTouch10\ExifLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,8 +102,9 @@
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="ViewModel\" />
-    <Folder Include="Images\" />
     <Folder Include="CustomControls\" />
+    <Folder Include="Database\" />
+    <Folder Include="XFLabsMedia\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\MainPage.xaml">
@@ -91,9 +113,6 @@
     <EmbeddedResource Include="Pages\AllContactsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Images\andy.jpg" />
-    <EmbeddedResource Include="Images\bill.jpg" />
-    <EmbeddedResource Include="Images\unknown.jpg" />
     <EmbeddedResource Include="Pages\ContactDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

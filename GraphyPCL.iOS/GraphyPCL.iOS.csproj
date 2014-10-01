@@ -22,6 +22,7 @@
     <MtouchLink>None</MtouchLink>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -32,6 +33,7 @@
     <MtouchLink>None</MtouchLink>
     <ConsolePause>false</ConsolePause>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +47,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -55,6 +58,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -67,6 +71,7 @@
     <BuildIpa>true</BuildIpa>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>full</DebugType>
@@ -78,6 +83,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <ConsolePause>false</ConsolePause>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -103,8 +109,21 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
-    <BundleResource Include="Resources\contact_icon.png" />
-    <BundleResource Include="Resources\plus_icon.png" />
+    <BundleResource Include="Resources\contact_icon%401x.png" />
+    <BundleResource Include="Resources\contact_icon%402x.png" />
+    <BundleResource Include="Resources\contact_icon%403x.png" />
+    <BundleResource Include="Resources\plus_icon%401x.png" />
+    <BundleResource Include="Resources\plus_icon%402x.png" />
+    <BundleResource Include="Resources\plus_icon%403x.png" />
+    <BundleResource Include="Resources\minus_icon%401x.png" />
+    <BundleResource Include="Resources\minus_icon%402x.png" />
+    <BundleResource Include="Resources\minus_icon%403x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%401x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%402x.png" />
+    <BundleResource Include="Resources\plus_circled_icon%403x.png" />
+    <BundleResource Include="Resources\andy.jpg" />
+    <BundleResource Include="Resources\bill.jpg" />
+    <BundleResource Include="Resources\unknown.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -114,8 +133,14 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="DatabaseManageriOS.cs" />
     <Compile Include="CustomRenderers\ExtendedTableViewRenderer.cs" />
+    <Compile Include="XFLabsMedia\MediaPicker.cs" />
+    <Compile Include="XFLabsMedia\MediaPickerDelegate.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="XFLabsMedia\MediaPickerController.cs" />
+    <Compile Include="XFLabsMedia\MediaPickerPopoverDelegate.cs" />
+    <Compile Include="XFLabsMedia\NSDataStream.cs" />
+    <Compile Include="PhotoService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -127,5 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CustomRenderers\" />
+    <Folder Include="Database\" />
+    <Folder Include="XFLabsMedia\" />
   </ItemGroup>
 </Project>

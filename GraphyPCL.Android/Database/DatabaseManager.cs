@@ -3,18 +3,17 @@ using System.IO;
 using SQLite.Net;
 using SQLite.Net.Platform.XamarinAndroid;
 using Xamarin.Forms;
-using GraphyPCL.Android;
 
-[assembly: Dependency(typeof(DatabaseManagerAndroid))]
+[assembly: Dependency(typeof(GraphyPCL.Android.DatabaseManager))]
 namespace GraphyPCL.Android
 {
-    public class DatabaseManagerAndroid : ISQLite
+    public class DatabaseManager : ISQLite
     {
         public SQLiteConnection GetConnection()
         {
             var dbName = "graphy.db";
-            var documentPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var dbPath = Path.Combine(documentPath, dbName);
+            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var dbPath = Path.Combine(documentsDirectory, dbName);
 
             // ## Delete if exist (For test)
             if (File.Exists(dbPath))
