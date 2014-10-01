@@ -19,6 +19,10 @@ namespace GraphyPCL
 
         public string Organization { get; set; }
 
+        public DateTime Birthday { get; set; }
+
+        public bool Favorite { get; set; }
+
         private string _imageName;
 
         public string ImageName
@@ -30,10 +34,6 @@ namespace GraphyPCL
                 OnPropertyChanged(() => this.Photo);
             }
         }
-
-        public DateTime Birthday { get; set; }
-
-        public bool Favorite { get; set; }
 
         public string FullName
         {

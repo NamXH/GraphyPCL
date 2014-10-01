@@ -20,12 +20,10 @@ namespace GraphyPCL
             InitializeComponent();
 
             _tableView.Intent = TableIntent.Menu;
-            this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClick));
+            this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
 
             _viewModel = new ContactDetailsViewModel();
             BindingContext = _viewModel;
-
-//            _image.ImageSource = _viewModel.Contact.Photo;
 
             _phoneSection.Add(new AddMoreElementCell(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
             _emailSection.Add(new AddMoreElementCell(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));
@@ -34,36 +32,8 @@ namespace GraphyPCL
         }
 
 
-        private void OnDoneButtonClick()
+        private void OnDoneButtonClicked()
         {
-        }
-
-        private async void OnImageTapped(object sender, EventArgs args)
-        {
-            if (sender.GetType() != typeof(ImageCell))
-            {
-                throw new Exception("Sender object is of type " + sender.GetType().Name + ". It shoulde be ImageCell instead.");
-            }
-
-            var mediaPicker = DependencyService.Get<IMediaPicker>();
-            MediaFile mediaFile = null;
-            try
-            {
-                mediaFile = await mediaPicker.SelectPhotoAsync(new CameraMediaStorageOptions
-                    {
-                        MaxPixelDimension = 1024
-                    });
-            }
-            catch (TaskCanceledException)
-            {
-                // If TaskCanceledException is thrown: user cancel then do nothing!!
-            }
-
-            var imageSource = ImageSource.FromStream(() => mediaFile.Source);
-            await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, "foo.jpg");
-
-            _viewModel.Contact.ImageName = "foo.jpg";
-//            _image.ImageSource = imageSource;
         }
     }
 }

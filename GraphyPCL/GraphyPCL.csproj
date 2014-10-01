@@ -51,7 +51,6 @@
     </Compile>
     <Compile Include="CustomControls\ExtendedTableView.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
-    <Compile Include="Database\DatabaseObjects.cs" />
     <Compile Include="Database\ISQLite.cs" />
     <Compile Include="CustomControls\AddMoreElementCell.cs" />
     <Compile Include="XFLabsMedia\IMediaPicker.cs" />
@@ -60,6 +59,20 @@
     <Compile Include="IPhotoService.cs" />
     <Compile Include="Database\Contact.cs" />
     <Compile Include="NotifyPropertyChangedObject.cs" />
+    <Compile Include="Database\PhoneNumber.cs" />
+    <Compile Include="Database\Address.cs" />
+    <Compile Include="Database\Email.cs" />
+    <Compile Include="Database\SpecialDate.cs" />
+    <Compile Include="Database\Url.cs" />
+    <Compile Include="Database\InstantMessage.cs" />
+    <Compile Include="Database\Organization.cs" />
+    <Compile Include="Database\ContactOrganizationMap.cs" />
+    <Compile Include="Database\Tag.cs" />
+    <Compile Include="Database\ContactTagMap.cs" />
+    <Compile Include="Database\RelationshipType.cs" />
+    <Compile Include="Database\Relationship.cs" />
+    <Compile Include="Database\IIdContainer.cs" />
+    <Compile Include="Database\IContactIdRelated.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
