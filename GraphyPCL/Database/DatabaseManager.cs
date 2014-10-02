@@ -23,8 +23,8 @@ namespace GraphyPCL
             DbConnection = DependencyService.Get<ISQLite>().GetConnection();
 
             // Turn on Foreign Key support
-//            var foreignKeyOn = "PRAGMA foreign_keys = ON";
-//            DbConnection.Execute(foreignKeyOn);
+            var foreignKeyOn = "PRAGMA foreign_keys = ON";
+            DbConnection.Execute(foreignKeyOn);
 
             // Create tables using SQL commands
             // It seems SQLite-net make query base on table name. Therefore, our custom tables still work with

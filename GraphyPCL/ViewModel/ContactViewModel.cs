@@ -9,7 +9,7 @@ namespace GraphyPCL
 {
     public class ContactViewModel
     {
-        private const string c_datetimeFormat = "MMM dd yyy";
+        private const string c_datetimeFormat = "MMM dd yyyy";
 
         public Contact Contact { get; set; }
 

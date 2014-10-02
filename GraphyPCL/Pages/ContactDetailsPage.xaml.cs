@@ -6,7 +6,7 @@ namespace GraphyPCL
 {
     public partial class ContactDetailsPage : ContentPage
     {
-        private const string c_datetimeFormat = "MMM dd yyy";
+        private const string c_datetimeFormat = "MMM dd yyyy";
 
         private ContactViewModel _viewModel;
 

@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace GraphyPCL
 {
     public class AddMoreDateCell : AddMoreElementCell
     {
-        protected const string c_defaultDateFormat = "MMM d yyy";
+        protected const string c_defaultDateFormat = "MMM d yyyy";
 
         public AddMoreDateCell(ExtendedTableView table, TableSection tableSection)
             : base()
         {
             ContainerTable = table;
             ContainerSection = tableSection;
+
+            this.Types = new List<string>() { "anniversary", "other" };
 
             CreateAddMoreButton();
         }
@@ -39,6 +42,24 @@ namespace GraphyPCL
                 ContainerTable.OnDataChanged();
             };
             layout.Children.Add(deleteImage);
+
+            var picker = new Picker
+                {
+                    Title = "type",
+                    WidthRequest = c_entryWidth,
+                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+                };
+            foreach (var item in Types)
+            {
+                picker.Items.Add(item);
+            }
+            layout.Children.Add(picker);
+
+            var seperator = new BoxView();
+            layout.Children.Add(seperator);
+            seperator.Color = Color.Gray;
+            seperator.WidthRequest = 1;
+            seperator.HeightRequest = layout.Height;
 
             var datePicker = new DatePicker
             {
