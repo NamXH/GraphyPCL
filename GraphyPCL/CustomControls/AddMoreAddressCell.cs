@@ -72,24 +72,6 @@ namespace GraphyPCL
             };
 
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);
-//
-//            var viewCell = new ViewCell();
-//            var layout = new StackLayout
-//            {
-//                Orientation = StackOrientation.Horizontal,
-//                Padding = _defaulPadding,
-//            };
-//
-//            if (includeDeleteButton)
-//            {
-//
-//            }
-//
-//            layout.Children.Add(new Entry
-//                {
-//                    Placeholder = placeholderText,
-//                    HorizontalOptions = LayoutOptions.FillAndExpand
-//                });
 
             return viewCell;
         }

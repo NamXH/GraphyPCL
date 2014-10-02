@@ -31,6 +31,7 @@ namespace GraphyPCL
             _imSection.Add(new AddMoreElementCell(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text));
 
             _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection));
+            _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
         }
 
 

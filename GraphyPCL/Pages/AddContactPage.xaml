@@ -22,6 +22,7 @@
             </StackLayout>
           </ViewCell>
         </TableSection>
+        <TableSection x:Name="_specialDateSection" Title="SPECIAL DATES" />
         <TableSection x:Name="_imSection" Title="INSTANT MESSAGE" />
       </TableRoot>
     </TableView.Root>
