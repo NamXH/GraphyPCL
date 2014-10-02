@@ -6,7 +6,9 @@ namespace GraphyPCL
 {
     public partial class ContactDetailsPage : ContentPage
     {
-        private ContactDetailsViewModel _viewModel;
+        private const string c_datetimeFormat = "MMM dd yyy";
+
+        private ContactViewModel _viewModel;
 
         public ContactDetailsPage(Contact contact)
         {
@@ -14,14 +16,14 @@ namespace GraphyPCL
             _tableView.Intent = TableIntent.Menu;
             this.ToolbarItems.Add(new ToolbarItem("Edit", null, () => {}));
 
-            _viewModel = new ContactDetailsViewModel(contact);
+            _viewModel = new ContactViewModel(contact);
             this.BindingContext = _viewModel;
 
             // List are not bindable to TableSection: PhoneNumbers, Emails, Urls
             // To do: create TableSection in Xaml then populate list inside each section to have flexible section order!!
             CreateUIList<PhoneNumber>(_tableRoot, _viewModel.PhoneNumbers, "PHONE", x => x.Number, x => x.Type);
             CreateUIList<Email>(_tableRoot, _viewModel.Emails, "EMAIL", x => x.Address, x => x.Type);
-            CreateUIList<Url>(_tableRoot, _viewModel.Urls, "WEB", x => x.Link, x => x.Type);
+            CreateUIList<Url>(_tableRoot, _viewModel.Urls, "URL", x => x.Link, x => x.Type);
 
             // List are not bindable to TableSection: Addresses
             foreach (var address in _viewModel.Addresses)
@@ -55,7 +57,7 @@ namespace GraphyPCL
             }
 
             // List are not bindable to TableSection: SpecialDates, IMs, Tags
-            CreateUIList<SpecialDate>(_tableRoot, _viewModel.SpecialDates, "SPECIAL DATES", x => x.Date.ToString("d"), x => x.Type);
+            CreateUIList<SpecialDate>(_tableRoot, _viewModel.SpecialDates, "SPECIAL DATES", x => x.Date.ToString(c_datetimeFormat), x => x.Type);
             CreateUIList<InstantMessage>(_tableRoot, _viewModel.IMs, "INSTANT MESSAGES", x => x.Nickname, x => x.Type);
             CreateUIList<Tag>(_tableRoot, _viewModel.Tags, "TAGS", x => x.Name, x => x.Detail);
 

@@ -7,8 +7,10 @@ using System.Windows.Input;
 
 namespace GraphyPCL
 {
-    public class ContactDetailsViewModel
+    public class ContactViewModel
     {
+        private const string c_datetimeFormat = "MMM dd yyy";
+
         public Contact Contact { get; set; }
 
         public string Organization { get; set; }
@@ -46,16 +48,16 @@ namespace GraphyPCL
         /// <summary>
         /// Use when creating new Contact
         /// </summary>
-        public ContactDetailsViewModel()
+        public ContactViewModel()
         {
             Contact = new Contact();
-            _selectContactPhotoCommand = new Command(OnSelectingContactPhoto);
+            _selectContactPhotoCommand = new Command(SelectContactPhoto);
         }
 
         /// <summary>
         /// Use when editting an existing Contact
         /// </summary>
-        public ContactDetailsViewModel(Contact contact)
+        public ContactViewModel(Contact contact)
         {
             this.Contact = contact;
             Organization = contact.Organization ?? " ";
@@ -68,7 +70,7 @@ namespace GraphyPCL
             var birthdayIsNotDefault = !DateTime.Equals(contact.Birthday, new DateTime(1, 1, 1));
             if (birthdayIsNotDefault)
             {
-                this.BirthdayShortForm = contact.Birthday.ToString("d");
+                this.BirthdayShortForm = contact.Birthday.ToString(c_datetimeFormat);
             }
             else
             {
@@ -110,7 +112,7 @@ namespace GraphyPCL
             }
         }
 
-        private async void OnSelectingContactPhoto()
+        private async void SelectContactPhoto()
         {
             var mediaPicker = DependencyService.Get<IMediaPicker>();
             MediaFile mediaFile = null;

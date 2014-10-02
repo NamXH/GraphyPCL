@@ -6,9 +6,9 @@ namespace GraphyPCL
 {
     public class AddMoreElementCell : ViewCell
     {
-        private readonly Color _iOSBlue = Color.FromRgb(0, 122, 255);
-        private readonly Thickness _defaulPadding = new Thickness(20, 5, 20, 5);
-        private const double c_entryWidth = 75;
+        protected readonly Color _iOSBlue = Color.FromRgb(0, 122, 255);
+        protected readonly Thickness _defaulPadding = new Thickness(20, 5, 20, 5);
+        protected const double c_entryWidth = 75;
 
         public TableSection ContainerSection { get; set; }
 
@@ -20,6 +20,11 @@ namespace GraphyPCL
 
         public Keyboard EntryKeyboardType { get; set; }
 
+        protected AddMoreElementCell()
+            : base()
+        {
+        }
+
         /// <summary>
         /// Note: A table section can only have 1 AddMoreElementCell
         /// </summary>
@@ -29,6 +34,9 @@ namespace GraphyPCL
         {
             ContainerTable = table;
             ContainerSection = tableSection;
+
+            CreateAddMoreButton();
+
             if ((types == null) || (types.Count == 0))
             {
                 throw new Exception("The labelsList should not be null or empty");
@@ -40,7 +48,10 @@ namespace GraphyPCL
                 throw new Exception("The entryKeyboardType should not be null");
             }
             EntryKeyboardType = entryKeyboardType;
+        }
 
+        protected virtual void CreateAddMoreButton()
+        {
             var layout = new StackLayout();
             this.View = layout;
             layout.Orientation = StackOrientation.Horizontal;
@@ -56,10 +67,10 @@ namespace GraphyPCL
             label.TextColor = Device.OnPlatform(_iOSBlue, Color.Default, Color.Default);
             label.VerticalOptions = LayoutOptions.CenterAndExpand;
 
-            this.Tapped += CellTapped;
+            this.Tapped += AddMoreElement;
         }
 
-        private void CellTapped(object sender, EventArgs args)
+        protected virtual void AddMoreElement(object sender, EventArgs args)
         {
             var viewCell = new ViewCell();
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);

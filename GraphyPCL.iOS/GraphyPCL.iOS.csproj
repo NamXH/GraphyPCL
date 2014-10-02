@@ -121,8 +121,6 @@
     <BundleResource Include="Resources\plus_circled_icon%401x.png" />
     <BundleResource Include="Resources\plus_circled_icon%402x.png" />
     <BundleResource Include="Resources\plus_circled_icon%403x.png" />
-    <BundleResource Include="Resources\andy.jpg" />
-    <BundleResource Include="Resources\bill.jpg" />
     <BundleResource Include="Resources\unknown.jpg" />
   </ItemGroup>
   <ItemGroup>
