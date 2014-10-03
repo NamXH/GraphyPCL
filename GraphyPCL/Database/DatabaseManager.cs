@@ -274,14 +274,6 @@ namespace GraphyPCL
                     RelationshipTypeId = connType2.Id,
                 };
             DbConnection.Insert(conn2);
-            //                var conn3 = new Relationship()
-            //                {
-            //                    Id = 3,
-            //                    FromContactId = 2,
-            //                    ToContactId = 8,
-            //                    RelationshipTypeId = 1,
-            //                };
-            //                db.Insert(conn3);
 
             Debug.WriteLine("stop adding data");
         }
