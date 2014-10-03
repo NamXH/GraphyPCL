@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class Contact : NotifyPropertyChangedObject//, IIdContainer
+    public class Contact : NotifyPropertyChangedObject, IIdContainer
     {
         private const string c_defaultImageName = "unknown.jpg";
 
