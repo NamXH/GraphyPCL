@@ -137,6 +137,8 @@ namespace GraphyPCL
             #endregion
 
             _viewModel.SaveNewContact();
+
+            Navigation.PushAsync(new AllContactsPage());
         }
 
         private string GetNextEntryText(IEnumerator<Cell> enumerator)

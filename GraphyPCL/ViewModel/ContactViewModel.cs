@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace GraphyPCL
 {
@@ -137,16 +137,28 @@ namespace GraphyPCL
 
         public void SaveNewContact()
         {
-            var dbConnection = DependencyService.Get<ISQLite>().GetConnection();
-//            dbConnection.Insert(Contact);
+            var db = DatabaseManager.DbConnection;
+
+//            var contactId = db.Insert(Contact);
+
+            var c1 = new Contact();
+            c1.FirstName = "c1";
+            var c2 = new Contact();
+            c2.FirstName = "c2";
+            c2.Id = 100;
+            var c3 = new Contact();
+            c3.FirstName = "c3";
+            var a = DatabaseManager.GetRows<Contact>();
+            db.Insert(c1);
+            a = DatabaseManager.GetRows<Contact>();
+            db.Insert(c2);
+            a = DatabaseManager.GetRows<Contact>();
+            db.Insert(c3);
+            a = DatabaseManager.GetRows<Contact>();
+
 //            var phoneNumber = PhoneNumbers[0];
-//            phoneNumber.ContactId = 1;
-//            dbConnection.Insert(phoneNumber);
-
-//            var cmd = "insert into PhoneNumber (Type, Number, ContactId) values ('home', '123', 1)";
-//            dbConnection.Execute(cmd);
-
-            var a = dbConnection.GetTableInfo("PhoneNumber");
+//            phoneNumber.ContactId = contactId;
+//            db.Insert(phoneNumber);
         }
     }
 }
