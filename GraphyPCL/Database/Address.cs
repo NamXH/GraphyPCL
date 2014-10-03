@@ -6,7 +6,7 @@ namespace GraphyPCL
     public class Address : IIdContainer, IContactIdRelated
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Type { get; set; }
 
@@ -22,6 +22,6 @@ namespace GraphyPCL
 
         public string Country { get; set; }
 
-        public int ContactId { get; set; }
+        public Guid ContactId { get; set; }
     }
 }

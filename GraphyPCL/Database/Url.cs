@@ -6,12 +6,12 @@ namespace GraphyPCL
     public class Url : IIdContainer, IContactIdRelated
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Type { get; set; }
 
         public string Link { get; set; }
 
-        public int ContactId { get; set; }
+        public Guid ContactId { get; set; }
     }
 }

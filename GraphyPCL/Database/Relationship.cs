@@ -6,14 +6,14 @@ namespace GraphyPCL
     public class Relationship : IIdContainer
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string ExtraInfo { get; set; }
 
-        public int FromContactId { get; set; }
+        public Guid FromContactId { get; set; }
 
-        public int ToContactId { get; set; }
+        public Guid ToContactId { get; set; }
 
-        public int RelationshipTypeId { get; set; }
+        public Guid RelationshipTypeId { get; set; }
     }
 }

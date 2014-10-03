@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class Contact : NotifyPropertyChangedObject, IIdContainer
+    public class Contact : NotifyPropertyChangedObject//, IIdContainer
     {
         private const string c_defaultImageName = "unknown.jpg";
 
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string FirstName { get; set; }
 

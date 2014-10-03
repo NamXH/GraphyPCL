@@ -4,6 +4,6 @@ namespace GraphyPCL
 {
     public interface IContactIdRelated
     {
-        int ContactId { get; set; }
+        Guid ContactId { get; set; }
     }
 }

@@ -6,10 +6,10 @@ namespace GraphyPCL
     public class ContactOrganizationMap : IIdContainer, IContactIdRelated
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
-        public int ContactId { get; set; }
+        public Guid ContactId { get; set; }
 
-        public int OrganizationId { get; set; }
+        public Guid OrganizationId { get; set; }
     }
 }
