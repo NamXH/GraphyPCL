@@ -134,5 +134,19 @@ namespace GraphyPCL
 
             Contact.ImageName = randomName;
         }
+
+        public void SaveNewContact()
+        {
+            var dbConnection = DependencyService.Get<ISQLite>().GetConnection();
+//            dbConnection.Insert(Contact);
+//            var phoneNumber = PhoneNumbers[0];
+//            phoneNumber.ContactId = 1;
+//            dbConnection.Insert(phoneNumber);
+
+//            var cmd = "insert into PhoneNumber (Type, Number, ContactId) values ('home', '123', 1)";
+//            dbConnection.Execute(cmd);
+
+            var a = dbConnection.GetTableInfo("PhoneNumber");
+        }
     }
 }

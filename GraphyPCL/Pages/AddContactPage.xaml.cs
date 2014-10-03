@@ -37,7 +37,8 @@ namespace GraphyPCL
 
         private void OnDoneButtonClicked()
         {
-            // Save unbindable fields to view model
+            #region Save unbindable fields to view model
+
             _viewModel.PhoneNumbers = new List<PhoneNumber>();
             var phoneNumbers = RetrieveTypeValuePairs(_phoneSection);
             foreach (var phoneNumber in phoneNumbers)
@@ -132,6 +133,10 @@ namespace GraphyPCL
                         });
                 }
             }
+
+            #endregion
+
+            _viewModel.SaveNewContact();
         }
 
         private string GetNextEntryText(IEnumerator<Cell> enumerator)
