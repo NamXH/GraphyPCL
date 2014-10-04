@@ -14,7 +14,7 @@ namespace GraphyPCL
             ContainerTable = table;
             ContainerSection = tableSection;
 
-            this.Types = new List<string>() { "anniversary", "other" };
+            this.Types = new List<string>() { "birthday", "anniversary", "other" };
 
             CreateAddMoreButton();
         }

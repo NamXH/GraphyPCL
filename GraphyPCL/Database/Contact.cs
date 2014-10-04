@@ -19,8 +19,6 @@ namespace GraphyPCL
 
         public string Organization { get; set; }
 
-        public DateTime Birthday { get; set; }
-
         public bool Favorite { get; set; }
 
         private string _imageName;

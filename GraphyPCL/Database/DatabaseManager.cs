@@ -34,7 +34,7 @@ namespace GraphyPCL
             // http://blog.codinghorror.com/primary-keys-ids-versus-guids/
             // Using Sqlite-net, we use Guid in C# code. When insert/query Guid will be automatically converted to Varchar and vice versa!!
             // If there is a weird behavior in the database, CHECK THIS CONVERSION!
-            var createContact = "CREATE TABLE Contact (Id VARCHAR PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Birthday DATETIME, Favorite BOOL DEFAULT 0)";
+            var createContact = "CREATE TABLE Contact (Id VARCHAR PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Favorite BOOL DEFAULT 0)";
             DbConnection.Execute(createContact);
             var createPhoneNumber = "CREATE TABLE PhoneNumber (Id VARCHAR PRIMARY KEY NOT NULL, Type VARCHAR, Number VARCHAR, ContactId VARCHAR, FOREIGN KEY(ContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createPhoneNumber);
@@ -150,7 +150,6 @@ namespace GraphyPCL
             contact2.MiddleName = "Henry";
             contact2.LastName = "Gates";
             contact2.Organization = "Microsoft";
-            contact2.Birthday = new DateTime(1955, 11, 28);
             contact2.ImageName = "bill.jpg";
             contact2.Favorite = true;
             DbConnection.Insert(contact2);
@@ -165,7 +164,6 @@ namespace GraphyPCL
             contact4.Id = Guid.NewGuid();
             contact4.FirstName = "Satya";
             contact4.LastName = "Nandela";
-            contact4.Birthday = new DateTime(1911, 11, 11);
             DbConnection.Insert(contact4);
 
             var contact5 = new Contact();
@@ -192,7 +190,6 @@ namespace GraphyPCL
             var contact9 = new Contact();
             contact9.Id = Guid.NewGuid();
             contact9.Organization = "Null Org.";
-            contact9.Birthday = new DateTime(1999, 9, 9);
             DbConnection.Insert(contact9);
 
             var contact10 = new Contact();

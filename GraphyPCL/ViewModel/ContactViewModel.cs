@@ -10,8 +10,6 @@ namespace GraphyPCL
     public class ContactViewModel
     {
         private const string c_datetimeFormat = "MMM dd yyyy";
-        private readonly DateTime _defaultSystemDateTime = new DateTime(1, 1, 1);
-        private readonly DateTime _defaultPickerDateTime = new DateTime(1900, 1, 1);
 
         public Contact Contact { get; set; }
 
@@ -24,8 +22,6 @@ namespace GraphyPCL
         public IList<Url> Urls { get; set; }
 
         public IList<Address> Addresses { get; set; }
-
-        public string BirthdayShortForm { get; set; }
 
         public IList<SpecialDate> SpecialDates { get; set; }
 
@@ -68,16 +64,6 @@ namespace GraphyPCL
             Emails = DatabaseManager.GetRowsRelatedToContact<Email>(contact.Id);
             Urls = DatabaseManager.GetRowsRelatedToContact<Url>(contact.Id);
             Addresses = DatabaseManager.GetRowsRelatedToContact<Address>(contact.Id);
-
-            var birthdayIsNotDefault = !DateTime.Equals(contact.Birthday, _defaultSystemDateTime);
-            if (birthdayIsNotDefault)
-            {
-                this.BirthdayShortForm = contact.Birthday.ToString(c_datetimeFormat);
-            }
-            else
-            {
-                this.BirthdayShortForm = "";
-            }
 
             SpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(contact.Id);
             IMs = DatabaseManager.GetRowsRelatedToContact<InstantMessage>(contact.Id);

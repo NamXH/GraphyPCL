@@ -22,8 +22,8 @@ namespace GraphyPCL
             _tableView.Intent = TableIntent.Menu;
             this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
 
-            _viewModel = new ContactViewModel(); // Caution: Contact.Birthday is 1/1/0001 here!!
-            BindingContext = _viewModel; // Caution: DatePicker automatically set the default Contact.Birthday to 1/1/1900 here!!
+            _viewModel = new ContactViewModel(); 
+            BindingContext = _viewModel;
 
             _phoneSection.Add(new AddMoreElementCell(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
             _emailSection.Add(new AddMoreElementCell(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));

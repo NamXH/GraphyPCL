@@ -15,13 +15,6 @@
         <TableSection x:Name="_emailSection" Title="EMAIL" />
         <TableSection x:Name="_urlSection" Title="URL" />
         <TableSection x:Name="_addressSection" Title="ADDRESS" />
-        <TableSection Title="BIRTHDAY">
-          <ViewCell>
-            <StackLayout Padding="15, 5, 15, 5">
-              <DatePicker Format="MMM dd yyyy" Date="{Binding Contact.Birthday}"/>
-            </StackLayout>
-          </ViewCell>
-        </TableSection>
         <TableSection x:Name="_specialDateSection" Title="SPECIAL DATES" />
         <TableSection x:Name="_imSection" Title="INSTANT MESSAGE" />
       </TableRoot>

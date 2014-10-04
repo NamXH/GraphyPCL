@@ -45,17 +45,6 @@ namespace GraphyPCL
                 }
             }
 
-            // Birthday
-            var birthdayIsNotEmpty = !String.IsNullOrEmpty(_viewModel.BirthdayShortForm);
-            if (birthdayIsNotEmpty)
-            {
-                var birthdaySection = new TableSection("BIRTHDAY");
-                _tableRoot.Add(birthdaySection);
-                var birthdayCell = new TextCell();
-                birthdayCell.SetBinding(TextCell.TextProperty, "_viewModel.BirthdayShortForm");
-                birthdaySection.Add(birthdayCell);
-            }
-
             // List are not bindable to TableSection: SpecialDates, IMs, Tags
             CreateUIList<SpecialDate>(_tableRoot, _viewModel.SpecialDates, "SPECIAL DATES", x => x.Date.ToString(c_datetimeFormat), x => x.Type);
             CreateUIList<InstantMessage>(_tableRoot, _viewModel.IMs, "INSTANT MESSAGES", x => x.Nickname, x => x.Type);
