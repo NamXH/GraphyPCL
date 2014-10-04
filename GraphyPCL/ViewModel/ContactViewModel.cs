@@ -142,20 +142,14 @@ namespace GraphyPCL
             var db = DatabaseManager.DbConnection;
 
             Contact.Id = Guid.NewGuid();
-            var birthdayIsNotSet = DateTime.Compare(Contact.Birthday, _defaultPickerDateTime) == 0;
-            if (birthdayIsNotSet)
-            {
-                // Set to default system date (1/1/0001)
-                Contact.Birthday = _defaultSystemDateTime;
-            }
             db.Insert(Contact);
 
-            foreach (var phoneNumber in PhoneNumbers)
-            {
-                phoneNumber.Id = Guid.NewGuid();
-                phoneNumber.ContactId = Contact.Id;
-                db.Insert(phoneNumber);
-            }
+            DatabaseManager.InsertList(PhoneNumbers, Contact);
+            DatabaseManager.InsertList(Emails, Contact);
+            DatabaseManager.InsertList(Urls, Contact);
+            DatabaseManager.InsertList(Addresses, Contact);
+            DatabaseManager.InsertList(SpecialDates, Contact);
+            DatabaseManager.InsertList(IMs, Contact);
         }
     }
 }

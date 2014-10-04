@@ -53,6 +53,7 @@ namespace GraphyPCL
             {
                 picker.Items.Add(item);
             }
+            picker.SelectedIndex = 0;
             layout.Children.Add(picker);
 
             var seperator = new BoxView();

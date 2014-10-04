@@ -61,7 +61,77 @@ namespace GraphyPCL
             CreateDummyData();
         }
 
-        // ## For tests
+        /// <summary>
+        /// Get all rows from a table
+        /// </summary>
+        /// <returns>The rows.</returns>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static IList<T> GetRows<T>() where T : new()
+        {
+            return DbConnection.Table<T>().ToList();
+        }
+
+        /// <summary>
+        /// Get a row according to its primary key
+        /// </summary>
+        /// <returns>The row.</returns>
+        /// <param name="id">Identifier.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static T GetRow<T>(Guid id) where T : IIdContainer, new()
+        {
+            return DbConnection.Table<T>().Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public static IList<T> GetRows<T>(IList<Guid> idList) where T : IIdContainer, new()
+        {
+            return DbConnection.Table<T>().Where(x => idList.Contains(x.Id)).ToList();
+        }
+
+        public static IList<T> GetRowsRelatedToContact<T>(Guid contactId) where T : IContactIdRelated, new()
+        {
+            return DbConnection.Table<T>().Where(x => x.ContactId == contactId).ToList();
+        }
+
+        /// <summary>
+        /// Gets the relationships start from a contact to other contacts
+        /// </summary>
+        /// <returns>Relationships from the contact</returns>
+        /// <param name="contactId">Contact identifier</param>
+        public static IList<Relationship> GetRelationshipsFromContact(Guid contactId)
+        {
+            return DbConnection.Table<Relationship>().Where(x => x.FromContactId == contactId).ToList();
+        }
+
+        /// <summary>
+        /// Gets the relationships start from other contacts to a contact
+        /// </summary>
+        /// <returns>Relationships to the contact</returns>
+        /// <param name="contactId">Contact identifier</param>
+        public static IList<Relationship> GetRelationshipsToContact(Guid contactId)
+        {
+            return DbConnection.Table<Relationship>().Where(x => x.ToContactId == contactId).ToList();
+        }
+
+        /// <summary>
+        /// Inserts list of items related to a contact.
+        /// </summary>
+        /// <returns>The list.</returns>
+        /// <param name="list">List.</param>
+        /// <param name="contact">Contact.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static IList<Guid> InsertList<T>(IList<T> list, Contact contact) where T : IIdContainer, IContactIdRelated, new()
+        {
+            var createdGuids = new List<Guid>();
+            foreach (var item in list)
+            {
+                item.Id = Guid.NewGuid();
+                item.ContactId = contact.Id;
+                DbConnection.Insert(item);
+                createdGuids.Add(item.Id);
+            }
+            return createdGuids;
+        }
+
         public static void CreateDummyData()
         {
             Debug.WriteLine("start adding data");
@@ -213,121 +283,69 @@ namespace GraphyPCL
 
             // Tags
             var tag1 = new Tag()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Colleague",
-                    Detail = "Chairman of Microsoft",
-                };
+            {
+                Id = Guid.NewGuid(),
+                Name = "Colleague",
+                Detail = "Chairman of Microsoft",
+            };
             DbConnection.Insert(tag1);
 
             var tag2 = new Tag()
-                { 
-                    Id = Guid.NewGuid(),
-                    Name = "Important",
-                };
+            { 
+                Id = Guid.NewGuid(),
+                Name = "Important",
+            };
             DbConnection.Insert(tag2);
 
             var tagMap1 = new ContactTagMap()
-                {
-                    Id = Guid.NewGuid(),
-                    ContactId = contact2.Id,
-                    TagId = tag1.Id,
-                };
+            {
+                Id = Guid.NewGuid(),
+                ContactId = contact2.Id,
+                TagId = tag1.Id,
+            };
             DbConnection.Insert(tagMap1);
 
             var tagMap2 = new ContactTagMap()
-                {
-                    Id = Guid.NewGuid(),
-                    ContactId = contact2.Id,
-                    TagId = tag2.Id,
-                };
+            {
+                Id = Guid.NewGuid(),
+                ContactId = contact2.Id,
+                TagId = tag2.Id,
+            };
             DbConnection.Insert(tagMap2);
 
             // Relationship
             var connType1 = new RelationshipType()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Advisor",
-                };
+            {
+                Id = Guid.NewGuid(),
+                Name = "Advisor",
+            };
             DbConnection.Insert(connType1);
             var connType2 = new RelationshipType()
-                { 
-                    Id = Guid.NewGuid(),
-                    Name = "Daughter", 
-                };
+            { 
+                Id = Guid.NewGuid(),
+                Name = "Daughter", 
+            };
             DbConnection.Insert(connType2);
 
             var conn1 = new Relationship()
-                {
-                    Id = Guid.NewGuid(),
-                    FromContactId = contact2.Id,
-                    ToContactId = contact4.Id,
-                    RelationshipTypeId = connType1.Id,
-                    ExtraInfo = "Bill will advise Satya with his new CEO role.",
-                };
+            {
+                Id = Guid.NewGuid(),
+                FromContactId = contact2.Id,
+                ToContactId = contact4.Id,
+                RelationshipTypeId = connType1.Id,
+                ExtraInfo = "Bill will advise Satya with his new CEO role.",
+            };
             DbConnection.Insert(conn1);
             var conn2 = new Relationship()
-                {
-                    Id = Guid.NewGuid(),
-                    FromContactId = contact6.Id,
-                    ToContactId = contact2.Id,
-                    RelationshipTypeId = connType2.Id,
-                };
+            {
+                Id = Guid.NewGuid(),
+                FromContactId = contact6.Id,
+                ToContactId = contact2.Id,
+                RelationshipTypeId = connType2.Id,
+            };
             DbConnection.Insert(conn2);
 
             Debug.WriteLine("stop adding data");
         }
-
-        /// <summary>
-        /// Get all rows from a table
-        /// </summary>
-        /// <returns>The rows.</returns>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static IList<T> GetRows<T>() where T : new()
-        {
-            return DbConnection.Table<T>().ToList();
-        }
-
-        /// <summary>
-        /// Get a row according to its primary key
-        /// </summary>
-        /// <returns>The row.</returns>
-        /// <param name="id">Identifier.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static T GetRow<T>(Guid id) where T : IIdContainer, new()
-        {
-            return DbConnection.Table<T>().Where(x => x.Id == id).FirstOrDefault();
-        }
-
-        public static IList<T> GetRows<T>(IList<Guid> idList) where T : IIdContainer, new()
-        {
-            return DbConnection.Table<T>().Where(x => idList.Contains(x.Id)).ToList();
-        }
-
-        public static IList<T> GetRowsRelatedToContact<T>(Guid contactId) where T : IContactIdRelated, new()
-        {
-            return DbConnection.Table<T>().Where(x => x.ContactId == contactId).ToList();
-        }
-
-        /// <summary>
-        /// Gets the relationships start from a contact to other contacts
-        /// </summary>
-        /// <returns>Relationships from the contact</returns>
-        /// <param name="contactId">Contact identifier</param>
-        public static IList<Relationship> GetRelationshipsFromContact(Guid contactId)
-        {
-            return DbConnection.Table<Relationship>().Where(x => x.FromContactId == contactId).ToList();
-        }
-
-        /// <summary>
-        /// Gets the relationships start from other contacts to a contact
-        /// </summary>
-        /// <returns>Relationships to the contact</returns>
-        /// <param name="contactId">Contact identifier</param>
-        public static IList<Relationship> GetRelationshipsToContact(Guid contactId)
-        {
-            return DbConnection.Table<Relationship>().Where(x => x.ToContactId == contactId).ToList();
-        }
-
     }
 }
