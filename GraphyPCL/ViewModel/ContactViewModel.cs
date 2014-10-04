@@ -10,6 +10,8 @@ namespace GraphyPCL
     public class ContactViewModel
     {
         private const string c_datetimeFormat = "MMM dd yyyy";
+        private readonly DateTime _defaultSystemDateTime = new DateTime(1, 1, 1);
+        private readonly DateTime _defaultPickerDateTime = new DateTime(1900, 1, 1);
 
         public Contact Contact { get; set; }
 
@@ -67,7 +69,7 @@ namespace GraphyPCL
             Urls = DatabaseManager.GetRowsRelatedToContact<Url>(contact.Id);
             Addresses = DatabaseManager.GetRowsRelatedToContact<Address>(contact.Id);
 
-            var birthdayIsNotDefault = !DateTime.Equals(contact.Birthday, new DateTime(1, 1, 1));
+            var birthdayIsNotDefault = !DateTime.Equals(contact.Birthday, _defaultSystemDateTime);
             if (birthdayIsNotDefault)
             {
                 this.BirthdayShortForm = contact.Birthday.ToString(c_datetimeFormat);
@@ -139,26 +141,21 @@ namespace GraphyPCL
         {
             var db = DatabaseManager.DbConnection;
 
-//            var contactId = db.Insert(Contact);
+            Contact.Id = Guid.NewGuid();
+            var birthdayIsNotSet = DateTime.Compare(Contact.Birthday, _defaultPickerDateTime) == 0;
+            if (birthdayIsNotSet)
+            {
+                // Set to default system date (1/1/0001)
+                Contact.Birthday = _defaultSystemDateTime;
+            }
+            db.Insert(Contact);
 
-//            var c1 = new Contact();
-//            c1.FirstName = "c1";
-//            var c2 = new Contact();
-//            c2.FirstName = "c2";
-//            c2.Id = 100;
-//            var c3 = new Contact();
-//            c3.FirstName = "c3";
-//            var a = DatabaseManager.GetRows<Contact>();
-//            db.Insert(c1);
-//            a = DatabaseManager.GetRows<Contact>();
-//            db.Insert(c2);
-//            a = DatabaseManager.GetRows<Contact>();
-//            db.Insert(c3);
-//            a = DatabaseManager.GetRows<Contact>();
-
-//            var phoneNumber = PhoneNumbers[0];
-//            phoneNumber.ContactId = contactId;
-//            db.Insert(phoneNumber);
+            foreach (var phoneNumber in PhoneNumbers)
+            {
+                phoneNumber.Id = Guid.NewGuid();
+                phoneNumber.ContactId = Contact.Id;
+                db.Insert(phoneNumber);
+            }
         }
     }
 }
