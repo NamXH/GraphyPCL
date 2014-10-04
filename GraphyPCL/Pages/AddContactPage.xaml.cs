@@ -93,10 +93,12 @@ namespace GraphyPCL
                 var layout = (StackLayout)view;
 
                 // If it is the first entry (streetline 1) of the address
-                if ((layout.Children.Count == 2) && (layout.Children[1].GetType() == typeof(Entry)))
+                if ((layout.Children.Count == 3) && (layout.Children[2].GetType() == typeof(Entry)))
                 {
                     var address = new Address();
-                    address.StreetLine1 = ((Entry)layout.Children[1]).Text;
+                    var picker = (Picker)layout.Children[1];
+                    address.Type = picker.Items[picker.SelectedIndex];
+                    address.StreetLine1 = ((Entry)layout.Children[2]).Text;
 
                     // Get 5 next entries
                     address.StreetLine2 = GetNextEntryText(addressEnumerator);

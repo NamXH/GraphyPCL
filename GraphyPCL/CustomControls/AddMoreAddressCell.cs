@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace GraphyPCL
 {
     public class AddMoreAddressCell : AddMoreElementCell
     {
-        protected const double c_leftIndent = 27;
+        protected const double c_leftIndent = 109;
 
         public AddMoreAddressCell(ExtendedTableView table, TableSection tableSection)
             : base()
         {
             ContainerTable = table;
             ContainerSection = tableSection;
+
+            this.Types = new List<string>() { "home", "work", "other" };
 
             CreateAddMoreButton();
         }
@@ -40,8 +43,22 @@ namespace GraphyPCL
                 ContainerSection.Remove(postal);
                 ContainerTable.OnDataChanged();
             };
+
+            var picker = new Picker
+                {
+                    Title = "type",
+                    WidthRequest = c_entryWidth,
+                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+                };
+            foreach (var item in Types)
+            {
+                picker.Items.Add(item);
+            }
+            picker.SelectedIndex = 0;
+
             var layout = (StackLayout)street1.View;
             layout.Children.Insert(0, deleteImage);
+            layout.Children.Insert(1, picker);
 
             ContainerTable.OnDataChanged();
         }
