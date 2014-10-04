@@ -9,20 +9,25 @@ namespace GraphyPCL.Android
 {
     public class DatabaseManager : ISQLite
     {
+        private const string c_dbName = "graphy.db";
+
+        public string DbPath
+        {
+            get
+            {
+                var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                return Path.Combine(documentsDirectory, c_dbName);
+            }
+        }
+
         public SQLiteConnection GetConnection()
         {
-            var dbName = "graphy.db";
-            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var dbPath = Path.Combine(documentsDirectory, dbName);
+            return new SQLiteConnection(new SQLitePlatformAndroid(), DbPath);
+        }
 
-            // ## Delete if exist (For test)
-            if (File.Exists(dbPath))
-            {
-                File.Delete(dbPath);
-            }
-
-            var dbConnection = new SQLiteConnection(new SQLitePlatformAndroid(), dbPath);
-            return dbConnection;
+        public bool Exists()
+        {
+            return File.Exists(DbPath);
         }
     }
 }

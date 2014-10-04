@@ -10,20 +10,25 @@ namespace GraphyPCL.iOS
 {
     public class DatabaseManager : ISQLite
     {
+        private const string c_dbName = "graphy.db";
+
+        public string DbPath
+        {
+            get
+            {
+                var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                return Path.Combine(documentsDirectory, c_dbName);
+            }
+        }
+
         public SQLiteConnection GetConnection()
         {
-            var dbName = "graphy.db";
-            var documentsDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            var dbPath = Path.Combine(documentsDirectory, dbName);
+            return new SQLiteConnection(new SQLitePlatformIOS(), DbPath);
+        }
 
-            // ## Delete if exist (For test)
-            if (File.Exists(dbPath))
-            {
-                File.Delete(dbPath);
-            }
-
-            var dbConnection = new SQLiteConnection(new SQLitePlatformIOS(), dbPath);
-            return dbConnection;
+        public bool Exists()
+        {
+            return File.Exists(DbPath);
         }
     }
 }

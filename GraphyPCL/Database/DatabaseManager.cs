@@ -16,8 +16,17 @@ namespace GraphyPCL
 
         static DatabaseManager()
         {
-            DbConnection = DependencyService.Get<ISQLite>().GetConnection();
+            var db = DependencyService.Get<ISQLite>();
+            DbConnection = db.GetConnection();
+            if (!db.Exists())
+            {
+                InitializeDatabase();
+            }
+//            CreateDummyData();
+        }
 
+        private static void InitializeDatabase()
+        {
             // Turn on Foreign Key support
             var foreignKeyOn = "PRAGMA foreign_keys = ON";
             DbConnection.Execute(foreignKeyOn);
@@ -56,9 +65,6 @@ namespace GraphyPCL
             DbConnection.Execute(createRelationshipType);
             var createRelationship = "CREATE TABLE Relationship (Id VARCHAR PRIMARY KEY NOT NULL, ExtraInfo VARCHAR, FromContactId VARCHAR, ToContactId VARCHAR, RelationshipTypeId VARCHAR, FOREIGN KEY(FromContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(ToContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(RelationshipTypeId) REFERENCES RelationshipType(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createRelationship);
-
-            // ## For tests
-            CreateDummyData();
         }
 
         /// <summary>
@@ -132,6 +138,9 @@ namespace GraphyPCL
             return createdGuids;
         }
 
+        /// <summary>
+        /// Creates the dummy data for test.
+        /// </summary>
         public static void CreateDummyData()
         {
             Debug.WriteLine("start adding data");
