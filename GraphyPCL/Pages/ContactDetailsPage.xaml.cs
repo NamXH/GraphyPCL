@@ -28,7 +28,7 @@ namespace GraphyPCL
             // List are not bindable to TableSection: Addresses
             foreach (var address in _viewModel.Addresses)
             {
-                var tableSection = new TableSection(address.Type);
+                var tableSection = new TableSection(address.Type + " ADDRESS");
 
                 var line1IsNotNull = TryAddTextCell(tableSection, address.StreetLine1);
                 var line2IsNotNull = TryAddTextCell(tableSection, address.StreetLine2);
