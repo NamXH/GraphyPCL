@@ -17,6 +17,7 @@
         <TableSection x:Name="_addressSection" Title="ADDRESS" />
         <TableSection x:Name="_specialDateSection" Title="SPECIAL DATES" />
         <TableSection x:Name="_imSection" Title="INSTANT MESSAGE" />
+        <TableSection x:Name="_tagSection" Title="TAG" />
       </TableRoot>
     </TableView.Root>
   </local:ExtendedTableView>
