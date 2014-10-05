@@ -6,20 +6,18 @@ namespace GraphyPCL
 {
     public class AddMoreDateCell : AddMoreElementCell
     {
+        protected const double c_entryWidth = 75;
         protected const string c_defaultDateFormat = "MMM d yyyy";
 
+        public IList<string> Types { get; set; }
+
         public AddMoreDateCell(ExtendedTableView table, TableSection tableSection)
-            : base()
+            : base(table, tableSection)
         {
-            ContainerTable = table;
-            ContainerSection = tableSection;
-
             this.Types = new List<string>() { "birthday", "anniversary", "other" };
-
-            CreateAddMoreButton();
         }
 
-        protected override void AddMoreElement(object sender, EventArgs args)
+        protected override void OnCellClicked(object sender, EventArgs args)
         {
             var viewCell = new ViewCell();
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);
@@ -44,11 +42,11 @@ namespace GraphyPCL
             layout.Children.Add(deleteImage);
 
             var picker = new Picker
-                {
-                    Title = "type",
-                    WidthRequest = c_entryWidth,
-                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
-                };
+            {
+                Title = "type",
+                WidthRequest = c_entryWidth,
+                BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+            };
             foreach (var item in Types)
             {
                 picker.Items.Add(item);

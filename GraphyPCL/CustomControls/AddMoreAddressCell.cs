@@ -6,20 +6,18 @@ namespace GraphyPCL
 {
     public class AddMoreAddressCell : AddMoreElementCell
     {
+        protected const double c_entryWidth = 75;
         protected const double c_leftIndent = 109;
 
+        public IList<string> Types { get; set; }
+
         public AddMoreAddressCell(ExtendedTableView table, TableSection tableSection)
-            : base()
+            : base(table, tableSection)
         {
-            ContainerTable = table;
-            ContainerSection = tableSection;
-
             this.Types = new List<string>() { "home", "work", "other" };
-
-            CreateAddMoreButton();
         }
 
-        protected override void AddMoreElement(object sender, EventArgs args)
+        protected override void OnCellClicked(object sender, EventArgs args)
         {
             var street1 = InsertNewEntry("Street Address 1", false);
             var street2 = InsertNewEntry("Street Address 2");
@@ -45,11 +43,11 @@ namespace GraphyPCL
             };
 
             var picker = new Picker
-                {
-                    Title = "type",
-                    WidthRequest = c_entryWidth,
-                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
-                };
+            {
+                Title = "type",
+                WidthRequest = c_entryWidth,
+                BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+            };
             foreach (var item in Types)
             {
                 picker.Items.Add(item);
