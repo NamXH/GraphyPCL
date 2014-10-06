@@ -77,7 +77,9 @@
     <Compile Include="CustomControls\AddMoreDateCell.cs" />
     <Compile Include="CustomControls\AddMoreTagCell.cs" />
     <Compile Include="CustomControls\AddMoreBasicElementCell.cs" />
-    <Compile Include="Pages\AddTagPage.cs" />
+    <Compile Include="Pages\AddTagPage.xaml.cs">
+      <DependentUpon>AddTagPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.2.6243\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -122,6 +124,9 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\AddContactPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\AddTagPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

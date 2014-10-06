@@ -11,5 +11,7 @@ namespace GraphyPCL
         public Guid ContactId { get; set; }
 
         public Guid TagId { get; set; }
+
+        public string Detail { get; set; }
     }
 }

@@ -50,6 +50,8 @@ namespace GraphyPCL
         {
             Contact = new Contact();
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
+
+            Tags = DatabaseManager.GetRows<Tag>();
         }
 
         /// <summary>
@@ -123,6 +125,9 @@ namespace GraphyPCL
             Contact.ImageName = randomName;
         }
 
+        /// <summary>
+        /// Saves the new contact and all information in this View Model to database.
+        /// </summary>
         public void SaveNewContact()
         {
             var db = DatabaseManager.DbConnection;

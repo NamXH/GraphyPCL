@@ -32,7 +32,8 @@ namespace GraphyPCL
 
             _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection));
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
-            _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection));
+
+            _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
         }
 
 
