@@ -22,7 +22,7 @@ namespace GraphyPCL
             {
                 InitializeDatabase();
             }
-            CreateDummyData();
+//            CreateDummyData();
         }
 
         private static void InitializeDatabase()
