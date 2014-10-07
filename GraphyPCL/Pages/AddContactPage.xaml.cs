@@ -138,6 +138,58 @@ namespace GraphyPCL
                 }
             }
 
+            _viewModel.ContactTagMaps = new List<ContactTagMap>();
+            var tagEnumerator = _tagSection.GetEnumerator();
+            while (tagEnumerator.MoveNext())
+            {
+                var cell = tagEnumerator.Current;
+                var view = ((ViewCell)cell).View;
+                var layout = (StackLayout)view;
+
+                if (((layout.Children.Count == 3)) && (layout.Children[0].GetType() == typeof(Image)))
+                {
+                    var picker = (Picker)layout.Children[2];
+                    var pickedTag = (picker.SelectedIndex != -1) ? picker.Items[picker.SelectedIndex] : "";
+
+                    var detail = GetNextEntryText(tagEnumerator);
+                    var newTag = GetNextEntryText(tagEnumerator);
+
+                    if (String.IsNullOrEmpty(newTag))
+                    {
+                        // Get tag Id
+                        var tags = DatabaseManager.GetRowsByName<Tag>(pickedTag);
+                        if (tags.Count > 1)
+                        {
+                            // {Tag.UserId, Tag.Name} compounds a primary key. However, in order to simplify, we still use seperated primary key.
+                            throw new Exception("Duplicate tag name: " + tags[0].Name);
+                        }
+                        var tagId = tags[0].Id;
+
+                        var contactTapMap = new ContactTagMap
+                        {
+                            TagId = tagId,
+                            Detail = detail
+                        };
+                        _viewModel.ContactTagMaps.Add(contactTapMap);
+                    }
+                    else
+                    {
+                        var tag = new Tag
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = pickedTag
+                        };
+                        _viewModel.Tags.Add(tag);
+                        var contactTagMap = new ContactTagMap
+                        {
+                            TagId = tag.Id,
+                            Detail = detail
+                        };
+                        _viewModel.ContactTagMaps.Add(contactTagMap);
+                    }
+                }
+            }
+
             #endregion
 
             _viewModel.SaveNewContact();
@@ -145,6 +197,11 @@ namespace GraphyPCL
             Navigation.PushAsync(new AllContactsPage());
         }
 
+        /// <summary>
+        /// Gets the next entry text. The entry should be the last element of the StackLayout.
+        /// </summary>
+        /// <returns>The next entry text.</returns>
+        /// <param name="enumerator">Enumerator.</param>
         private string GetNextEntryText(IEnumerator<Cell> enumerator)
         {
             if (enumerator.MoveNext())
@@ -152,11 +209,16 @@ namespace GraphyPCL
                 var cell = enumerator.Current;
                 var view = ((ViewCell)cell).View;
                 var layout = (StackLayout)view;
-                return ((Entry)layout.Children[0]).Text;
+                return ((Entry)layout.Children[layout.Children.Count - 1]).Text;
             }
             return null;
         }
 
+        /// <summary>
+        /// Retrieves the type value pairs from a basic table section which contain a picker (type) and an entry (value)
+        /// </summary>
+        /// <returns>The type value pairs.</returns>
+        /// <param name="_section">Section.</param>
         private List<Tuple<string, string>> RetrieveTypeValuePairs(TableSection _section)
         {
             var result = new List<Tuple<string, string>>();

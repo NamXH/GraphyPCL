@@ -17,11 +17,15 @@ namespace GraphyPCL
         static DatabaseManager()
         {
             var db = DependencyService.Get<ISQLite>();
+
+//            db.Delete();
+
             DbConnection = db.GetConnection();
             if (!db.Exists())
             {
                 InitializeDatabase();
             }
+
 //            CreateDummyData();
         }
 
@@ -96,6 +100,11 @@ namespace GraphyPCL
         public static IList<T> GetRowsRelatedToContact<T>(Guid contactId) where T : IContactIdRelated, new()
         {
             return DbConnection.Table<T>().Where(x => x.ContactId == contactId).ToList();
+        }
+
+        public static IList<T> GetRowsByName<T>(string name) where T : INameContainer, new()
+        {
+            return DbConnection.Table<T>().Where(x => x.Name == name).ToList();
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using SQLite.Net.Attributes;
 
 namespace GraphyPCL
 {
-    public class Relationship : IIdContainer
+    public class Relationship : IIdContainer 
     {
         [PrimaryKey]
         public Guid Id { get; set; }

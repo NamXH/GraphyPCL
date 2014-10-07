@@ -42,6 +42,10 @@ namespace GraphyPCL
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 Title = "Pick a tag"
             };
+            foreach (var tag in ViewModel.Tags)
+            {
+                tagPicker.Items.Add(tag.Name);
+            }
             tagLayout.Children.Add(tagPicker);
 
             // Detail, a bit duplicate!!
@@ -68,7 +72,7 @@ namespace GraphyPCL
 
             var newTagEntry = new Entry
             {
-                Placeholder = "Enter new tag name",
+                Placeholder = "Create a new tag name",
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
             labelLayout.Children.Add(newTagEntry);

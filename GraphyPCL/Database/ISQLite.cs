@@ -8,5 +8,7 @@ namespace GraphyPCL
         SQLiteConnection GetConnection();
 
         bool Exists();
+
+        void Delete();
     }
 }

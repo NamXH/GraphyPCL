@@ -31,6 +31,8 @@ namespace GraphyPCL
 
         public IList<TagAndDetail> TagsAndDetails { get; set; }
 
+        public IList<ContactTagMap> ContactTagMaps { get; set; }
+
         public IList<RelatedContact> ContactsLinkedFromThisContact { get; set; }
 
         public IList<RelatedContact> ContactsLinkedToThisContact { get; set; }
@@ -72,9 +74,9 @@ namespace GraphyPCL
             SpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(contact.Id);
             IMs = DatabaseManager.GetRowsRelatedToContact<InstantMessage>(contact.Id);
 
-            var tagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
+            ContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
             TagsAndDetails = new List<TagAndDetail>();
-            foreach (var tagMap in tagMaps)
+            foreach (var tagMap in ContactTagMaps)
             {
                 var tag = DatabaseManager.GetRow<Tag>(tagMap.TagId);
                 TagsAndDetails.Add(new TagAndDetail
@@ -152,6 +154,11 @@ namespace GraphyPCL
             DatabaseManager.InsertList(IMs, Contact);
 
             // Insert related info to new contact: tags, relationships
+            DatabaseManager.InsertList(ContactTagMaps, Contact);
+
+            var existingTags = DatabaseManager.GetRows<Tag>();
+            var newTags = Tags.Except(existingTags);
+            DatabaseManager.DbConnection.InsertAll(newTags);
         }
     }
 }
