@@ -8,11 +8,11 @@
     </StackLayout>
     <StackLayout Orientation="Horizontal">
       <Label Text="Detail" VerticalOptions="Center" />
-      <Entry HorizontalOptions="FillAndExpand" />
+      <Entry x:Name="_detail" HorizontalOptions="FillAndExpand" />
     </StackLayout>
     <StackLayout Orientation="Vertical">
       <Label Text="Create New Tag" />
-      <Entry HorizontalOptions="FillAndExpand" />
+      <Entry x:Name="_newTag" HorizontalOptions="FillAndExpand" />
     </StackLayout>
   </StackLayout>
 </ContentPage>

@@ -15,7 +15,12 @@ namespace GraphyPCL
 
         protected override void OnCellClicked(object sender, EventArgs args)
         {
-            this.ContainerTable.Navigation.PushAsync(new AddTagPage(ViewModel));
+            var viewCell = new ViewCell();
+            ContainerSection.Insert(ContainerSection.Count - 1, viewCell);
+
+
+
+            ContainerTable.OnDataChanged();
         }
     }
 }

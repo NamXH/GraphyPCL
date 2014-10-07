@@ -292,7 +292,7 @@ namespace GraphyPCL
             {
                 Id = Guid.NewGuid(),
                 Name = "Colleague",
-                Detail = "Chairman of Microsoft",
+                
             };
             DbConnection.Insert(tag1);
 
@@ -308,6 +308,7 @@ namespace GraphyPCL
                 Id = Guid.NewGuid(),
                 ContactId = contact2.Id,
                 TagId = tag1.Id,
+                Detail = "Chairman of Microsoft",
             };
             DbConnection.Insert(tagMap1);
 

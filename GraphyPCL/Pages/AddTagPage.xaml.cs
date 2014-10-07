@@ -32,6 +32,16 @@ namespace GraphyPCL
 
         private void OnDoneButtonClicked()
         {
+            if (!String.IsNullOrEmpty(_newTag.Text))
+            {
+//                ViewModel.Tags.Add(new Tag
+//                    {
+//                        Id = Guid.NewGuid(),
+//                        Name = _newTag.Text
+//                    });
+
+            }
+            this.Navigation.PopAsync();
         }
     }
 }

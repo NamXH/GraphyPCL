@@ -69,11 +69,11 @@ namespace GraphyPCL
             picker.SelectedIndex = 0;
             layout.Children.Add(picker);
 
-            var seperator = new BoxView();
-            layout.Children.Add(seperator);
-            seperator.Color = Color.Gray;
-            seperator.WidthRequest = 1;
-            seperator.HeightRequest = layout.Height;
+//            var seperator = new BoxView();
+//            layout.Children.Add(seperator);
+//            seperator.Color = Color.Gray;
+//            seperator.WidthRequest = 1;
+//            seperator.HeightRequest = layout.Height;
 
             var entry = new Entry();
             layout.Children.Add(entry);
