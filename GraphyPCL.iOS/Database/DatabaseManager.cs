@@ -30,5 +30,13 @@ namespace GraphyPCL.iOS
         {
             return File.Exists(DbPath);
         }
+
+        public void Delete()
+        {
+            if (File.Exists(DbPath))
+            {
+                File.Delete(DbPath);
+            }
+        }
     }
 }

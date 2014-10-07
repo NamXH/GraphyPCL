@@ -154,11 +154,17 @@ namespace GraphyPCL
             DatabaseManager.InsertList(IMs, Contact);
 
             // Insert related info to new contact: tags, relationships
-            DatabaseManager.InsertList(ContactTagMaps, Contact);
-
             var existingTags = DatabaseManager.GetRows<Tag>();
-            var newTags = Tags.Except(existingTags);
-            DatabaseManager.DbConnection.InsertAll(newTags);
+            foreach (var tag in this.Tags)
+            {
+                var notAlreadyExists = existingTags.Where(x => x.Id == tag.Id).Count() == 0;
+                if (notAlreadyExists)
+                {
+                    DatabaseManager.DbConnection.Insert(tag);
+                }
+            }
+
+            DatabaseManager.InsertList(ContactTagMaps, Contact);
         }
     }
 }

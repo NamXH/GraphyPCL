@@ -18,15 +18,19 @@ namespace GraphyPCL
         {
             var db = DependencyService.Get<ISQLite>();
 
-//            db.Delete();
+            db.Delete();
 
-            DbConnection = db.GetConnection();
             if (!db.Exists())
             {
+                DbConnection = db.GetConnection();
                 InitializeDatabase();
             }
+            else
+            {
+                DbConnection = db.GetConnection();
+            }
 
-//            CreateDummyData();
+            CreateDummyData();
         }
 
         private static void InitializeDatabase()

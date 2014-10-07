@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace GraphyPCL
 {
@@ -152,9 +153,9 @@ namespace GraphyPCL
                     var pickedTag = (picker.SelectedIndex != -1) ? picker.Items[picker.SelectedIndex] : "";
 
                     var detail = GetNextEntryText(tagEnumerator);
-                    var newTag = GetNextEntryText(tagEnumerator);
+                    var newTagName = GetNextEntryText(tagEnumerator);
 
-                    if (String.IsNullOrEmpty(newTag))
+                    if (String.IsNullOrEmpty(newTagName))
                     {
                         // Get tag Id
                         var tags = DatabaseManager.GetRowsByName<Tag>(pickedTag);
@@ -174,15 +175,34 @@ namespace GraphyPCL
                     }
                     else
                     {
-                        var tag = new Tag
+                        Guid tagId;
+                        var alreadyExistTag = _viewModel.Tags.Where(x => x.Name == newTagName);
+                        var theNewTagNameAlreadyExistMoreThanOnce = alreadyExistTag.Count() > 1;
+                        var theNewTagNameAlreadyExistOnce = alreadyExistTag.Count() == 1;
+
+                        if (theNewTagNameAlreadyExistMoreThanOnce)
                         {
-                            Id = Guid.NewGuid(),
-                            Name = pickedTag
-                        };
-                        _viewModel.Tags.Add(tag);
+                            throw new Exception("Duplicate tag name: " + alreadyExistTag.First().Name);
+                        }
+                        if (theNewTagNameAlreadyExistOnce)
+                        {
+                            tagId = alreadyExistTag.First().Id;
+                        }
+                        else
+                        {
+                            // None exists => create new
+                            var tag = new Tag
+                            {
+                                Id = Guid.NewGuid(),
+                                Name = newTagName 
+                            };
+                            _viewModel.Tags.Add(tag);
+                            tagId = tag.Id;
+                        }
+
                         var contactTagMap = new ContactTagMap
                         {
-                            TagId = tag.Id,
+                            TagId = tagId,
                             Detail = detail
                         };
                         _viewModel.ContactTagMaps.Add(contactTagMap);
