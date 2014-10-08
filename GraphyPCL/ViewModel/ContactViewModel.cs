@@ -37,6 +37,8 @@ namespace GraphyPCL
 
         public IList<RelatedContact> ContactsLinkedToThisContact { get; set; }
 
+
+
         private ICommand _selectContactPhotoCommand;
 
         public ICommand SelectContactPhotoCommand

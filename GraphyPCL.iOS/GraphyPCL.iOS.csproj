@@ -139,6 +139,7 @@
     <Compile Include="XFLabs\MediaPickerController.cs" />
     <Compile Include="XFLabs\MediaPickerPopoverDelegate.cs" />
     <Compile Include="XFLabs\NSDataStream.cs" />
+    <Compile Include="XFLabs\ImageButtonRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />

@@ -6,6 +6,7 @@ namespace GraphyPCL
     public class AddMoreRelationshipCell : AddMoreElementCell
     {
         private const double c_deleteIconWidth = 29;
+        private const double c_labelWidth = 46;
 
         public AddMoreRelationshipCell(ExtendedTableView table, TableSection tableSection)
             : base(table, tableSection)
@@ -23,6 +24,23 @@ namespace GraphyPCL
             deleteImage.GestureRecognizers.Add(deleteTapped);
             // Not implementing confirmation when delete for fast prototyping!!
             pickContactLayout.Children.Add(deleteImage);
+
+            var arrow = new ImageButton
+            { 
+                Image = "minus_icon.png",
+                WidthRequest = c_labelWidth,
+                BackgroundColor = Color.Silver
+            };
+            pickContactLayout.Children.Add(arrow);
+
+            var contact = new Entry
+            {
+                Placeholder = "Pick a contact",
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            pickContactLayout.Children.Add(contact);
+
+            ContainerTable.OnDataChanged();
         }
 
         // Damn, it is a clone!! Seems not right.
@@ -37,10 +55,10 @@ namespace GraphyPCL
                 padding.Left += c_deleteIconWidth;
             }
             var layout = new StackLayout
-                {
-                    Orientation = StackOrientation.Horizontal,
-                    Padding = padding
-                };
+            {
+                Orientation = StackOrientation.Horizontal,
+                Padding = padding
+            };
             viewCell.View = layout;
 
             return viewCell;

@@ -35,6 +35,7 @@ namespace GraphyPCL
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
 
             _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
+            _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection));
         }
 
 
