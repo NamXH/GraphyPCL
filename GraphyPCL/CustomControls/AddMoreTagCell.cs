@@ -31,7 +31,7 @@ namespace GraphyPCL
 
             var tagLabel = new Label
             {
-                Text = "Tag",
+                Text = "Name",
                 WidthRequest = c_labelWidth,
                 VerticalOptions = LayoutOptions.Center
             };
@@ -59,6 +59,13 @@ namespace GraphyPCL
                 VerticalOptions = LayoutOptions.Center
             };
             detailLayout.Children.Add(detailLabel);
+
+            var a = new Label
+            {
+                Text = "abc",
+                WidthRequest = 0,
+            };
+            detailLayout.Children.Add(a);
 
             var detailEntry = new Entry
             {
@@ -89,7 +96,7 @@ namespace GraphyPCL
             ContainerTable.OnDataChanged();
         }
 
-        private ViewCell InsertViewWithLayout(bool leftIndent = false)
+        protected virtual ViewCell InsertViewWithLayout(bool leftIndent = false)
         {
             var viewCell = new ViewCell();
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);

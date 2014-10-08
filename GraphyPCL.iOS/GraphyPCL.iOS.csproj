@@ -132,13 +132,13 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="CustomRenderers\ExtendedTableViewRenderer.cs" />
-    <Compile Include="XFLabsMedia\MediaPicker.cs" />
-    <Compile Include="XFLabsMedia\MediaPickerDelegate.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
-    <Compile Include="XFLabsMedia\MediaPickerController.cs" />
-    <Compile Include="XFLabsMedia\MediaPickerPopoverDelegate.cs" />
-    <Compile Include="XFLabsMedia\NSDataStream.cs" />
     <Compile Include="PhotoService.cs" />
+    <Compile Include="XFLabs\MediaPicker.cs" />
+    <Compile Include="XFLabs\MediaPickerDelegate.cs" />
+    <Compile Include="XFLabs\MediaPickerController.cs" />
+    <Compile Include="XFLabs\MediaPickerPopoverDelegate.cs" />
+    <Compile Include="XFLabs\NSDataStream.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -151,6 +151,6 @@
   <ItemGroup>
     <Folder Include="CustomRenderers\" />
     <Folder Include="Database\" />
-    <Folder Include="XFLabsMedia\" />
+    <Folder Include="XFLabs\" />
   </ItemGroup>
 </Project>

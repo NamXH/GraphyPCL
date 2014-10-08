@@ -18,6 +18,7 @@
         <TableSection x:Name="_specialDateSection" Title="SPECIAL DATES" />
         <TableSection x:Name="_imSection" Title="INSTANT MESSAGE" />
         <TableSection x:Name="_tagSection" Title="TAG" />
+        <TableSection x:Name="_relationshipSection" Title="RELATIONSHIP" />
       </TableRoot>
     </TableView.Root>
   </local:ExtendedTableView>
