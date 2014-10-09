@@ -6,7 +6,7 @@ namespace GraphyPCL
     public class AddMoreRelationshipCell : AddMoreElementCell
     {
         private const double c_deleteIconWidth = 29;
-        private const double c_labelWidth = 46;
+        private const double c_buttonWidth = 40;
 
         public AddMoreRelationshipCell(ExtendedTableView table, TableSection tableSection)
             : base(table, tableSection)
@@ -25,11 +25,11 @@ namespace GraphyPCL
             // Not implementing confirmation when delete for fast prototyping!!
             pickContactLayout.Children.Add(deleteImage);
 
-            var arrow = new ImageButton
+            var arrow = new Button
             { 
-                Image = "minus_icon.png",
-                WidthRequest = c_labelWidth,
-                BackgroundColor = Color.Silver
+                WidthRequest = c_buttonWidth,
+                BackgroundColor = Color.Silver,
+                Text = "=>"
             };
             pickContactLayout.Children.Add(arrow);
 

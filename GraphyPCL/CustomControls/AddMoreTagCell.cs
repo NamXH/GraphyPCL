@@ -60,13 +60,6 @@ namespace GraphyPCL
             };
             detailLayout.Children.Add(detailLabel);
 
-            var a = new Label
-            {
-                Text = "abc",
-                WidthRequest = 0,
-            };
-            detailLayout.Children.Add(a);
-
             var detailEntry = new Entry
             {
                 Placeholder = "Enter tag detail",
