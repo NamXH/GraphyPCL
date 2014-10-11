@@ -7,6 +7,7 @@ namespace GraphyPCL
     {
         private const double c_deleteIconWidth = 29;
         private const double c_buttonWidth = 40;
+        private const double c_labelWidth = 46;
 
         public AddMoreRelationshipCell(ExtendedTableView table, TableSection tableSection)
             : base(table, tableSection)
@@ -27,7 +28,7 @@ namespace GraphyPCL
 
             var arrow = new Button
             { 
-                WidthRequest = c_buttonWidth,
+                WidthRequest = c_labelWidth,
                 BackgroundColor = Color.Silver,
                 Text = "=>"
             };
@@ -40,10 +41,60 @@ namespace GraphyPCL
             };
             pickContactLayout.Children.Add(contact);
 
+            var relationshipNameCell = InsertViewWithLayout(true);
+            var relationshipNameLayout = (StackLayout)relationshipNameCell.View;
+
+            var relationshipNameLabel = new Label
+            {
+                Text = "Name",
+                WidthRequest = c_labelWidth,
+                VerticalOptions = LayoutOptions.Center
+            };
+            relationshipNameLayout.Children.Add(relationshipNameLabel);
+
+            var relationshipPicker = new Picker
+            {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Title = "Pick a relationship"
+            };
+//            foreach (var tag in ViewModel.Tags)
+//            {
+//                relationshipPicker.Items.Add(tag.Name);
+//            }
+            relationshipNameLayout.Children.Add(relationshipPicker);
+
+            var detailViewCell = InsertViewWithLayout(true);
+            var detailLayout = (StackLayout)detailViewCell.View;
+
+            var detailLabel = new Label
+                {
+                    Text = "Detail",
+                    WidthRequest = c_labelWidth,
+                    VerticalOptions = LayoutOptions.Center
+                };
+            detailLayout.Children.Add(detailLabel);
+
+            var detailEntry = new Entry
+                {
+                    Placeholder = "Enter relationship detail",
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+            detailLayout.Children.Add(detailEntry);
+
+            var newRelationshipViewCell = InsertViewWithLayout(true);
+            var newRelationtionshipLayout = (StackLayout)newRelationshipViewCell.View;
+
+            var newRelationshipEntry = new Entry
+                {
+                    Placeholder = "Create a new relationship",
+                    HorizontalOptions = LayoutOptions.FillAndExpand
+                };
+            newRelationtionshipLayout.Children.Add(newRelationshipEntry);
+
             ContainerTable.OnDataChanged();
         }
 
-        // Damn, it is a clone!! Seems not right.
+        // Duplicate. Need refactor!!
         protected virtual ViewCell InsertViewWithLayout(bool leftIndent = false)
         {
             var viewCell = new ViewCell();
