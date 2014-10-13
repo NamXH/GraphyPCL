@@ -37,8 +37,6 @@ namespace GraphyPCL
 
         public IList<RelatedContact> ContactsLinkedToThisContact { get; set; }
 
-
-
         private ICommand _selectContactPhotoCommand;
 
         public ICommand SelectContactPhotoCommand
@@ -96,7 +94,7 @@ namespace GraphyPCL
             {
                 var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId).Name;
                 var relatedContact = DatabaseManager.GetRow<Contact>(relationship.ToContactId);
-                var relationshipDetail = relationship.ExtraInfo;
+                var relationshipDetail = relationship.Detail;
                 ContactsLinkedFromThisContact.Add(new RelatedContact(relatedContact, type, relationshipDetail));
             }
 
@@ -108,7 +106,7 @@ namespace GraphyPCL
             {
                 var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId).Name;
                 var relatedContact = DatabaseManager.GetRow<Contact>(relationship.FromContactId);
-                var relationshipDetail = relationship.ExtraInfo;
+                var relationshipDetail = relationship.Detail;
                 ContactsLinkedToThisContact.Add(new RelatedContact(relatedContact, type, relationshipDetail));
             }
         }

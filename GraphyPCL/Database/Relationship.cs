@@ -8,7 +8,7 @@ namespace GraphyPCL
         [PrimaryKey]
         public Guid Id { get; set; }
 
-        public string ExtraInfo { get; set; }
+        public string Detail { get; set; }
 
         public Guid FromContactId { get; set; }
 

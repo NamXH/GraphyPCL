@@ -71,7 +71,7 @@ namespace GraphyPCL
             DbConnection.Execute(createContactTagMap);
             var createRelationshipType = "CREATE TABLE RelationshipType (Id VARCHAR PRIMARY KEY NOT NULL, Name VARCHAR)";
             DbConnection.Execute(createRelationshipType);
-            var createRelationship = "CREATE TABLE Relationship (Id VARCHAR PRIMARY KEY NOT NULL, ExtraInfo VARCHAR, FromContactId VARCHAR, ToContactId VARCHAR, RelationshipTypeId VARCHAR, FOREIGN KEY(FromContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(ToContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(RelationshipTypeId) REFERENCES RelationshipType(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
+            var createRelationship = "CREATE TABLE Relationship (Id VARCHAR PRIMARY KEY NOT NULL, Detail VARCHAR, FromContactId VARCHAR, ToContactId VARCHAR, RelationshipTypeId VARCHAR, FOREIGN KEY(FromContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(ToContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(RelationshipTypeId) REFERENCES RelationshipType(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createRelationship);
         }
 
@@ -353,7 +353,7 @@ namespace GraphyPCL
                 FromContactId = contact2.Id,
                 ToContactId = contact4.Id,
                 RelationshipTypeId = connType1.Id,
-                ExtraInfo = "Bill will advise Satya with his new CEO role.",
+                Detail = "Bill will advise Satya with his new CEO role.",
             };
             DbConnection.Insert(conn1);
             var conn2 = new Relationship()
