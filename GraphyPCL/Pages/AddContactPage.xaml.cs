@@ -211,6 +211,12 @@ namespace GraphyPCL
                 }
             }
 
+//            var a = _relationshipSection[0];
+//            var b = _relationshipSection[1];
+//            var c = _relationshipSection[2];
+//            var t = (StackLayout)((ViewCell)a).View;
+//            var t1 = t.Children[0];
+
             #endregion
 
             _viewModel.SaveNewContact();
