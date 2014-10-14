@@ -37,6 +37,8 @@ namespace GraphyPCL
 
         public IList<RelatedContact> ContactsLinkedToThisContact { get; set; }
 
+        public IList<CompleteRelationship> CompleteRelationships { get; set; }
+
         private ICommand _selectContactPhotoCommand;
 
         public ICommand SelectContactPhotoCommand
@@ -56,6 +58,8 @@ namespace GraphyPCL
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
 
             Tags = DatabaseManager.GetRows<Tag>();
+
+            CompleteRelationships = new List<CompleteRelationship>();
         }
 
         /// <summary>
