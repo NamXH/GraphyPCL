@@ -4,7 +4,8 @@
 	<StackLayout>
 		<SearchBar />
 		<ListView x:Name="_contactList" ItemsSource="{Binding ContactsGroupCollection}" ItemSelected="OnItemSelected" IsGroupingEnabled="true">
-			<ListView.GroupHeaderTemplate>
+<!--    Not work in iOS 8-->
+<!--			<ListView.GroupHeaderTemplate>
 				<DataTemplate>
 					<ViewCell>
 						<StackLayout Padding="5,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
@@ -12,7 +13,7 @@
 						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
-			</ListView.GroupHeaderTemplate>
+			</ListView.GroupHeaderTemplate>-->
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>

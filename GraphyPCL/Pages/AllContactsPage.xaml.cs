@@ -13,8 +13,13 @@ namespace GraphyPCL
         {
             InitializeComponent();
             this.ToolbarItems.Add(new ToolbarItem("Add", "plus_icon.png", OnAddButtonClick));
+
             _viewModel = new AllContactsViewModel();
             BindingContext = _viewModel;
+
+            _contactList.GroupDisplayBinding = new Binding("Title");
+            _contactList.GroupShortNameBinding = new Binding("Title");
+            _contactList.IsGroupingEnabled = true;
         }
 
         protected virtual void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
