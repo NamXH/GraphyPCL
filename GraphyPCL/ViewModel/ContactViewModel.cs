@@ -168,6 +168,11 @@ namespace GraphyPCL
                 }
             }
 
+            foreach (var relationship in CompleteRelationships)
+            {
+
+            }
+
             DatabaseManager.InsertList(ContactTagMaps, Contact);
         }
     }

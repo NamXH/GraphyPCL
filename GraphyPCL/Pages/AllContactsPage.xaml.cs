@@ -17,7 +17,7 @@ namespace GraphyPCL
             BindingContext = _viewModel;
         }
 
-        protected void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        protected virtual void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {

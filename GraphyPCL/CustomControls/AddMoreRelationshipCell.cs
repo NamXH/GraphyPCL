@@ -22,7 +22,7 @@ namespace GraphyPCL
         {
             // Create a new complete relationship
             var completeRelationship = new CompleteRelationship();
-            ViewModel.CompleteRelationships.Add(completeRelationship);
+            ViewModel.CompleteRelationships.Add(completeRelationship); // Temporary addition. When the user push done we should save actual things.
 
             #region 1st row: delete button, arrow, contact name
             var pickContactCell = InsertViewWithLayout(false);
@@ -43,6 +43,17 @@ namespace GraphyPCL
                 BackgroundColor = Color.Silver,
                 BindingContext = completeRelationship
             };
+            arrow.Clicked += (s, e) =>
+            {
+                if (arrow.Text == "=>")
+                {
+                    arrow.Text = "<=";
+                }
+                else
+                {
+                    arrow.Text = "=>";
+                }
+            };
             arrow.SetBinding(Button.TextProperty, "IsToRelatedContact", BindingMode.TwoWay, new ArrowButtonBoolToStringConverter());
             pickContactLayout.Children.Add(arrow);
 
@@ -53,6 +64,10 @@ namespace GraphyPCL
                 BindingContext = completeRelationship
             };
             contact.SetBinding(Entry.TextProperty, new Binding("RelatedContactName", BindingMode.TwoWay));
+            contact.Focused += (s, e) =>
+            {
+                this.ParentView.Navigation.PushAsync(new SelectContactPage(completeRelationship));
+            };
             pickContactLayout.Children.Add(contact);
             #endregion
 
@@ -100,7 +115,7 @@ namespace GraphyPCL
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 BindingContext = completeRelationship
             };
-            detailLabel.SetBinding(Label.TextProperty, "Detail", BindingMode.TwoWay);
+            detailEntry.SetBinding(Label.TextProperty, "Detail", BindingMode.TwoWay);
             detailLayout.Children.Add(detailEntry);
             #endregion
 
@@ -111,10 +126,23 @@ namespace GraphyPCL
             var newRelationshipEntry = new Entry
             {
                 Placeholder = "Create a new relationship",
-                HorizontalOptions = LayoutOptions.FillAndExpand
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                BindingContext = completeRelationship
             };
+            newRelationshipEntry.SetBinding(Entry.TextProperty, "NewRelationshipName", BindingMode.TwoWay);
             newRelationtionshipLayout.Children.Add(newRelationshipEntry);
             #endregion
+
+            // Delete Action
+            deleteTapped.Tapped += (s, e) =>
+            {
+                ViewModel.CompleteRelationships.Add(completeRelationship);
+                ContainerSection.Remove(pickContactCell);
+                ContainerSection.Remove(relationshipNameCell);
+                ContainerSection.Remove(detailViewCell);
+                ContainerSection.Remove(newRelationshipViewCell);
+                ContainerTable.OnDataChanged();
+            };
 
             ContainerTable.OnDataChanged();
         }
@@ -172,8 +200,6 @@ namespace GraphyPCL
 
         private class PickerGuidToIntConverter : IValueConverter
         {
-            #region IValueConverter implementation
-
             public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
             {
                 var guid = (Guid)value;
@@ -194,8 +220,6 @@ namespace GraphyPCL
                     return tags[index].Id;
                 }
             }
-
-            #endregion
         }
     }
 }
