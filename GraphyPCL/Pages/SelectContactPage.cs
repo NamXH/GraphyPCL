@@ -3,6 +3,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
+    // Need refactor hierachy!!
     public class SelectContactPage : AllContactsPage
     {
         public CompleteRelationship Relationship { get; set; }

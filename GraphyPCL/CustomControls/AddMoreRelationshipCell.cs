@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
+    // Every fields that is not directly bindable, should take this approach
     public class AddMoreRelationshipCell : AddMoreElementCell
     {
         private const double c_deleteIconWidth = 29;
@@ -89,10 +90,10 @@ namespace GraphyPCL
                 Title = "Pick a relationship",
                 BindingContext = completeRelationship
             };
-            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter(), ViewModel.Tags));
-            foreach (var tag in ViewModel.Tags)
+            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter(), ViewModel.RelationshipTypes));
+            foreach (var type in ViewModel.RelationshipTypes)
             {
-                relationshipPicker.Items.Add(tag.Name);
+                relationshipPicker.Items.Add(type.Name);
             }
             relationshipNameLayout.Children.Add(relationshipPicker);
             #endregion
@@ -203,8 +204,8 @@ namespace GraphyPCL
             public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
             {
                 var guid = (Guid)value;
-                var tags = (List<Tag>)parameter;
-                return tags.FindIndex(x => x.Id == guid);
+                var types  = (List<RelationshipType>)parameter;
+                return types.FindIndex(x => x.Id == guid);
             }
 
             public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -216,8 +217,8 @@ namespace GraphyPCL
                 }
                 else
                 {
-                    var tags = (List<Tag>)parameter;
-                    return tags[index].Id;
+                    var types = (List<RelationshipType>)parameter;
+                    return types[index].Id;
                 }
             }
         }

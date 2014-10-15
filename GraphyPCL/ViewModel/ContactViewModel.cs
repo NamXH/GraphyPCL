@@ -39,6 +39,8 @@ namespace GraphyPCL
 
         public IList<CompleteRelationship> CompleteRelationships { get; set; }
 
+        public IList<RelationshipType> RelationshipTypes { get; set; }
+
         private ICommand _selectContactPhotoCommand;
 
         public ICommand SelectContactPhotoCommand
@@ -58,6 +60,7 @@ namespace GraphyPCL
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
 
             Tags = DatabaseManager.GetRows<Tag>();
+            RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
 
             CompleteRelationships = new List<CompleteRelationship>();
         }
@@ -167,13 +170,46 @@ namespace GraphyPCL
                     DatabaseManager.DbConnection.Insert(tag);
                 }
             }
+            DatabaseManager.InsertList(ContactTagMaps, Contact);
 
             foreach (var relationship in CompleteRelationships)
             {
+                var emptyRelationshipType = (relationship.RelationshipTypeId == null) && String.IsNullOrEmpty(relationship.NewRelationshipName);
+                if (String.IsNullOrEmpty(relationship.RelatedContactName) || emptyRelationshipType)
+                {
+                    continue;
+                }
 
+                var newRelationship = new Relationship();
+                newRelationship.Detail = relationship.Detail;
+                newRelationship.Id = Guid.NewGuid();
+
+                if (!String.IsNullOrEmpty(relationship.NewRelationshipName))
+                {
+                    var newRelationshipType = new RelationshipType();
+                    newRelationshipType.Id = Guid.NewGuid();
+                    newRelationshipType.Name = relationship.NewRelationshipName;
+                    DatabaseManager.DbConnection.Insert(newRelationshipType);
+                    newRelationship.RelationshipTypeId = newRelationshipType.Id;
+                }
+                else
+                {
+                    newRelationship.RelationshipTypeId = relationship.RelationshipTypeId;
+                }
+
+                if (relationship.IsToRelatedContact)
+                {
+                    newRelationship.ToContactId = relationship.RelatedContactId;
+                    newRelationship.FromContactId = Contact.Id;
+                }
+                else
+                {
+                    newRelationship.ToContactId = Contact.Id;
+                    newRelationship.FromContactId = relationship.RelatedContactId;
+                }
+
+                DatabaseManager.DbConnection.Insert(newRelationship);
             }
-
-            DatabaseManager.InsertList(ContactTagMaps, Contact);
         }
     }
 }
