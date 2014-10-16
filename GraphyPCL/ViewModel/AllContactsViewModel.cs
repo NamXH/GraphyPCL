@@ -23,11 +23,16 @@ namespace GraphyPCL
                     {
                         throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
                     }
-                    var success = contactGroupContainsContactToRemove.Contacts.Remove(contactToRemove);
+
+                    var success = contactGroupContainsContactToRemove.Remove(contactToRemove);
                     if (!success)
                     {
                         throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
+                    }
 
+                    if (contactGroupContainsContactToRemove.Count == 0)
+                    {
+                        ContactsGroupCollection.Remove(contactGroupContainsContactToRemove);
                     }
                 });
         }
@@ -50,7 +55,7 @@ namespace GraphyPCL
                     group = new ContactsGroup(firstCharOfFullName);
                     contactsGroupedByFirstChar.Add(firstCharOfFullName, group);
                 }
-                group.Contacts.Add(contact);
+                group.Add(contact);
             }
             return new ObservableCollection<ContactsGroup>(contactsGroupedByFirstChar.Values.OrderBy(x => x.Title));
         }

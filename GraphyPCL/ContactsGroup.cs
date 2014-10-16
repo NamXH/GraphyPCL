@@ -10,31 +10,13 @@ namespace GraphyPCL
     /// The class should extend IEnumerable so a ListView in Xamarin.Forms can use it.
     /// Note: The enumerator of the class is actually the enumerator of the List<Contact> property.
     /// </summary>
-    public class ContactsGroup : IEnumerable<Contact>
+    public class ContactsGroup : ObservableCollection<Contact>
     {
         public string Title { get; private set; }
-
-        public ObservableCollection<Contact> Contacts { get; private set; }
 
         public ContactsGroup(string title)
         {
             Title = title;
-            Contacts = new ObservableCollection<Contact>();
         }
-
-        #region IEnumerable implementation
-
-        public IEnumerator<Contact> GetEnumerator()
-        {
-            return Contacts.GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return Contacts.GetEnumerator();
-        }
-
-        #endregion
     }
 }
-
