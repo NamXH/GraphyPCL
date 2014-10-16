@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.Forms;
 
 namespace GraphyPCL
 {
@@ -14,6 +15,21 @@ namespace GraphyPCL
         {
             var allContacts = DatabaseManager.GetRows<Contact>();
             ContactsGroupCollection = CreateContactsGroupCollection(allContacts);
+            MessagingCenter.Subscribe<ContactDetailsPage, Contact>(this, "Delete", (sender, args) =>
+                {
+                    var contactToRemove = (Contact)args;
+                    var contactGroupContainsContactToRemove = ContactsGroupCollection.Where(x => x.Title == contactToRemove.FullName[0].ToString().ToUpperInvariant()).FirstOrDefault();
+                    if (contactGroupContainsContactToRemove == null)
+                    {
+                        throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
+                    }
+                    var success = contactGroupContainsContactToRemove.Contacts.Remove(contactToRemove);
+                    if (!success)
+                    {
+                        throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
+
+                    }
+                });
         }
 
         private ObservableCollection<ContactsGroup> CreateContactsGroupCollection(IList<Contact> contacts)
@@ -21,7 +37,7 @@ namespace GraphyPCL
             var contactsGroupedByFirstChar = new Dictionary<string, ContactsGroup>();
             foreach (var contact in contacts)
             {
-                var firstCharOfFullName = (String.IsNullOrEmpty(contact.FullName)) ? "#" : contact.FullName.Substring(0, 1).ToUpperInvariant();
+                var firstCharOfFullName = (String.IsNullOrEmpty(contact.FullName)) ? "#" : contact.FullName[0].ToString().ToUpperInvariant();
                 if (!Char.IsLetter(firstCharOfFullName[0]))
                 {
                     firstCharOfFullName = "#";

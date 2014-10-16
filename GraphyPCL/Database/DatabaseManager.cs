@@ -156,6 +156,7 @@ namespace GraphyPCL
             // PCL does not support reflection to call generic method so we have to copy&paste
             // http://stackoverflow.com/questions/232535/how-to-use-reflection-to-call-generic-method
 
+            // Delete basic info
             var phoneNumbers = GetRowsRelatedToContact<PhoneNumber>(contactId);
             foreach (var element in phoneNumbers)
             {
@@ -186,6 +187,28 @@ namespace GraphyPCL
             {
                 DbConnection.Delete(element);
             }
+
+            // Delete contact-tag map, not delete tag even if it is only appear in this contact
+            var contactTagMaps = GetRowsRelatedToContact<ContactTagMap>(contactId);
+            foreach (var map in contactTagMaps)
+            {
+                DbConnection.Delete(map);
+            }
+
+            // Delete relationship, not delete relationship type
+            var fromRelationships = GetRelationshipsFromContact(contactId);
+            var toRelationships = GetRelationshipsToContact(contactId);
+            foreach (var relationship in fromRelationships)
+            {
+                DbConnection.Delete(relationship);
+            }
+            foreach (var relationship in toRelationships)
+            {
+                DbConnection.Delete(relationship);
+            }
+
+            // Delete contact
+            DbConnection.Delete<Contact>(contactId);
         }
 
         /// <summary>

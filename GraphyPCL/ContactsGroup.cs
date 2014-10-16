@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace GraphyPCL
 {
@@ -13,12 +14,12 @@ namespace GraphyPCL
     {
         public string Title { get; private set; }
 
-        public List<Contact> Contacts { get; private set; }
+        public ObservableCollection<Contact> Contacts { get; private set; }
 
         public ContactsGroup(string title)
         {
             Title = title;
-            Contacts = new List<Contact>();
+            Contacts = new ObservableCollection<Contact>();
         }
 
         #region IEnumerable implementation

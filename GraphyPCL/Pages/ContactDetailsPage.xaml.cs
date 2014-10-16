@@ -68,12 +68,16 @@ namespace GraphyPCL
                 TextColor = Color.Red,
                 HorizontalOptions = LayoutOptions.FillAndExpand
             };
+
+            // Think about refactor this to ViewModel!!
             deleteButton.Clicked += async (sender, e) =>
             {
                 var confirmed = await DisplayAlert("Delete This Contact?", "", "Yes", "No");
                 if (confirmed)
                 {
                     DatabaseManager.DeleteContact(contact.Id);
+                    MessagingCenter.Send<ContactDetailsPage, Contact>(this, "Delete", contact);
+                    this.Navigation.PopAsync();
                 }
             };
             deleteLayout.Children.Add(deleteButton);
