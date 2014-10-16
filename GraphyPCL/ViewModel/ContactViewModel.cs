@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
+    // May have to split this view model
     public class ContactViewModel
     {
         private const string c_datetimeFormat = "MMM dd yyyy";

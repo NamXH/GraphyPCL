@@ -14,7 +14,9 @@ namespace GraphyPCL
         {
             InitializeComponent();
             _tableView.Intent = TableIntent.Menu;
-            this.ToolbarItems.Add(new ToolbarItem("Edit", null, () => {}));
+            this.ToolbarItems.Add(new ToolbarItem("Edit", null, () =>
+                    {
+                    }));
 
             _viewModel = new ContactViewModel(contact);
             this.BindingContext = _viewModel;
@@ -53,6 +55,28 @@ namespace GraphyPCL
             // List are not bindable to TableSection: "From" and "To" Relationship
             CreateUIRelationshipList(_tableRoot, _viewModel.ContactsLinkedFromThisContact, "=>");
             CreateUIRelationshipList(_tableRoot, _viewModel.ContactsLinkedToThisContact, "<=");
+
+            var deleteSection = new TableSection();
+            _tableRoot.Add(deleteSection);
+            var deleteCell = new ViewCell();
+            deleteSection.Add(deleteCell);
+            var deleteLayout = new StackLayout();
+            deleteCell.View = deleteLayout;
+            var deleteButton = new Button
+            {
+                Text = "Delete Contact",
+                TextColor = Color.Red,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            deleteButton.Clicked += async (sender, e) =>
+            {
+                var confirmed = await DisplayAlert("Delete This Contact?", "", "Yes", "No");
+                if (confirmed)
+                {
+                    DatabaseManager.DeleteContact(contact.Id);
+                }
+            };
+            deleteLayout.Children.Add(deleteButton);
         }
 
         /// <summary>

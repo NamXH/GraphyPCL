@@ -151,6 +151,43 @@ namespace GraphyPCL
             return createdGuids;
         }
 
+        public static void DeleteContact(Guid contactId)
+        {
+            // PCL does not support reflection to call generic method so we have to copy&paste
+            // http://stackoverflow.com/questions/232535/how-to-use-reflection-to-call-generic-method
+
+            var phoneNumbers = GetRowsRelatedToContact<PhoneNumber>(contactId);
+            foreach (var element in phoneNumbers)
+            {
+                DbConnection.Delete(element);
+            }
+            var emails = GetRowsRelatedToContact<Email>(contactId);
+            foreach (var element in emails)
+            {
+                DbConnection.Delete(element);
+            }
+            var addresses = GetRowsRelatedToContact<Address>(contactId);
+            foreach (var element in addresses)
+            {
+                DbConnection.Delete(element);
+            }
+            var urls = GetRowsRelatedToContact<Url>(contactId);
+            foreach (var element in urls)
+            {
+                DbConnection.Delete(element);
+            }
+            var dates = GetRowsRelatedToContact<SpecialDate>(contactId);
+            foreach (var element in dates)
+            {
+                DbConnection.Delete(element);
+            }
+            var ims = GetRowsRelatedToContact<InstantMessage>(contactId);
+            foreach (var element in ims)
+            {
+                DbConnection.Delete(element);
+            }
+        }
+
         /// <summary>
         /// Creates the dummy data for test.
         /// </summary>
