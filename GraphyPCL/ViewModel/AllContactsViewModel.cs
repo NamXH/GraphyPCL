@@ -21,7 +21,11 @@ namespace GraphyPCL
             var contactsGroupedByFirstChar = new Dictionary<string, ContactsGroup>();
             foreach (var contact in contacts)
             {
-                var firstCharOfFullName = (String.IsNullOrEmpty(contact.FullName)) ? " " : contact.FullName.Substring(0, 1).ToUpperInvariant();
+                var firstCharOfFullName = (String.IsNullOrEmpty(contact.FullName)) ? "#" : contact.FullName.Substring(0, 1).ToUpperInvariant();
+                if (!Char.IsLetter(firstCharOfFullName[0]))
+                {
+                    firstCharOfFullName = "#";
+                }
 
                 ContactsGroup group;
                 var firstCharNotInDictionary = !contactsGroupedByFirstChar.TryGetValue(firstCharOfFullName, out group);
