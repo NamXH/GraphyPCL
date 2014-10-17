@@ -18,7 +18,7 @@ namespace GraphyPCL
             MessagingCenter.Subscribe<ContactDetailsPage, Contact>(this, "Delete", (sender, args) =>
                 {
                     var contactToRemove = (Contact)args;
-                    var contactGroupContainsContactToRemove = ContactsGroupCollection.Where(x => x.Title == contactToRemove.FullName[0].ToString().ToUpperInvariant()).FirstOrDefault();
+                    var contactGroupContainsContactToRemove = ContactsGroupCollection.Where(x => x.Title == contactToRemove.FirstCharOfFullName).FirstOrDefault();
                     if (contactGroupContainsContactToRemove == null)
                     {
                         throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
@@ -42,11 +42,7 @@ namespace GraphyPCL
             var contactsGroupedByFirstChar = new Dictionary<string, ContactsGroup>();
             foreach (var contact in contacts)
             {
-                var firstCharOfFullName = (String.IsNullOrEmpty(contact.FullName)) ? "#" : contact.FullName[0].ToString().ToUpperInvariant();
-                if (!Char.IsLetter(firstCharOfFullName[0]))
-                {
-                    firstCharOfFullName = "#";
-                }
+                var firstCharOfFullName = contact.FirstCharOfFullName;
 
                 ContactsGroup group;
                 var firstCharNotInDictionary = !contactsGroupedByFirstChar.TryGetValue(firstCharOfFullName, out group);
