@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class AddMoreBasicElementCell : AddMoreElementCell
+    public class AddMoreBasicElementCell<T> : AddMoreElementCell where T : ITypeValuePairContainer, new() 
     {
         protected const double c_entryWidth = 75;
 
