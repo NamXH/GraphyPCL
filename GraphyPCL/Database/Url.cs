@@ -24,6 +24,7 @@ namespace GraphyPCL
             }
         }
 
+        [Ignore]
         public string Value
         {
             get
