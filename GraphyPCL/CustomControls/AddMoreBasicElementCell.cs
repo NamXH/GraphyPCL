@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class AddMoreBasicElementCell<T> : AddMoreElementCell where T : new()
+    public class AddMoreBasicElementCell<T> : AddMoreElementCell where T : ITypeValuePairContainer, new() 
     {
         protected const double c_entryWidth = 75;
 
@@ -14,13 +14,11 @@ namespace GraphyPCL
 
         public Keyboard EntryKeyboardType { get; set; }
 
-        public IList<T> ExistingItems { get; set; }
-
         /// <summary>
         /// Note: A table section can only have 1 AddMoreElementCell
         /// </summary>
         /// <param name="containerTableSection">Container table section.</param>
-        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType, IList<T> existingItems)
+        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType)
             : base(table, tableSection)
         {
             if ((types == null) || (types.Count == 0))
@@ -34,29 +32,10 @@ namespace GraphyPCL
                 throw new Exception("The entryKeyboardType should not be null");
             }
             EntryKeyboardType = entryKeyboardType;
-
-            ExistingItems = existingItems;
-
-//            if (typeof(T) == typeof(PhoneNumber))
-//            {
-//                var a = (IList<PhoneNumber>)ExistingItems;
-//                foreach (var item in a)
-//                {
-//                    // on cell clicked with that item 
-//                }
-//            }
-
         }
 
         protected override void OnCellClicked(object sender, EventArgs args)
         {
-
-            CreateCell(null);
-        }
-
-        protected void CreateCell(object item)
-        {
-
             var viewCell = new ViewCell();
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);
 
@@ -72,17 +51,17 @@ namespace GraphyPCL
             deleteImage.GestureRecognizers.Add(deleteTapped);
             // Not implementing confirmation when delete for fast prototyping!!
             deleteTapped.Tapped += (s, e) =>
-                {
-                    ContainerSection.Remove(viewCell);
-                    ContainerTable.OnDataChanged();
-                };
+            {
+                ContainerSection.Remove(viewCell);
+                ContainerTable.OnDataChanged();
+            };
 
             var picker = new Picker
-                {
-                    Title = "type",
-                    WidthRequest = c_entryWidth,
-                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
-                };
+            {
+                Title = "type",
+                WidthRequest = c_entryWidth,
+                BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+            };
             foreach (var item in Types)
             {
                 picker.Items.Add(item);
@@ -90,11 +69,11 @@ namespace GraphyPCL
             picker.SelectedIndex = 0;
             layout.Children.Add(picker);
 
-            //            var seperator = new BoxView();
-            //            layout.Children.Add(seperator);
-            //            seperator.Color = Color.Gray;
-            //            seperator.WidthRequest = 1;
-            //            seperator.HeightRequest = layout.Height;
+//            var seperator = new BoxView();
+//            layout.Children.Add(seperator);
+//            seperator.Color = Color.Gray;
+//            seperator.WidthRequest = 1;
+//            seperator.HeightRequest = layout.Height;
 
             var entry = new Entry();
             layout.Children.Add(entry);

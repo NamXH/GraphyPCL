@@ -3,14 +3,38 @@ using SQLite.Net.Attributes;
 
 namespace GraphyPCL
 {
-    public class Url : IIdContainer, IContactIdRelated
+    public class Url : IIdContainer, IContactIdRelated, ITypeValuePairContainer
     {
         [PrimaryKey]
         public Guid Id { get; set; }
 
         public string Type { get; set; }
 
-        public string Link { get; set; }
+        private string _link;
+
+        public string Link
+        { 
+            get
+            {
+                return _link;
+            }
+            set
+            {
+                _link = value;
+            }
+        }
+
+        public string Value
+        {
+            get
+            {
+                return _link;
+            }
+            set
+            {
+                _link = value;
+            }
+        }
 
         public Guid ContactId { get; set; }
     }
