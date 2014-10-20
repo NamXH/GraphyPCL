@@ -42,6 +42,8 @@ namespace GraphyPCL
             // Create tables using SQL commands
             // It seems SQLite-net make query base on table name. Therefore, our custom tables still work with
             // their queries even the database objects may have more properties than the fields in the table.
+            // After having a bug on commit https://github.com/NamXH/GraphyPCL/commit/8fff02fc58b2f4db6aab9c63647f20f360660f8d
+            // I figure out that, we can have only extra readonly properties. That means, the extra properties should not have { set; }
             // For example: DbConnection.Insert(new Contact()) still insert to the Contact table.
 
             // ## !! IMPORTANT:

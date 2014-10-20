@@ -38,6 +38,21 @@ namespace GraphyPCL
             _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));
         }
 
+        public AddContactPage(Contact contact)
+        {
+            InitializeComponent();
+
+            _tableView.Intent = TableIntent.Menu;
+            this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
+
+            _viewModel = new ContactViewModel(contact); 
+            BindingContext = _viewModel;
+
+            foreach (var phone in _viewModel.PhoneNumbers)
+            {
+                // Create and bind the UI of phone numbers
+            }
+        }
 
         private void OnDoneButtonClicked()
         {
