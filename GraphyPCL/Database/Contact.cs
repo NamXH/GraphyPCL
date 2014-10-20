@@ -33,7 +33,6 @@ namespace GraphyPCL
             }
         }
 
-        #region additional properties that are not in DB table
         public string FullName
         {
             get
@@ -57,32 +56,5 @@ namespace GraphyPCL
             }
         }
 
-        /// <summary>
-        /// Use when grouping contact base on first char
-        /// </summary>
-        /// <value>Return "#" if FullName is null or empty, A string of the upper case of first char otherwise</value>
-        public string FirstCharOfFullName
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(FullName))
-                {
-                    return "#";
-                }
-                else
-                {
-                    var firstChar = FullName[0];
-                    if (!Char.IsLetter(firstChar))
-                    {
-                        return "#";
-                    }
-                    else
-                    {
-                        return firstChar.ToString().ToUpperInvariant();
-                    }
-                }
-            }
-        }
-        #endregion
     }
 }
