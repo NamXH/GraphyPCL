@@ -26,32 +26,16 @@ namespace GraphyPCL
             _viewModel = new ContactViewModel(); 
             BindingContext = _viewModel;
 
-//            _phoneSection.Add(new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
-            _emailSection.Add(new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));
-            _urlSection.Add(new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url));
-            _imSection.Add(new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text));
+            _phoneSection.Add(new AddMoreBasicElementCell(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
+            _emailSection.Add(new AddMoreBasicElementCell(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));
+            _urlSection.Add(new AddMoreBasicElementCell(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url));
+            _imSection.Add(new AddMoreBasicElementCell(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text));
 
             _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection));
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
 
             _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
             _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));
-        }
-
-        public AddContactPage(Contact contact)
-        {
-            InitializeComponent();
-
-            _tableView.Intent = TableIntent.Menu;
-            this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
-
-            _viewModel = new ContactViewModel(contact); 
-            BindingContext = _viewModel;
-
-            foreach (var phone in _viewModel.PhoneNumbers)
-            {
-                // Create and bind the UI of phone numbers
-            }
         }
 
 
