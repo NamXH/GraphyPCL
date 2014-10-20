@@ -3,7 +3,7 @@ using SQLite.Net.Attributes;
 
 namespace GraphyPCL
 {
-    public class PhoneNumber : IIdContainer, IContactIdRelated, ITypeValuePairContainer
+    public class PhoneNumber : IIdContainer, IContactIdRelated//, ITypeValuePairContainer
     {
         [PrimaryKey]
         public Guid Id { get; set; }
@@ -28,11 +28,7 @@ namespace GraphyPCL
         {
             get 
             {
-                return _number;
-            }
-            set
-            {
-                _number = value;
+                return Number;
             }
         }
 
