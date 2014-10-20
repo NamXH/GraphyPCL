@@ -26,10 +26,10 @@ namespace GraphyPCL
             _viewModel = new ContactViewModel(); 
             BindingContext = _viewModel;
 
-            _phoneSection.Add(new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone));
-            _emailSection.Add(new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email));
-            _urlSection.Add(new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url));
-            _imSection.Add(new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text));
+            _phoneSection.Add(new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers));
+            _emailSection.Add(new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email, _viewModel.Emails));
+            _urlSection.Add(new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url, _viewModel.Urls));
+            _imSection.Add(new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text, _viewModel.IMs));
 
             _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection));
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));

@@ -18,7 +18,7 @@ namespace GraphyPCL
         /// Note: A table section can only have 1 AddMoreElementCell
         /// </summary>
         /// <param name="containerTableSection">Container table section.</param>
-        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType)
+        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType, IList<T> existingItems)
             : base(table, tableSection)
         {
             if ((types == null) || (types.Count == 0))
