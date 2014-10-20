@@ -16,6 +16,7 @@ namespace GraphyPCL
             _tableView.Intent = TableIntent.Menu;
             this.ToolbarItems.Add(new ToolbarItem("Edit", null, () =>
                     {
+                        this.Navigation.PushAsync(new AddContactPage(contact));
                     }));
 
             _viewModel = new ContactViewModel(contact);
