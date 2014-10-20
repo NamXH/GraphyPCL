@@ -45,9 +45,6 @@
     </Compile>
     <Compile Include="ContactsGroup.cs" />
     <Compile Include="RelatedContact.cs" />
-    <Compile Include="Pages\AddContactPage.xaml.cs">
-      <DependentUpon>AddContactPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomControls\ExtendedTableView.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="Database\ISQLite.cs" />
@@ -86,6 +83,9 @@
     <Compile Include="CompleteRelationship.cs" />
     <Compile Include="Pages\SelectContactPage.cs" />
     <Compile Include="Database\ITypeValuePairContainer.cs" />
+    <Compile Include="Pages\AddEditContactPage.xaml.cs">
+      <DependentUpon>AddEditContactPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.2.3.6257\build\portable-win+net45+wp80+MonoAndroid10+MonoTouch10\Xamarin.Forms.targets')" />
@@ -129,7 +129,7 @@
     <EmbeddedResource Include="Pages\ContactDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\AddContactPage.xaml">
+    <EmbeddedResource Include="Pages\AddEditContactPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

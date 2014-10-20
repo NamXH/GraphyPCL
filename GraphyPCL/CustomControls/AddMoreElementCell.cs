@@ -23,6 +23,7 @@ namespace GraphyPCL
         {
             ContainerTable = table;
             ContainerSection = tableSection;
+            ContainerSection.Add(this);
 
             CreateAddMoreButton();
             this.Tapped += OnCellClicked;

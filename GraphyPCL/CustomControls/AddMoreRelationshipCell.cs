@@ -137,7 +137,7 @@ namespace GraphyPCL
             // Delete Action
             deleteTapped.Tapped += (s, e) =>
             {
-                ViewModel.CompleteRelationships.Add(completeRelationship);
+                ViewModel.CompleteRelationships.Remove(completeRelationship);
                 ContainerSection.Remove(pickContactCell);
                 ContainerSection.Remove(relationshipNameCell);
                 ContainerSection.Remove(detailViewCell);
@@ -204,7 +204,7 @@ namespace GraphyPCL
             public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
             {
                 var guid = (Guid)value;
-                var types  = (List<RelationshipType>)parameter;
+                var types = (List<RelationshipType>)parameter;
                 return types.FindIndex(x => x.Id == guid);
             }
 

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class AddMoreBasicElementCell<T> : AddMoreElementCell where T : ITypeValuePairContainer, new() 
+    public class AddMoreBasicElementCell<T> : AddMoreElementCell where T : IIdContainer, IContactIdRelated, ITypeValuePairContainer, new() 
     {
         protected const double c_entryWidth = 75;
 
@@ -14,11 +14,13 @@ namespace GraphyPCL
 
         public Keyboard EntryKeyboardType { get; set; }
 
+        public IList<T> Items { get; set; }
+
         /// <summary>
         /// Note: A table section can only have 1 AddMoreElementCell
         /// </summary>
         /// <param name="containerTableSection">Container table section.</param>
-        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType, IList<T> existingItems)
+        public AddMoreBasicElementCell(ExtendedTableView table, TableSection tableSection, IList<string> types, string entryPlaceHolder, Keyboard entryKeyboardType, IList<T> items)
             : base(table, tableSection)
         {
             if ((types == null) || (types.Count == 0))
@@ -32,9 +34,23 @@ namespace GraphyPCL
                 throw new Exception("The entryKeyboardType should not be null");
             }
             EntryKeyboardType = entryKeyboardType;
+
+            Items = items;
+            foreach (var item in Items)
+            {
+                CreateNewCell(item);
+            }
         }
 
         protected override void OnCellClicked(object sender, EventArgs args)
+        {
+            var item = new T();
+            item.Id = Guid.NewGuid();
+            Items.Add(item);
+            CreateNewCell(item);
+        }
+
+        private void CreateNewCell(T item)
         {
             var viewCell = new ViewCell();
             ContainerSection.Insert(ContainerSection.Count - 1, viewCell);
@@ -45,43 +61,72 @@ namespace GraphyPCL
             layout.Padding = _defaulPadding;
 
             var deleteImage = new Image();
+            deleteImage.BindingContext = item;
             layout.Children.Add(deleteImage);
             deleteImage.Source = ImageSource.FromFile("minus_icon.png");
             var deleteTapped = new TapGestureRecognizer();
             deleteImage.GestureRecognizers.Add(deleteTapped);
             // Not implementing confirmation when delete for fast prototyping!!
             deleteTapped.Tapped += (s, e) =>
-            {
-                ContainerSection.Remove(viewCell);
-                ContainerTable.OnDataChanged();
-            };
+                {
+                    Items.Remove(item);
+                    ContainerSection.Remove(viewCell);
+                    ContainerTable.OnDataChanged();
+                };
 
             var picker = new Picker
+                {
+                    BindingContext = item,
+                    Title = "type",
+                    WidthRequest = c_entryWidth,
+                    BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
+                };
+            foreach (var type in Types)
             {
-                Title = "type",
-                WidthRequest = c_entryWidth,
-                BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
-            };
-            foreach (var item in Types)
-            {
-                picker.Items.Add(item);
+                picker.Items.Add(type);
             }
-            picker.SelectedIndex = 0;
+            picker.SetBinding(Picker.SelectedIndexProperty, new Binding("Type", BindingMode.TwoWay, new PickerStringToIntConverter(), Types));
             layout.Children.Add(picker);
 
-//            var seperator = new BoxView();
-//            layout.Children.Add(seperator);
-//            seperator.Color = Color.Gray;
-//            seperator.WidthRequest = 1;
-//            seperator.HeightRequest = layout.Height;
+            //            var seperator = new BoxView();
+            //            layout.Children.Add(seperator);
+            //            seperator.Color = Color.Gray;
+            //            seperator.WidthRequest = 1;
+            //            seperator.HeightRequest = layout.Height;
 
             var entry = new Entry();
+            entry.BindingContext = item;
             layout.Children.Add(entry);
             entry.Placeholder = EntryPlaceHolder;
             entry.Keyboard = EntryKeyboardType;
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
+            entry.SetBinding(Entry.TextProperty, "Value", BindingMode.TwoWay);
 
             ContainerTable.OnDataChanged();
+        }
+
+        private class PickerStringToIntConverter : IValueConverter
+        {
+            public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            {
+                var itemToFind = (string)value;
+                var itemList = (List<string>)parameter;
+                return itemList.FindIndex(x => x == itemToFind);
+            }
+
+            public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+            {
+                var index = (int)value;
+                if (index == -1)
+                {
+                    return null;
+                }
+                else
+                {
+                    var itemList = (List<string>)parameter;
+                    return itemList[index];
+                }
+            }
         }
     }
 }

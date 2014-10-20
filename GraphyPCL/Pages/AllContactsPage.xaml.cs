@@ -35,7 +35,7 @@ namespace GraphyPCL
 
         private void OnAddButtonClick()
         {
-            var addContactPage = new AddContactPage();
+            var addContactPage = new AddEditContactPage();
             Navigation.PushAsync(addContactPage);
         }
     }

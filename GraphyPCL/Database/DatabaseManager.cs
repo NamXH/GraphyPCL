@@ -284,27 +284,27 @@ namespace GraphyPCL
             number1.Id = Guid.NewGuid();
             number1.ContactId = contact1.Id;
             number1.Number = "111";
-            number1.Type = "Office";
+            number1.Type = "work";
             DbConnection.Insert(number1);
 
             var number2 = new PhoneNumber();
             number2.Id = Guid.NewGuid();
             number2.ContactId = contact2.Id;
             number2.Number = "0123456789";
-            number2.Type = "Office";
+            number2.Type = "work";
             DbConnection.Insert(number2);
 
             var number3 = new PhoneNumber();
             number3.Id = Guid.NewGuid();
             number3.ContactId = contact2.Id;
             number3.Number = "0987654321";
-            number3.Type = "Home";
+            number3.Type = "home";
             DbConnection.Insert(number3);
 
             // Address
             var address1 = new Address();
             address1.Id = Guid.NewGuid();
-            address1.Type = "Home";
+            address1.Type = "home";
             address1.StreetLine1 = "1 Capitol Hill";
             address1.StreetLine2 = "Apt 1";
             address1.City = "Seattle";
@@ -315,7 +315,7 @@ namespace GraphyPCL
 
             var address2 = new Address();
             address2.Id = Guid.NewGuid();
-            address2.Type = "Work";
+            address2.Type = "work";
             address2.StreetLine1 = "1 Microsoft Way";
             address2.City = "Redmond";
             address2.ContactId = contact2.Id;
@@ -325,21 +325,21 @@ namespace GraphyPCL
             var email1 = new Email();
             email1.Id = Guid.NewGuid();
             email1.Address = "bill@microsoft.com";
-            email1.Type = "Work";
+            email1.Type = "work";
             email1.ContactId = contact2.Id;
             DbConnection.Insert(email1);
 
             // Url
             var url1 = new Url();
             url1.Id = Guid.NewGuid();
-            url1.Type = "Blog";
+            url1.Type = "home";
             url1.Link = "billgates.com";
             url1.ContactId = contact2.Id;
             DbConnection.Insert(url1);
 
             var url2 = new Url();
             url2.Id = Guid.NewGuid();
-            url2.Type = "Philanthropy";
+            url2.Type = "work";
             url2.Link = "billandmelinda.org";
             url2.ContactId = contact2.Id;
             DbConnection.Insert(url2);
@@ -347,7 +347,7 @@ namespace GraphyPCL
             // IMs
             var im1 = new InstantMessage();
             im1.Id = Guid.NewGuid();
-            im1.Type = "Skype";
+            im1.Type = "skype";
             im1.Nickname = "billgates";
             im1.ContactId = contact2.Id;
             DbConnection.Insert(im1);

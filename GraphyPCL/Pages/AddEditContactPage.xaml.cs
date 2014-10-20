@@ -7,8 +7,9 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public partial class AddContactPage : ContentPage
+    public partial class AddEditContactPage : ContentPage
     {
+        // These lists should go into view model!!
         private List<string> c_phoneTypes = new List<string>() { "mobile", "home", "work", "main", "other" };
         private List<string> c_emailTypes = new List<string>() { "home", "work", "main", "other" };
         private List<string> c_urlTypes = new List<string>() { "home", "work", "main", "other" };
@@ -16,7 +17,7 @@ namespace GraphyPCL
 
         private ContactViewModel _viewModel;
 
-        public AddContactPage()
+        public AddEditContactPage()
         {
             InitializeComponent();
 
@@ -38,7 +39,7 @@ namespace GraphyPCL
             _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));
         }
 
-        public AddContactPage(Contact contact)
+        public AddEditContactPage(Contact contact)
         {
             InitializeComponent();
 
@@ -48,10 +49,7 @@ namespace GraphyPCL
             _viewModel = new ContactViewModel(contact); 
             BindingContext = _viewModel;
 
-            foreach (var phone in _viewModel.PhoneNumbers)
-            {
-                // Create and bind the UI of phone numbers
-            }
+            new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
         }
 
 
