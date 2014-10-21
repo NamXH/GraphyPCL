@@ -17,20 +17,27 @@ namespace GraphyPCL
 
         private ContactViewModel _viewModel;
 
-        public AddEditContactPage()
+        public AddEditContactPage(Contact contact = null)
         {
             InitializeComponent();
 
             _tableView.Intent = TableIntent.Menu;
             this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
 
-            _viewModel = new ContactViewModel(); 
+            if (contact != null)
+            {
+                _viewModel = new ContactViewModel(contact); 
+            }
+            else
+            {
+                _viewModel = new ContactViewModel();
+            }
             BindingContext = _viewModel;
 
-            _phoneSection.Add(new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers));
-            _emailSection.Add(new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter email", Keyboard.Email, _viewModel.Emails));
-            _urlSection.Add(new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter url", Keyboard.Url, _viewModel.Urls));
-            _imSection.Add(new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_imTypes, "Enter nickname", Keyboard.Text, _viewModel.IMs));
+            new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
+            new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Emails);
+            new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Urls);
+            new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
 
             _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection));
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
@@ -39,69 +46,9 @@ namespace GraphyPCL
             _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));
         }
 
-        public AddEditContactPage(Contact contact)
-        {
-            InitializeComponent();
-
-            _tableView.Intent = TableIntent.Menu;
-            this.ToolbarItems.Add(new ToolbarItem("Done", null, OnDoneButtonClicked));
-
-            _viewModel = new ContactViewModel(contact); 
-            BindingContext = _viewModel;
-
-            new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
-            new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Emails);
-            new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Urls);
-            new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
-        }
-
         private void OnDoneButtonClicked()
         {
             #region Save unbindable fields to view model
-
-            _viewModel.PhoneNumbers = new List<PhoneNumber>();
-            var phoneNumbers = RetrieveTypeValuePairs(_phoneSection);
-            foreach (var phoneNumber in phoneNumbers)
-            {
-                _viewModel.PhoneNumbers.Add(new PhoneNumber
-                    {
-                        Type = phoneNumber.Item1,
-                        Number = phoneNumber.Item2
-                    });
-            }
-
-            _viewModel.Emails = new List<Email>();
-            var emails = RetrieveTypeValuePairs(_emailSection);
-            foreach (var email in emails)
-            {
-                _viewModel.Emails.Add(new Email
-                    {
-                        Type = email.Item1,
-                        Address = email.Item2
-                    });
-            }
-
-            _viewModel.Urls = new List<Url>();
-            var urls = RetrieveTypeValuePairs(_urlSection);
-            foreach (var url in urls)
-            {
-                _viewModel.Urls.Add(new Url
-                    {
-                        Type = url.Item1,
-                        Link = url.Item2
-                    });
-            }
-
-            _viewModel.IMs = new List<InstantMessage>();
-            var ims = RetrieveTypeValuePairs(_imSection);
-            foreach (var im in ims)
-            {
-                _viewModel.IMs.Add(new InstantMessage
-                    {
-                        Type = im.Item1,
-                        Nickname = im.Item2
-                    });
-            }
 
             // Need refactor, too hard-coded!!
             _viewModel.Addresses = new List<Address>();

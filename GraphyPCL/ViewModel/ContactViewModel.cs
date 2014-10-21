@@ -51,7 +51,8 @@ namespace GraphyPCL
                 return _selectContactPhotoCommand;
             }
         }
-
+            
+        // May be refactor to use optional params but not required!!
         /// <summary>
         /// Use when creating new Contact
         /// </summary>
@@ -59,6 +60,11 @@ namespace GraphyPCL
         {
             Contact = new Contact();
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
+
+            PhoneNumbers = new List<PhoneNumber>();
+            Emails = new List<Email>();
+            Urls = new List<Url>();
+            IMs = new List<InstantMessage>();
 
             Tags = DatabaseManager.GetRows<Tag>();
             RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
