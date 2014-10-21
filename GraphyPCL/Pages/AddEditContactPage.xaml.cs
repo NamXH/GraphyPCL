@@ -50,8 +50,10 @@ namespace GraphyPCL
             BindingContext = _viewModel;
 
             new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
+            new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Emails);
+            new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Urls);
+            new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
         }
-
 
         private void OnDoneButtonClicked()
         {
