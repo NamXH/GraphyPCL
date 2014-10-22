@@ -39,7 +39,7 @@ namespace GraphyPCL
             new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Urls);
             new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
 
-            _addressSection.Add(new AddMoreAddressCell(_tableView, _addressSection, _viewModel.Addresses));
+            new AddMoreAddressCell(_tableView, _addressSection, _viewModel.Addresses);
             _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
 
             _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
@@ -49,34 +49,6 @@ namespace GraphyPCL
         private void OnDoneButtonClicked()
         {
             #region Save unbindable fields to view model
-
-            // Need refactor, too hard-coded!!
-            _viewModel.Addresses = new List<Address>();
-            var addressEnumerator = _addressSection.GetEnumerator();
-            while (addressEnumerator.MoveNext())
-            {
-                var cell = addressEnumerator.Current;
-                var view = ((ViewCell)cell).View;
-                var layout = (StackLayout)view;
-
-                // If it is the first entry (streetline 1) of the address
-                if ((layout.Children.Count == 3) && (layout.Children[2].GetType() == typeof(Entry)))
-                {
-                    var address = new Address();
-                    var picker = (Picker)layout.Children[1];
-                    address.Type = picker.Items[picker.SelectedIndex];
-                    address.StreetLine1 = ((Entry)layout.Children[2]).Text;
-
-                    // Get 5 next entries
-                    address.StreetLine2 = GetNextEntryText(addressEnumerator);
-                    address.City = GetNextEntryText(addressEnumerator);
-                    address.Province = GetNextEntryText(addressEnumerator);
-                    address.Country = GetNextEntryText(addressEnumerator);
-                    address.PostalCode = GetNextEntryText(addressEnumerator);
-
-                    _viewModel.Addresses.Add(address);
-                }
-            }
 
             // Need refactor too!!
             _viewModel.SpecialDates = new List<SpecialDate>();

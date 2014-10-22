@@ -27,7 +27,10 @@ namespace GraphyPCL
 
         protected override void OnCellClicked(object sender, EventArgs args)
         {
-
+            var address = new Address();
+            address.Id = Guid.NewGuid();
+            Items.Add(address);
+            CreateCell(address);
         }
 
         private void CreateCell(Address address)
