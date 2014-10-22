@@ -30,7 +30,7 @@ namespace GraphyPCL
 
         public IList<Tag> Tags { get; set; }
 
-        public IList<TagAndDetail> TagsAndDetails { get; set; }
+        public IList<CompleteTag> CompleteTags { get; set; }
 
         public IList<ContactTagMap> ContactTagMaps { get; set; }
 
@@ -53,6 +53,7 @@ namespace GraphyPCL
         }
             
         // May be refactor to use optional params but not required!!
+
         /// <summary>
         /// Use when creating new Contact
         /// </summary>
@@ -70,6 +71,8 @@ namespace GraphyPCL
             SpecialDates = new List<SpecialDate>();
 
             Tags = DatabaseManager.GetRows<Tag>();
+            CompleteTags = new List<CompleteTag>();
+
             RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
 
             CompleteRelationships = new List<CompleteRelationship>();
@@ -86,17 +89,19 @@ namespace GraphyPCL
             PhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(contact.Id);
             Emails = DatabaseManager.GetRowsRelatedToContact<Email>(contact.Id);
             Urls = DatabaseManager.GetRowsRelatedToContact<Url>(contact.Id);
-            Addresses = DatabaseManager.GetRowsRelatedToContact<Address>(contact.Id);
-
-            SpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(contact.Id);
             IMs = DatabaseManager.GetRowsRelatedToContact<InstantMessage>(contact.Id);
 
+            Addresses = DatabaseManager.GetRowsRelatedToContact<Address>(contact.Id);
+            SpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(contact.Id);
+
+            Tags = DatabaseManager.GetRows<Tag>();
             ContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
-            TagsAndDetails = new List<TagAndDetail>();
+
+            CompleteTags = new List<CompleteTag>();
             foreach (var tagMap in ContactTagMaps)
             {
                 var tag = DatabaseManager.GetRow<Tag>(tagMap.TagId);
-                TagsAndDetails.Add(new TagAndDetail
+                CompleteTags.Add(new CompleteTag
                     {
                         Id = tag.Id,
                         Name = tag.Name,

@@ -90,7 +90,7 @@ namespace GraphyPCL
                 Title = "Pick a relationship",
                 BindingContext = completeRelationship
             };
-            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter(), ViewModel.RelationshipTypes));
+            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter<RelationshipType>(), ViewModel.RelationshipTypes));
             foreach (var type in ViewModel.RelationshipTypes)
             {
                 relationshipPicker.Items.Add(type.Name);
@@ -195,30 +195,6 @@ namespace GraphyPCL
                 {
                     // Default to true even the text is not "=>"
                     return true;
-                }
-            }
-        }
-
-        private class PickerGuidToIntConverter : IValueConverter
-        {
-            public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            {
-                var guid = (Guid)value;
-                var types = (List<RelationshipType>)parameter;
-                return types.FindIndex(x => x.Id == guid);
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            {
-                var index = (int)value;
-                if (index == -1)
-                {
-                    return null;
-                }
-                else
-                {
-                    var types = (List<RelationshipType>)parameter;
-                    return types[index].Id;
                 }
             }
         }

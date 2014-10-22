@@ -35,15 +35,15 @@ namespace GraphyPCL
             BindingContext = _viewModel;
 
             new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
-            new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Emails);
-            new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.Urls);
-            new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
+            new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter number", Keyboard.Email, _viewModel.Emails);
+            new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter number", Keyboard.Url, _viewModel.Urls);
+            new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_imTypes, "Enter number", Keyboard.Text, _viewModel.IMs);
 
             new AddMoreAddressCell(_tableView, _addressSection, _viewModel.Addresses);
             new AddMoreDateCell(_tableView, _specialDateSection, _viewModel.SpecialDates);
 
-            _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
-            _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));
+            new AddMoreTagCell(_tableView, _tagSection, _viewModel);
+            new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel);
         }
 
         private void OnDoneButtonClicked()

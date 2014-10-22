@@ -51,7 +51,7 @@ namespace GraphyPCL
             // List are not bindable to TableSection: SpecialDates, IMs, Tags
             CreateUIList<SpecialDate>(_tableRoot, _viewModel.SpecialDates, "SPECIAL DATES", x => x.Date.ToString(c_datetimeFormat), x => x.Type);
             CreateUIList<InstantMessage>(_tableRoot, _viewModel.IMs, "INSTANT MESSAGES", x => x.Nickname, x => x.Type);
-            CreateUIList<TagAndDetail>(_tableRoot, _viewModel.TagsAndDetails, "TAGS", x => x.Name, x => x.Detail);
+            CreateUIList<CompleteTag>(_tableRoot, _viewModel.CompleteTags, "TAGS", x => x.Name, x => x.Detail);
 
             // List are not bindable to TableSection: "From" and "To" Relationship
             CreateUIRelationshipList(_tableRoot, _viewModel.ContactsLinkedFromThisContact, "=>");
