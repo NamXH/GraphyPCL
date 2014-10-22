@@ -66,6 +66,8 @@ namespace GraphyPCL
             Urls = new List<Url>();
             IMs = new List<InstantMessage>();
 
+            Addresses = new List<Address>();
+
             Tags = DatabaseManager.GetRows<Tag>();
             RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
 

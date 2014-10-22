@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Xamarin.Forms;
 
 namespace GraphyPCL
@@ -11,28 +12,42 @@ namespace GraphyPCL
 
         public IList<string> Types { get; set; }
 
-        public AddMoreAddressCell(ExtendedTableView table, TableSection tableSection)
+        public IList<Address> Items { get; set; }
+
+        public AddMoreAddressCell(ExtendedTableView table, TableSection tableSection, IList<Address> items)
             : base(table, tableSection)
         {
-            this.Types = new List<string>() { "home", "work", "other" };
+            this.Types = new List<string>() { "home", "work", "other" }; // Hard coded!!
+            Items = items;
+            foreach (var item in Items)
+            {
+                CreateCell(item);
+            }
         }
 
         protected override void OnCellClicked(object sender, EventArgs args)
         {
-            var street1 = InsertNewEntry("Street Address 1", false);
-            var street2 = InsertNewEntry("Street Address 2");
-            var city = InsertNewEntry("City");
-            var province = InsertNewEntry("Province");
-            var country = InsertNewEntry("Country");
-            var postal = InsertNewEntry("Postal Code");
+
+        }
+
+        private void CreateCell(Address address)
+        {
+            var street1 = InsertNewEntry("Street Address 1", address, x => x.StreetLine1, false);
+            var street2 = InsertNewEntry("Street Address 2", address, x => x.StreetLine2);
+            var city = InsertNewEntry("City", address, x => x.City);
+            var province = InsertNewEntry("Province", address, x => x.Province);
+            var country = InsertNewEntry("Country", address, x => x.Country);
+            var postal = InsertNewEntry("Postal Code", address, x => x.PostalCode);
 
             var deleteImage = new Image();
             deleteImage.Source = ImageSource.FromFile("minus_icon.png");
+            deleteImage.BindingContext = address;
             var deleteTapped = new TapGestureRecognizer();
             deleteImage.GestureRecognizers.Add(deleteTapped);
             // Not implementing confirmation when delete for fast prototyping!!
             deleteTapped.Tapped += (s, e) =>
             {
+                Items.Remove(address);
                 ContainerSection.Remove(street1);
                 ContainerSection.Remove(street2);
                 ContainerSection.Remove(city);
@@ -44,6 +59,7 @@ namespace GraphyPCL
 
             var picker = new Picker
             {
+                BindingContext = address,
                 Title = "type",
                 WidthRequest = c_entryWidth,
                 BackgroundColor = Device.OnPlatform(Color.Silver, Color.Default, Color.Default),
@@ -52,7 +68,7 @@ namespace GraphyPCL
             {
                 picker.Items.Add(item);
             }
-            picker.SelectedIndex = 0;
+            picker.SetBinding(Picker.SelectedIndexProperty, new Binding("Type", BindingMode.TwoWay, new PickerStringToIntConverter(), Types));
 
             var layout = (StackLayout)street1.View;
             layout.Children.Insert(0, deleteImage);
@@ -61,7 +77,7 @@ namespace GraphyPCL
             ContainerTable.OnDataChanged();
         }
 
-        protected ViewCell InsertNewEntry(string placeholderText, bool leftIndent = true)
+        protected ViewCell InsertNewEntry(string placeholderText, Address address, Expression<Func<Address, object>> sourceProperty, bool leftIndent = true)
         {
             var padding = _defaulPadding;
             if (leftIndent)
@@ -69,20 +85,21 @@ namespace GraphyPCL
                 padding.Left += c_leftIndent;
             }
 
+            var entry = new Entry
+            {
+                BindingContext = address,
+                Placeholder = placeholderText,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+            entry.SetBinding<Address>(Entry.TextProperty, sourceProperty, BindingMode.TwoWay);
+
             var viewCell = new ViewCell
             {
                 View = new StackLayout
                 {
                     Orientation = StackOrientation.Horizontal,
                     Padding = padding,
-                    Children =
-                    {
-                        new Entry
-                        {
-                            Placeholder = placeholderText,
-                            HorizontalOptions = LayoutOptions.FillAndExpand
-                        }
-                    }
+                    Children = { entry }
                 }
             };
 
