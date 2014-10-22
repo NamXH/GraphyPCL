@@ -355,7 +355,7 @@ namespace GraphyPCL
             // Special Dates
             var date1 = new SpecialDate();
             date1.Id = Guid.NewGuid();
-            date1.Type = "Founded Microsoft";
+            date1.Type = "other";
             date1.Date = new DateTime(1975, 4, 4);
             date1.ContactId = contact2.Id;
             DbConnection.Insert(date1);

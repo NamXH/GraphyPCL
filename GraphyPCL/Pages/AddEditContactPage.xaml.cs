@@ -40,7 +40,7 @@ namespace GraphyPCL
             new AddMoreBasicElementCell<InstantMessage>(_tableView, _imSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.IMs);
 
             new AddMoreAddressCell(_tableView, _addressSection, _viewModel.Addresses);
-            _specialDateSection.Add(new AddMoreDateCell(_tableView, _specialDateSection));
+            new AddMoreDateCell(_tableView, _specialDateSection, _viewModel.SpecialDates);
 
             _tagSection.Add(new AddMoreTagCell(_tableView, _tagSection, _viewModel));
             _relationshipSection.Add(new AddMoreRelationshipCell(_tableView, _relationshipSection, _viewModel));

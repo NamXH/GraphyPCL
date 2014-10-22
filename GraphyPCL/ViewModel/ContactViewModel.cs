@@ -67,6 +67,7 @@ namespace GraphyPCL
             IMs = new List<InstantMessage>();
 
             Addresses = new List<Address>();
+            SpecialDates = new List<SpecialDate>();
 
             Tags = DatabaseManager.GetRows<Tag>();
             RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
