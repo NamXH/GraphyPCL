@@ -50,7 +50,7 @@ namespace GraphyPCL
         {
             _viewModel.SaveNewContact();
 
-            Navigation.PushAsync(new AllContactsPage());
+            Navigation.PopAsync();
         }
 
         /// <summary>
