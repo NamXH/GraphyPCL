@@ -107,6 +107,9 @@ namespace GraphyPCL
                     });
             }
 
+            RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
+            CompleteRelationships = new List<CompleteRelationship>();
+
             // Relationship (From)
             var fromRelationships = DatabaseManager.GetRelationshipsFromContact(contact.Id);
             ContactsLinkedFromThisContact = new List<RelatedContact>();
