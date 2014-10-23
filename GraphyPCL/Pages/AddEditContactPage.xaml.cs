@@ -50,7 +50,7 @@ namespace GraphyPCL
         {
             _viewModel.SaveNewContact();
 
-            Navigation.PopAsync();
+            Navigation.PopAsync(); // Need notifing the list
         }
 
         /// <summary>
