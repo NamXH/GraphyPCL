@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    // May have to split this view model
+    // May have to split this view model into 2 for Add and Edit page
     public class ContactViewModel
     {
         private const string c_datetimeFormat = "MMM dd yyyy";
@@ -74,7 +74,6 @@ namespace GraphyPCL
             CompleteTags = new List<CompleteTag>();
 
             RelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
-
             CompleteRelationships = new List<CompleteRelationship>();
         }
 
@@ -96,7 +95,6 @@ namespace GraphyPCL
 
             Tags = DatabaseManager.GetRows<Tag>();
             ContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
-
             CompleteTags = new List<CompleteTag>();
             foreach (var tagMap in ContactTagMaps)
             {
@@ -171,21 +169,57 @@ namespace GraphyPCL
             DatabaseManager.InsertList(PhoneNumbers, Contact);
             DatabaseManager.InsertList(Emails, Contact);
             DatabaseManager.InsertList(Urls, Contact);
+            DatabaseManager.InsertList(IMs, Contact);
             DatabaseManager.InsertList(Addresses, Contact);
             DatabaseManager.InsertList(SpecialDates, Contact);
-            DatabaseManager.InsertList(IMs, Contact);
 
-            // Insert related info to new contact: tags, relationships
+            // Insert related info to new contact: tags
             var existingTags = DatabaseManager.GetRows<Tag>();
-            foreach (var tag in this.Tags)
+            foreach (var completeTag in CompleteTags)
             {
-                var notAlreadyExists = existingTags.Where(x => x.Id == tag.Id).Count() == 0;
-                if (notAlreadyExists)
+                if (!String.IsNullOrEmpty(completeTag.NewTagName)) // Insert new created tag
                 {
-                    DatabaseManager.DbConnection.Insert(tag);
+                    Guid tagId;
+                    var tagsWithSameName = Tags.Where(x => x.Name == completeTag.NewTagName);
+                    if (tagsWithSameName.Count() > 1)
+                    {
+                        throw new Exception("There are more than 1 new tags with the same name. We are not handling this!!"); // Serious!!
+                    }
+                    var existingTagWithSameName = existingTags.Where(x => x.Name == completeTag.NewTagName).FirstOrDefault();
+                    if (existingTagWithSameName == null)
+                    {
+                        var newTag = new Tag
+                        {
+                            Id = Guid.NewGuid(),
+                            Name = completeTag.NewTagName
+                        };
+                        DatabaseManager.DbConnection.Insert(newTag);
+                        tagId = newTag.Id;
+                    }
+                    else
+                    {
+                        tagId = existingTagWithSameName.Id;
+                    }
+                    var newContactTagMap = new ContactTagMap
+                    {
+                        Id = Guid.NewGuid(),
+                        Detail = completeTag.Detail,
+                        ContactId = Contact.Id,
+                        TagId = tagId
+                    };
+                    DatabaseManager.DbConnection.Insert(newContactTagMap);
+                }
+                else // Existing tag
+                {
+                    DatabaseManager.DbConnection.Insert(new ContactTagMap
+                        {
+                            Id = Guid.NewGuid(),
+                            Detail = completeTag.Detail,
+                            ContactId = Contact.Id,
+                            TagId = completeTag.Id
+                        });
                 }
             }
-            DatabaseManager.InsertList(ContactTagMaps, Contact);
 
             foreach (var relationship in CompleteRelationships)
             {
