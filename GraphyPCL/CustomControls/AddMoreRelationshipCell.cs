@@ -17,6 +17,10 @@ namespace GraphyPCL
             : base(table, tableSection)
         {
             ViewModel = viewModel;
+            foreach (var completeRelationship in ViewModel.CompleteRelationships)
+            {
+                CreateCell(completeRelationship);
+            }
         }
 
         protected override void OnCellClicked(object sender, EventArgs args)
@@ -24,51 +28,55 @@ namespace GraphyPCL
             // Create a new complete relationship
             var completeRelationship = new CompleteRelationship();
             ViewModel.CompleteRelationships.Add(completeRelationship); // Temporary addition. When the user push done we should save actual things.
+            CreateCell(completeRelationship);
+        }
 
+        private void CreateCell(CompleteRelationship completeRelationship)
+        {
             #region 1st row: delete button, arrow, contact name
             var pickContactCell = InsertViewWithLayout(false);
             var pickContactLayout = (StackLayout)pickContactCell.View;
 
             var deleteImage = new Image
-            {
-                Source = ImageSource.FromFile("minus_icon.png"),
-                BindingContext = completeRelationship
-            };
+                {
+                    Source = ImageSource.FromFile("minus_icon.png"),
+                    BindingContext = completeRelationship
+                };
             var deleteTapped = new TapGestureRecognizer();
             deleteImage.GestureRecognizers.Add(deleteTapped); // Not implementing confirmation when delete for fast prototyping!!
             pickContactLayout.Children.Add(deleteImage);
 
             var arrow = new Button
-            { 
-                WidthRequest = c_labelWidth,
-                BackgroundColor = Color.Silver,
-                BindingContext = completeRelationship
-            };
+                { 
+                    WidthRequest = c_labelWidth,
+                    BackgroundColor = Color.Silver,
+                    BindingContext = completeRelationship
+                };
             arrow.Clicked += (s, e) =>
-            {
-                if (arrow.Text == "=>")
                 {
-                    arrow.Text = "<=";
-                }
-                else
-                {
-                    arrow.Text = "=>";
-                }
-            };
+                    if (arrow.Text == "=>")
+                    {
+                        arrow.Text = "<=";
+                    }
+                    else
+                    {
+                        arrow.Text = "=>";
+                    }
+                };
             arrow.SetBinding(Button.TextProperty, "IsToRelatedContact", BindingMode.TwoWay, new ArrowButtonBoolToStringConverter());
             pickContactLayout.Children.Add(arrow);
 
             var contact = new Entry
-            {
-                Placeholder = "Pick a contact",
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                BindingContext = completeRelationship
-            };
+                {
+                    Placeholder = "Pick a contact",
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    BindingContext = completeRelationship
+                };
             contact.SetBinding(Entry.TextProperty, new Binding("RelatedContactName", BindingMode.TwoWay));
             contact.Focused += (s, e) =>
-            {
-                this.ParentView.Navigation.PushAsync(new SelectContactPage(completeRelationship));
-            };
+                {
+                    this.ParentView.Navigation.PushAsync(new SelectContactPage(completeRelationship));
+                };
             pickContactLayout.Children.Add(contact);
             #endregion
 
@@ -77,19 +85,19 @@ namespace GraphyPCL
             var relationshipNameLayout = (StackLayout)relationshipNameCell.View;
 
             var relationshipNameLabel = new Label
-            {
-                Text = "Name",
-                WidthRequest = c_labelWidth,
-                VerticalOptions = LayoutOptions.Center
-            };
+                {
+                    Text = "Name",
+                    WidthRequest = c_labelWidth,
+                    VerticalOptions = LayoutOptions.Center
+                };
             relationshipNameLayout.Children.Add(relationshipNameLabel);
 
             var relationshipPicker = new Picker
-            {
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                Title = "Pick a relationship",
-                BindingContext = completeRelationship
-            };
+                {
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    Title = "Pick a relationship",
+                    BindingContext = completeRelationship
+                };
             relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter<RelationshipType>(), ViewModel.RelationshipTypes));
             foreach (var type in ViewModel.RelationshipTypes)
             {
@@ -103,21 +111,23 @@ namespace GraphyPCL
             var detailLayout = (StackLayout)detailViewCell.View;
 
             var detailLabel = new Label
-            {
-                Text = "Detail",
-                WidthRequest = c_labelWidth,
-                VerticalOptions = LayoutOptions.Center,
-            };
+                {
+                    Text = "Detail",
+                    WidthRequest = c_labelWidth,
+                    VerticalOptions = LayoutOptions.Center,
+                };
             detailLayout.Children.Add(detailLabel);
 
             var detailEntry = new Entry
-            {
-                Placeholder = "Enter relationship detail",
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                BindingContext = completeRelationship
-            };
-            detailEntry.SetBinding(Label.TextProperty, "Detail", BindingMode.TwoWay);
+                {
+                    Placeholder = "Enter relationship detail",
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    BindingContext = completeRelationship,
+                    WidthRequest = 1 // Workaround for UI BUG!! If the text is too long, the entry will overlap other UIs!!
+                };
+            detailEntry.SetBinding(Entry.TextProperty, "Detail", BindingMode.TwoWay);
             detailLayout.Children.Add(detailEntry);
+
             #endregion
 
             #region 4rd row: create new relationship
@@ -125,25 +135,25 @@ namespace GraphyPCL
             var newRelationtionshipLayout = (StackLayout)newRelationshipViewCell.View;
 
             var newRelationshipEntry = new Entry
-            {
-                Placeholder = "Create a new relationship",
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                BindingContext = completeRelationship
-            };
+                {
+                    Placeholder = "Create a new relationship",
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    BindingContext = completeRelationship
+                };
             newRelationshipEntry.SetBinding(Entry.TextProperty, "NewRelationshipName", BindingMode.TwoWay);
             newRelationtionshipLayout.Children.Add(newRelationshipEntry);
             #endregion
 
             // Delete Action
             deleteTapped.Tapped += (s, e) =>
-            {
-                ViewModel.CompleteRelationships.Remove(completeRelationship);
-                ContainerSection.Remove(pickContactCell);
-                ContainerSection.Remove(relationshipNameCell);
-                ContainerSection.Remove(detailViewCell);
-                ContainerSection.Remove(newRelationshipViewCell);
-                ContainerTable.OnDataChanged();
-            };
+                {
+                    ViewModel.CompleteRelationships.Remove(completeRelationship);
+                    ContainerSection.Remove(pickContactCell);
+                    ContainerSection.Remove(relationshipNameCell);
+                    ContainerSection.Remove(detailViewCell);
+                    ContainerSection.Remove(newRelationshipViewCell);
+                    ContainerTable.OnDataChanged();
+                };
 
             ContainerTable.OnDataChanged();
         }

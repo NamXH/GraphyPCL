@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    // May have to split this view model into 2 for Add and Edit page
+    // May have to split this view model. It is currently serving as vm for Detail, Add, and Edit page
     public class ContactViewModel
     {
         private const string c_datetimeFormat = "MMM dd yyyy";
@@ -115,10 +115,21 @@ namespace GraphyPCL
             ContactsLinkedFromThisContact = new List<RelatedContact>();
             foreach (var relationship in fromRelationships)
             {
-                var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId).Name;
+                var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId);
                 var relatedContact = DatabaseManager.GetRow<Contact>(relationship.ToContactId);
                 var relationshipDetail = relationship.Detail;
-                ContactsLinkedFromThisContact.Add(new RelatedContact(relatedContact, type, relationshipDetail));
+                ContactsLinkedFromThisContact.Add(new RelatedContact(relatedContact, type.Name, relationshipDetail));
+
+                CompleteRelationships.Add(new CompleteRelationship
+                    {
+                        RelationshipId = relationship.Id,
+                        Detail = relationship.Detail,
+                        RelatedContactId = relatedContact.Id,
+                        RelatedContactName = relatedContact.FullName,
+                        IsToRelatedContact = true, // from this contact To (=>) the related contact
+                        RelationshipTypeId = type.Id,
+                        RelationshipTypeName = type.Name
+                    });
             }
 
             // Relationship (To)
@@ -127,10 +138,21 @@ namespace GraphyPCL
             ContactsLinkedToThisContact = new List<RelatedContact>();
             foreach (var relationship in toRelationships)
             {
-                var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId).Name;
+                var type = DatabaseManager.GetRow<RelationshipType>(relationship.RelationshipTypeId);
                 var relatedContact = DatabaseManager.GetRow<Contact>(relationship.FromContactId);
                 var relationshipDetail = relationship.Detail;
-                ContactsLinkedToThisContact.Add(new RelatedContact(relatedContact, type, relationshipDetail));
+                ContactsLinkedToThisContact.Add(new RelatedContact(relatedContact, type.Name, relationshipDetail));
+
+                CompleteRelationships.Add(new CompleteRelationship
+                    {
+                        RelationshipId = relationship.Id,
+                        Detail = relationship.Detail,
+                        RelatedContactId = relatedContact.Id,
+                        RelatedContactName = relatedContact.FullName,
+                        IsToRelatedContact = false, // not from this contact To (=>) the related contact
+                        RelationshipTypeId = type.Id,
+                        RelationshipTypeName = type.Name
+                    });
             }
         }
 
@@ -226,7 +248,7 @@ namespace GraphyPCL
 
             foreach (var relationship in CompleteRelationships)
             {
-                var emptyRelationshipType = (relationship.RelationshipTypeId == null) && String.IsNullOrEmpty(relationship.NewRelationshipName);
+                var emptyRelationshipType = (relationship.RelationshipTypeId == Guid.Empty) && String.IsNullOrEmpty(relationship.NewRelationshipName);
                 if (String.IsNullOrEmpty(relationship.RelatedContactName) || emptyRelationshipType)
                 {
                     continue;
@@ -240,7 +262,7 @@ namespace GraphyPCL
                 {
                     var newRelationshipType = new RelationshipType();
                     newRelationshipType.Id = Guid.NewGuid();
-                    newRelationshipType.Name = relationship.NewRelationshipName;
+                    newRelationshipType.Name = relationship.NewRelationshipName; // Currently not checking if there is already this relationship!!
                     DatabaseManager.DbConnection.Insert(newRelationshipType);
                     newRelationship.RelationshipTypeId = newRelationshipType.Id;
                 }
