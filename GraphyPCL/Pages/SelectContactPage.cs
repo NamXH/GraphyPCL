@@ -4,6 +4,7 @@ using Xamarin.Forms;
 namespace GraphyPCL
 {
     // Need refactor hierachy!!
+    // Should exclude the contact initiates this page from the list
     public class SelectContactPage : AllContactsPage
     {
         public CompleteRelationship Relationship { get; set; }

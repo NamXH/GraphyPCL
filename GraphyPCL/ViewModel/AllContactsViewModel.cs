@@ -35,6 +35,29 @@ namespace GraphyPCL
                         ContactsGroupCollection.Remove(contactGroupContainsContactToRemove);
                     }
                 });
+
+            MessagingCenter.Subscribe<ContactViewModel, Contact>(this, "Add", (sender, args) =>
+                {
+                    var contactToAdd = (Contact)args;
+                    var firstChar = contactToAdd.FirstCharOfFullName;
+                    var contactGroupContainsContactToAdd = ContactsGroupCollection.Where(x => x.Title == firstChar).FirstOrDefault();
+                    if (contactGroupContainsContactToAdd == null)
+                    {
+                        var newContactGroup = new ContactsGroup(firstChar);
+                        newContactGroup.Add(contactToAdd);
+
+                        var index = 0;
+                        while (String.Compare(ContactsGroupCollection[index].Title, firstChar) < 0)
+                        {
+                            index++;
+                        }
+                        ContactsGroupCollection.Insert(index - 1, newContactGroup);
+                    }
+                    else
+                    {
+                        contactGroupContainsContactToAdd.Add(contactToAdd);
+                    }
+                });
         }
 
         private ObservableCollection<ContactsGroup> CreateContactsGroupCollection(IList<Contact> contacts)

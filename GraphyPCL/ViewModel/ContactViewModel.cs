@@ -284,6 +284,8 @@ namespace GraphyPCL
 
                 DatabaseManager.DbConnection.Insert(newRelationship);
             }
+
+            MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact);
         }
     }
 }
