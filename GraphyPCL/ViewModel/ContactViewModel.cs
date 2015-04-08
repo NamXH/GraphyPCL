@@ -82,6 +82,8 @@ namespace GraphyPCL
         /// </summary>
         public ContactViewModel(Contact contact)
         {
+            _selectContactPhotoCommand = new Command(SelectContactPhoto);
+
             this.Contact = contact;
             Organization = contact.Organization ?? " ";
 
@@ -184,6 +186,12 @@ namespace GraphyPCL
         /// </summary>
         public void SaveNewContact()
         {
+            // If contact already exists (Editing) -> do nothing for now!!
+            if (Contact.Id != Guid.Empty)
+            {
+                return;
+            }
+
             var db = DatabaseManager.DbConnection;
 
             // Insert new contact
