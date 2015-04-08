@@ -184,14 +184,22 @@ namespace GraphyPCL
         /// <summary>
         /// Saves the new contact and all information in this View Model to database.
         /// </summary>
-        public void SaveNewContact()
+        public void CreateOrUpdateContact()
         {
-            // If contact already exists (Editing) -> do nothing for now!!
+            // If contact already exists (Editing): Update the database
             if (Contact.Id != Guid.Empty)
             {
-                return;
+                var db = DatabaseManager.DbConnection;
+                db.Update(Contact);
             }
+            else
+            {
+                CreateContactInDatabase();
+            }
+        }
 
+        private void CreateContactInDatabase()
+        {
             var db = DatabaseManager.DbConnection;
 
             // Insert new contact
@@ -293,7 +301,7 @@ namespace GraphyPCL
                 DatabaseManager.DbConnection.Insert(newRelationship);
             }
 
-            MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact);
+            MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact); 
         }
     }
 }

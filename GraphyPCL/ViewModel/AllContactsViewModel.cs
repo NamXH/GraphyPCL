@@ -46,12 +46,19 @@ namespace GraphyPCL
                         var newContactGroup = new ContactsGroup(firstChar);
                         newContactGroup.Add(contactToAdd);
 
-                        var index = 0;
-                        while (String.Compare(ContactsGroupCollection[index].Title, firstChar) < 0)
+                        if (ContactsGroupCollection.Count == 0)
                         {
-                            index++;
+                            ContactsGroupCollection.Add(newContactGroup);
                         }
-                        ContactsGroupCollection.Insert(index - 1, newContactGroup);
+                        else
+                        {
+                            var index = 0;
+                            while (String.Compare(ContactsGroupCollection[index].Title, firstChar) < 0)
+                            {
+                                index++;
+                            }
+                            ContactsGroupCollection.Insert(index - 1, newContactGroup);
+                        }
                     }
                     else
                     {

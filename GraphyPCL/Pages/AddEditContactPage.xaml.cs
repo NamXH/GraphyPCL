@@ -34,6 +34,7 @@ namespace GraphyPCL
             }
             BindingContext = _viewModel;
 
+            // Looks like a terrible design !!
             new AddMoreBasicElementCell<PhoneNumber>(_tableView, _phoneSection, c_phoneTypes, "Enter number", Keyboard.Telephone, _viewModel.PhoneNumbers);
             new AddMoreBasicElementCell<Email>(_tableView, _emailSection, c_emailTypes, "Enter number", Keyboard.Email, _viewModel.Emails);
             new AddMoreBasicElementCell<Url>(_tableView, _urlSection, c_urlTypes, "Enter number", Keyboard.Url, _viewModel.Urls);
@@ -48,7 +49,7 @@ namespace GraphyPCL
 
         private void OnDoneButtonClicked()
         {
-            _viewModel.SaveNewContact();
+            _viewModel.CreateOrUpdateContact();
 
             Navigation.PopAsync(); // Need notifing the list
         }
