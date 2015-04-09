@@ -191,9 +191,11 @@ namespace GraphyPCL
             {
                 var db = DatabaseManager.DbConnection;
 
-                // Update basic information
+                // Update simple information
                 db.Update(Contact);
 
+                // Update list-based information like phone numbers, emails...
+                // Maybe need to refactor to reduce code loop!!
                 var oldPhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(Contact.Id);
                 foreach (var number in PhoneNumbers)
                 {

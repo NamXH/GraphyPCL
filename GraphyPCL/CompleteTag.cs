@@ -2,6 +2,10 @@
 
 namespace GraphyPCL
 {
+    /// <summary>
+    /// The detailed version of the tags which contains information from 3 tables Tag, ContactTagMap, and Contact.
+    /// (like a JOIN query)
+    /// </summary>
     public class CompleteTag : NotifyPropertyChangedObject
     {
         public Guid Id { get; set; }
