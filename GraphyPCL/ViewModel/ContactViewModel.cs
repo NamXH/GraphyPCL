@@ -351,11 +351,15 @@ namespace GraphyPCL
                 if (!String.IsNullOrEmpty(completeTag.NewTagName)) // Insert new created tag
                 {
                     Guid tagId;
+
+                    // What is this code block for?? I forgot!! Tags and existingTags look like the same list!!
                     var tagsWithSameName = Tags.Where(x => x.Name == completeTag.NewTagName);
                     if (tagsWithSameName.Count() > 1)
                     {
                         throw new Exception("There are more than 1 new tags with the same name. We are not handling this!!"); // Serious!!
                     }
+
+                    // Create a new tag in db if the new tag has a distinct name.
                     var existingTagWithSameName = existingTags.Where(x => x.Name == completeTag.NewTagName).FirstOrDefault();
                     if (existingTagWithSameName == null)
                     {

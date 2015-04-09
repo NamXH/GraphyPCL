@@ -81,6 +81,7 @@ namespace GraphyPCL
                 tagPicker.Items.Add(tag.Name);
             }
             tagPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("Id", BindingMode.TwoWay, new PickerGuidToIntConverter<Tag>(), ViewModel.Tags));
+            tagPicker.SelectedIndex = 0;
             tagLayout.Children.Add(tagPicker);
 
             // Detail, a bit duplicate!!

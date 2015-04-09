@@ -24,7 +24,7 @@ namespace GraphyPCL
             {
                 DbConnection = db.GetConnection();
                 InitializeDatabase();
-                CreateDummyData(); // For testing!!
+                CreateDummyData(); // For testing!! However, we also need to create some pre-defined tags, relationships in the db not only dummy data.
             }
             else
             {
