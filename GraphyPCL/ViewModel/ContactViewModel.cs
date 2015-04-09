@@ -190,7 +190,135 @@ namespace GraphyPCL
             if (Contact.Id != Guid.Empty)
             {
                 var db = DatabaseManager.DbConnection;
+
+                // Update basic information
                 db.Update(Contact);
+
+                var oldPhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(Contact.Id);
+                foreach (var number in PhoneNumbers)
+                {
+                    if (oldPhoneNumbers.SingleOrDefault(x => x.Id.Equals(number.Id)) == null)
+                    {
+                        number.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(number);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(number); 
+                    }
+                }
+                foreach (var number in oldPhoneNumbers)
+                {
+                    if (PhoneNumbers.SingleOrDefault(x => x.Id.Equals(number.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(number);
+                    }
+                }
+
+                var oldEmails = DatabaseManager.GetRowsRelatedToContact<Email>(Contact.Id);
+                foreach (var email in Emails)
+                {
+                    if (oldEmails.SingleOrDefault(x => x.Id.Equals(email.Id)) == null)
+                    {
+                        email.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(email);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(email);
+                    }
+                }
+                foreach (var email in oldEmails)
+                {
+                    if (Emails.SingleOrDefault(x => x.Id.Equals(email.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(email);
+                    }
+                }
+
+                var oldUrls = DatabaseManager.GetRowsRelatedToContact<Url>(Contact.Id);
+                foreach (var url in Urls)
+                {
+                    if (oldUrls.SingleOrDefault(x => x.Id.Equals(url.Id)) == null)
+                    {
+                        url.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(url);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(url); 
+                    }
+                }
+                foreach (var url in oldUrls)
+                {
+                    if (Urls.SingleOrDefault(x => x.Id.Equals(url.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(url);
+                    }
+                }
+
+                var oldInstantMessages = DatabaseManager.GetRowsRelatedToContact<InstantMessage>(Contact.Id);
+                foreach (var instantMessage in IMs)
+                {
+                    if (oldInstantMessages.SingleOrDefault(x => x.Id.Equals(instantMessage.Id)) == null)
+                    {
+                        instantMessage.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(instantMessage);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(instantMessage); 
+                    }
+                }
+                foreach (var instantMessage in oldInstantMessages)
+                {
+                    if (IMs.SingleOrDefault(x => x.Id.Equals(instantMessage.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(instantMessage);
+                    }
+                }
+
+                var oldAddresses = DatabaseManager.GetRowsRelatedToContact<Address>(Contact.Id);
+                foreach (var address in Addresses)
+                {
+                    if (oldAddresses.SingleOrDefault(x => x.Id.Equals(address.Id)) == null)
+                    {
+                        address.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(address);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(address); 
+                    }
+                }
+                foreach (var address in oldAddresses)
+                {
+                    if (Addresses.SingleOrDefault(x => x.Id.Equals(address.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(address);
+                    }
+                }
+
+                var oldSpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(Contact.Id);
+                foreach (var date in SpecialDates)
+                {
+                    if (oldSpecialDates.SingleOrDefault(x => x.Id.Equals(date.Id)) == null)
+                    {
+                        date.ContactId = Contact.Id;
+                        DatabaseManager.DbConnection.Insert(date);
+                    }
+                    else
+                    {
+                        DatabaseManager.DbConnection.Update(date); 
+                    }
+                }
+                foreach (var date in oldSpecialDates)
+                {
+                    if (SpecialDates.SingleOrDefault(x => x.Id.Equals(date.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(date);
+                    }
+                }
             }
             else
             {
