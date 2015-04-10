@@ -104,6 +104,8 @@ namespace GraphyPCL
                 CompleteTags.Add(new CompleteTag
                     {
                         TagId = tag.Id,
+                        ContactTapMapId = tagMap.Id,
+                        ContactId = contact.Id,
                         Name = tag.Name,
                         Detail = tagMap.Detail
                     });
@@ -306,7 +308,7 @@ namespace GraphyPCL
                 {
                     if (oldSpecialDates.SingleOrDefault(x => x.Id.Equals(date.Id)) == null)
                     {
-                        date.ContactId = Contact.Id;
+                        date.ContactId = Contact.Id; // Can use date.ContactId == null as the If condition as well!!
                         DatabaseManager.DbConnection.Insert(date);
                     }
                     else
@@ -323,6 +325,14 @@ namespace GraphyPCL
                 }
 
                 // Update Tags
+                var oldContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(Contact.Id);
+                foreach(var map in oldContactTagMaps)
+                {
+                    if (CompleteTags.SingleOrDefault(x => x.ContactTapMapId.Equals(map.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(map);
+                    }
+                }
             }
             else // New Contact
             {
