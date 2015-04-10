@@ -84,7 +84,10 @@ namespace GraphyPCL
             // The title of the picker is automatically changed when the selected index changes.
             // Therefore, when the picker changes, the completeTag only reflects the tag's Guid in completeTag.Id
             tagPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("TagId", BindingMode.TwoWay, new PickerGuidToIntConverter<Tag>(), ViewModel.Tags));
-            tagPicker.SelectedIndex = 0;
+            if (tagPicker.SelectedIndex == -1) // If the completeTag.TagId is null, selectedIndex will be -1 -> use 0 as default
+            {
+                tagPicker.SelectedIndex = 0;
+            }
             tagLayout.Children.Add(tagPicker);
 
             // Detail, a bit duplicate!!

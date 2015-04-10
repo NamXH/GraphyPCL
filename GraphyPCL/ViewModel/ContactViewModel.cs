@@ -198,6 +198,8 @@ namespace GraphyPCL
 
                 // Update list-based information like phone numbers, emails...
                 // Maybe need to refactor to reduce code loop!!
+                #region Update list-based info region
+
                 var oldPhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(Contact.Id);
                 foreach (var number in PhoneNumbers)
                 {
@@ -324,9 +326,33 @@ namespace GraphyPCL
                     }
                 }
 
-                // Update Tags
+                #endregion
+
+                // Update Tags (including create new, update, delete)
                 var oldContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(Contact.Id);
-                foreach(var map in oldContactTagMaps)
+                foreach (var completeTag in CompleteTags)
+                {
+                    if (completeTag.ContactTapMapId == Guid.Empty) // Newly added completeTag
+                    {
+                        InsertCompleteTagToDatabase(completeTag); 
+                    }
+                    else
+                    {
+                        // Update
+                        var oldContactTagMap = oldContactTagMaps.FirstOrDefault(x => x.Id == completeTag.ContactTapMapId);
+                        oldContactTagMap.Detail = completeTag.Detail;
+                        if (!String.IsNullOrEmpty(completeTag.NewTagName))
+                        {
+                            oldContactTagMap.TagId = CreateOrRetrieveTag(completeTag.NewTagName);
+                        }
+                        else
+                        {
+                            oldContactTagMap.TagId = completeTag.TagId;
+                        }
+                        DatabaseManager.DbConnection.Update(oldContactTagMap);
+                    }
+                }
+                foreach (var map in oldContactTagMaps)
                 {
                     if (CompleteTags.SingleOrDefault(x => x.ContactTapMapId.Equals(map.Id)) == null)
                     {
@@ -357,55 +383,9 @@ namespace GraphyPCL
             DatabaseManager.InsertList(SpecialDates, Contact);
 
             // Insert related info to new contact: tags
-            var existingTags = DatabaseManager.GetRows<Tag>();
             foreach (var completeTag in CompleteTags)
             {
-                if (!String.IsNullOrEmpty(completeTag.NewTagName)) // Insert new created tag
-                {
-                    Guid tagId;
-
-                    // What is this code block for?? I forgot!! Tags and existingTags look like the same list!!
-                    var tagsWithSameName = Tags.Where(x => x.Name == completeTag.NewTagName);
-                    if (tagsWithSameName.Count() > 1)
-                    {
-                        throw new Exception("There are more than 1 new tags with the same name. We are not handling this!!"); // Serious!!
-                    }
-
-                    // Create a new tag in db if the new tag has a distinct name.
-                    var existingTagWithSameName = existingTags.Where(x => x.Name == completeTag.NewTagName).FirstOrDefault();
-                    if (existingTagWithSameName == null)
-                    {
-                        var newTag = new Tag
-                        {
-                            Id = Guid.NewGuid(),
-                            Name = completeTag.NewTagName
-                        };
-                        DatabaseManager.DbConnection.Insert(newTag);
-                        tagId = newTag.Id;
-                    }
-                    else
-                    {
-                        tagId = existingTagWithSameName.Id;
-                    }
-                    var newContactTagMap = new ContactTagMap
-                    {
-                        Id = Guid.NewGuid(),
-                        Detail = completeTag.Detail,
-                        ContactId = Contact.Id,
-                        TagId = tagId
-                    };
-                    DatabaseManager.DbConnection.Insert(newContactTagMap);
-                }
-                else // Existing tag
-                {
-                    DatabaseManager.DbConnection.Insert(new ContactTagMap
-                        {
-                            Id = Guid.NewGuid(),
-                            Detail = completeTag.Detail,
-                            ContactId = Contact.Id,
-                            TagId = completeTag.TagId
-                        });
-                }
+                InsertCompleteTagToDatabase(completeTag);
             }
 
             foreach (var relationship in CompleteRelationships)
@@ -448,6 +428,60 @@ namespace GraphyPCL
             }
 
             MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact); 
+        }
+
+        private void InsertCompleteTagToDatabase(CompleteTag completeTag)
+        {
+            if (!String.IsNullOrEmpty(completeTag.NewTagName)) // User wanted to create new tag
+            {
+                Guid tagId = CreateOrRetrieveTag(completeTag.NewTagName);
+
+                var newContactTagMap = new ContactTagMap
+                {
+                    Id = Guid.NewGuid(),
+                    Detail = completeTag.Detail,
+                    ContactId = Contact.Id,
+                    TagId = tagId
+                };
+                DatabaseManager.DbConnection.Insert(newContactTagMap);
+            }
+            else // User picked an existing tag
+            {
+                DatabaseManager.DbConnection.Insert(new ContactTagMap
+                    {
+                        Id = Guid.NewGuid(),
+                        Detail = completeTag.Detail,
+                        ContactId = Contact.Id,
+                        TagId = completeTag.TagId
+                    });
+            } 
+        }
+
+        /// <summary>
+        /// Create a new tag from the info of CompleteTag.NewTagName.
+        /// However, if NewTagName is already existed in DB, return the Id of the existing tag.
+        /// </summary>
+        /// <returns>The Id of the created or retrieved tag</returns>
+        /// <param name="completeTag">Complete tag.</param>
+        private Guid CreateOrRetrieveTag(string newTagName)
+        {
+            // Create a new tag in db if the new tag has a distinct name.
+            var oldTags = DatabaseManager.GetRows<Tag>();
+            var oldTagWithSameName = oldTags.SingleOrDefault(x => x.Name == newTagName);
+            if (oldTagWithSameName == null)
+            {
+                var newTag = new Tag
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = newTagName
+                    };
+                DatabaseManager.DbConnection.Insert(newTag);
+                return newTag.Id;
+            }
+            else
+            {
+                return oldTagWithSameName.Id;
+            } 
         }
     }
 }
