@@ -10,6 +10,7 @@ namespace GraphyPCL
     /// </summary>
     public class PickerGuidToIntConverter<T> : IValueConverter where T : IIdContainer
     {
+        // From Guid to Index
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var guid = (Guid)value;
@@ -17,6 +18,7 @@ namespace GraphyPCL
             return types.FindIndex(x => x.Id == guid);
         }
 
+        // From Index to Guid
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var index = (int)value;

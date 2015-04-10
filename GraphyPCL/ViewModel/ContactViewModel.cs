@@ -321,8 +321,10 @@ namespace GraphyPCL
                         DatabaseManager.DbConnection.Delete(date);
                     }
                 }
+
+                // Update Tags
             }
-            else
+            else // New Contact
             {
                 CreateContactInDatabase();
             }
