@@ -8,7 +8,7 @@ namespace GraphyPCL
     /// </summary>
     public class CompleteTag : NotifyPropertyChangedObject
     {
-        public Guid Id { get; set; }
+        public Guid TagId { get; set; }
 
         public string Name { get; set; }
 

@@ -103,7 +103,7 @@ namespace GraphyPCL
                 var tag = DatabaseManager.GetRow<Tag>(tagMap.TagId);
                 CompleteTags.Add(new CompleteTag
                     {
-                        Id = tag.Id,
+                        TagId = tag.Id,
                         Name = tag.Name,
                         Detail = tagMap.Detail
                     });
@@ -393,7 +393,7 @@ namespace GraphyPCL
                             Id = Guid.NewGuid(),
                             Detail = completeTag.Detail,
                             ContactId = Contact.Id,
-                            TagId = completeTag.Id
+                            TagId = completeTag.TagId
                         });
                 }
             }

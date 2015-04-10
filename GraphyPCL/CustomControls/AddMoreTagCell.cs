@@ -23,7 +23,7 @@ namespace GraphyPCL
         protected override void OnCellClicked(object sender, EventArgs args)
         {
             var completeTag = new CompleteTag();
-            completeTag.Id = Guid.NewGuid();
+            completeTag.TagId = Guid.NewGuid();
             ViewModel.CompleteTags.Add(completeTag);
             CreateCell(completeTag);
         }
@@ -83,7 +83,7 @@ namespace GraphyPCL
             // Note: The picker only binds the selected index to the tag's Guid. 
             // The title of the picker is automatically changed when the selected index changes.
             // Therefore, when the picker changes, the completeTag only reflects the tag's Guid in completeTag.Id
-            tagPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("Id", BindingMode.TwoWay, new PickerGuidToIntConverter<Tag>(), ViewModel.Tags));
+            tagPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("TagId", BindingMode.TwoWay, new PickerGuidToIntConverter<Tag>(), ViewModel.Tags));
             tagPicker.SelectedIndex = 0;
             tagLayout.Children.Add(tagPicker);
 
