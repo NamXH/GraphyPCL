@@ -8,7 +8,7 @@ namespace GraphyPCL
         [PrimaryKey]
         public Guid Id { get; set; }
 
-        // Note: Tag name is actually the primary key. However, we use TagId as a surrogate primary key.
+        // Note: Tag name is actually the primary key. However, we use Id as a surrogate primary key.
         public string Name { get; set; }
     }
 }

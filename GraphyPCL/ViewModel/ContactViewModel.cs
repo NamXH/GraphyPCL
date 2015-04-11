@@ -359,6 +359,48 @@ namespace GraphyPCL
                         DatabaseManager.DbConnection.Delete(map);
                     }
                 }
+
+                // Update relationships
+                var oldRelationships = DatabaseManager.DbConnection.Table<Relationship>().Where(x => (x.FromContactId.Equals(Contact.Id)) || (x.ToContactId.Equals(Contact.Id))).ToList(); // Get all relationships connect to this Contact
+                foreach (var completeRelationship in CompleteRelationships)
+                {
+                    if (completeRelationship.RelationshipId == Guid.Empty) // newly added relationship
+                    {
+                        InsertRelationshipToDatabase(completeRelationship); 
+                    }
+                    else
+                    {
+                        // Update
+                        var oldRelationship = oldRelationships.FirstOrDefault(x => x.Id == completeRelationship.RelationshipId); // Should always find 1
+                        oldRelationship.Detail = completeRelationship.Detail;
+                        if (!String.IsNullOrEmpty(completeRelationship.NewRelationshipName))
+                        {
+                            oldRelationship.RelationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
+                        }
+                        else
+                        {
+                            oldRelationship.RelationshipTypeId = completeRelationship.RelationshipTypeId;
+                        }
+                        if (completeRelationship.IsToRelatedContact)
+                        {
+                            oldRelationship.ToContactId = completeRelationship.RelatedContactId;
+                            oldRelationship.FromContactId = Contact.Id;
+                        }
+                        else
+                        {
+                            oldRelationship.ToContactId = Contact.Id;
+                            oldRelationship.FromContactId = completeRelationship.RelatedContactId;
+                        }
+                        DatabaseManager.DbConnection.Update(oldRelationship);
+                    }
+                }
+                foreach (var relationship in oldRelationships)
+                {
+                    if (CompleteRelationships.SingleOrDefault(x => x.RelationshipId.Equals(relationship.Id)) == null)
+                    {
+                        DatabaseManager.DbConnection.Delete(relationship);
+                    }
+                }
             }
             else // New Contact
             {
@@ -388,43 +430,9 @@ namespace GraphyPCL
                 InsertCompleteTagToDatabase(completeTag);
             }
 
-            foreach (var relationship in CompleteRelationships)
+            foreach (var completeRelationship in CompleteRelationships)
             {
-                var emptyRelationshipType = (relationship.RelationshipTypeId == Guid.Empty) && String.IsNullOrEmpty(relationship.NewRelationshipName);
-                if (String.IsNullOrEmpty(relationship.RelatedContactName) || emptyRelationshipType)
-                {
-                    continue;
-                }
-
-                var newRelationship = new Relationship();
-                newRelationship.Detail = relationship.Detail;
-                newRelationship.Id = Guid.NewGuid();
-
-                if (!String.IsNullOrEmpty(relationship.NewRelationshipName))
-                {
-                    var newRelationshipType = new RelationshipType();
-                    newRelationshipType.Id = Guid.NewGuid();
-                    newRelationshipType.Name = relationship.NewRelationshipName; // Currently not checking if there is already this relationship!!
-                    DatabaseManager.DbConnection.Insert(newRelationshipType);
-                    newRelationship.RelationshipTypeId = newRelationshipType.Id;
-                }
-                else
-                {
-                    newRelationship.RelationshipTypeId = relationship.RelationshipTypeId;
-                }
-
-                if (relationship.IsToRelatedContact)
-                {
-                    newRelationship.ToContactId = relationship.RelatedContactId;
-                    newRelationship.FromContactId = Contact.Id;
-                }
-                else
-                {
-                    newRelationship.ToContactId = Contact.Id;
-                    newRelationship.FromContactId = relationship.RelatedContactId;
-                }
-
-                DatabaseManager.DbConnection.Insert(newRelationship);
+                InsertRelationshipToDatabase(completeRelationship);
             }
 
             MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact); 
@@ -432,29 +440,22 @@ namespace GraphyPCL
 
         private void InsertCompleteTagToDatabase(CompleteTag completeTag)
         {
+            Guid tagId;
             if (!String.IsNullOrEmpty(completeTag.NewTagName)) // User wanted to create new tag
             {
-                Guid tagId = CreateOrRetrieveTag(completeTag.NewTagName);
-
-                var newContactTagMap = new ContactTagMap
+                tagId = CreateOrRetrieveTag(completeTag.NewTagName);
+            }
+            else // User picked an existing tag. Even if user did not pick anything, completeTag.TagId is always generated from somewhere !! Bug!!
+            {
+                tagId = completeTag.TagId;
+            }
+            DatabaseManager.DbConnection.Insert(new ContactTagMap
                 {
                     Id = Guid.NewGuid(),
                     Detail = completeTag.Detail,
                     ContactId = Contact.Id,
                     TagId = tagId
-                };
-                DatabaseManager.DbConnection.Insert(newContactTagMap);
-            }
-            else // User picked an existing tag
-            {
-                DatabaseManager.DbConnection.Insert(new ContactTagMap
-                    {
-                        Id = Guid.NewGuid(),
-                        Detail = completeTag.Detail,
-                        ContactId = Contact.Id,
-                        TagId = completeTag.TagId
-                    });
-            } 
+                }); 
         }
 
         /// <summary>
@@ -471,10 +472,10 @@ namespace GraphyPCL
             if (oldTagWithSameName == null)
             {
                 var newTag = new Tag
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = newTagName
-                    };
+                {
+                    Id = Guid.NewGuid(),
+                    Name = newTagName
+                };
                 DatabaseManager.DbConnection.Insert(newTag);
                 return newTag.Id;
             }
@@ -482,6 +483,57 @@ namespace GraphyPCL
             {
                 return oldTagWithSameName.Id;
             } 
+        }
+
+        private void InsertRelationshipToDatabase(CompleteRelationship completeRelationship)
+        {
+            Guid relationshipTypeId;
+            if (!String.IsNullOrEmpty(completeRelationship.NewRelationshipName)) // User wanted to create new relationship type
+            {
+               relationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
+            }
+            else // User picked an existing relationship.
+            {
+                relationshipTypeId = completeRelationship.RelationshipTypeId; 
+            }
+            var newRelationship = new Relationship 
+                {
+                    Id = Guid.NewGuid(),
+                    Detail = completeRelationship.Detail,
+                    RelationshipTypeId = completeRelationship.RelationshipTypeId
+                }; 
+            if (completeRelationship.IsToRelatedContact)
+            {
+                newRelationship.ToContactId = completeRelationship.RelatedContactId;
+                newRelationship.FromContactId = Contact.Id;
+            }
+            else
+            {
+                newRelationship.ToContactId = Contact.Id;
+                newRelationship.FromContactId = completeRelationship.RelatedContactId;
+            }
+            DatabaseManager.DbConnection.Insert(newRelationship);
+        }
+
+        private Guid CreateOrRetrieveRelationshipType(string newRelationshipName)
+        {
+            // Create a new relationship type in db if the new relationship type has a distinct name.
+            var oldRelationshipType = DatabaseManager.GetRows<RelationshipType>();
+            var oldRelationshipTypeWithSameName = oldRelationshipType.SingleOrDefault(x => x.Name == newRelationshipName);
+            if (oldRelationshipTypeWithSameName == null)
+            {
+                var newRelationshipType = new RelationshipType
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = newRelationshipName 
+                    };
+                DatabaseManager.DbConnection.Insert(newRelationshipType);
+                return newRelationshipType.Id;
+            }
+            else
+            {
+                return oldRelationshipTypeWithSameName.Id;
+            }  
         }
     }
 }

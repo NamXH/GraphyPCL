@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace GraphyPCL
 {
@@ -24,7 +25,7 @@ namespace GraphyPCL
             var index = (int)value;
             if (index == -1)
             {
-                return null;
+                return Guid.Empty; // This condition is unreachable for some reason!! Bug!!
             }
             else
             {

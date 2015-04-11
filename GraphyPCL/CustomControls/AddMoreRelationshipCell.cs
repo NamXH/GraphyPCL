@@ -98,11 +98,18 @@ namespace GraphyPCL
                     Title = "Pick a relationship",
                     BindingContext = completeRelationship
                 };
-            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter<RelationshipType>(), ViewModel.RelationshipTypes));
             foreach (var type in ViewModel.RelationshipTypes)
             {
                 relationshipPicker.Items.Add(type.Name);
             }
+            relationshipPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("RelationshipTypeId", BindingMode.TwoWay, new PickerGuidToIntConverter<RelationshipType>(), ViewModel.RelationshipTypes));
+
+            // This feature is used to work around a potential bug in PickerGuidToIntConverter!!
+            if (relationshipPicker.SelectedIndex == -1) // If the completeTag.TagId is null, selectedIndex will be -1 -> use 0 as default
+            {
+                relationshipPicker.SelectedIndex = 0;
+            }
+
             relationshipNameLayout.Children.Add(relationshipPicker);
             #endregion
 

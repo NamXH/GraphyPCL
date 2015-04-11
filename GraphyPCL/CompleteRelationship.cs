@@ -63,7 +63,10 @@ namespace GraphyPCL
 
         private bool _isToRelatedContact;
 
-        // If true: "=>", false: "<="
+        /// <summary>
+        /// If true: "=>", false: "<="
+        /// </summary>
+        /// <value><c>true</c> if this instance is to related contact; otherwise, <c>false</c>.</value>
         public bool IsToRelatedContact
         { 
             get
