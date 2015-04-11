@@ -182,11 +182,11 @@ namespace GraphyPCL
 
             Contact.ImageName = randomName;
         }
-
         /// <summary>
         /// Saves the new contact and all information in this View Model to database.
         /// </summary>
-        public void CreateOrUpdateContact()
+        /// <returns>1: Create, 0: Update</returns>
+        public int CreateOrUpdateContact()
         {
             // If contact already exists (Editing): Update the database
             if (Contact.Id != Guid.Empty)
@@ -401,10 +401,12 @@ namespace GraphyPCL
                         DatabaseManager.DbConnection.Delete(relationship);
                     }
                 }
+                return 0; 
             }
             else // New Contact
             {
                 CreateContactInDatabase();
+                return 1;
             }
         }
 
@@ -434,8 +436,6 @@ namespace GraphyPCL
             {
                 InsertRelationshipToDatabase(completeRelationship);
             }
-
-            MessagingCenter.Send<ContactViewModel, Contact>(this, "Add", Contact); 
         }
 
         private void InsertCompleteTagToDatabase(CompleteTag completeTag)
