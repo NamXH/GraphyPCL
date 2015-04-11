@@ -65,7 +65,7 @@ namespace GraphyPCL
 
                 // !! Doesn't work, I don't know why !!
                 // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
-                //                var blankPage = new Page(); // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button
+//                var blankPage = new Page(); // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button
 //                Navigation.PushAsync(blankPage);
 //
 //                var enumerator = Navigation.NavigationStack.GetEnumerator();
@@ -80,6 +80,7 @@ namespace GraphyPCL
 //                Navigation.RemovePage(addEditContactPage);
 //                Navigation.RemovePage(contactDetailsPage);
 
+                // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button0
                 Navigation.PopToRootAsync();
             }
             else // Create new
