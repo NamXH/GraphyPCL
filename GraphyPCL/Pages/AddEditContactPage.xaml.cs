@@ -17,6 +17,14 @@ namespace GraphyPCL
 
         private ContactViewModel _viewModel;
 
+        public ContactViewModel ViewModel
+        {
+            get 
+            {
+                return _viewModel;
+            }
+        }
+
         public AddEditContactPage(Contact contact = null)
         {
             InitializeComponent();
@@ -50,8 +58,24 @@ namespace GraphyPCL
         private void OnDoneButtonClicked()
         {
             _viewModel.CreateOrUpdateContact();
+            MessagingCenter.Send<AddEditContactPage, Contact>(this, "Update", _viewModel.Contact); 
 
-            Navigation.PopAsync(); // Need notifing the list
+            // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
+            var enumerator = Navigation.NavigationStack.GetEnumerator();
+            enumerator.MoveNext(); // Pass root page
+            enumerator.MoveNext();
+            var contactDetailsPage = enumerator.Current;
+            enumerator.MoveNext();
+            var addEditContactPage = enumerator.Current;
+
+            Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), contactDetailsPage);
+            Navigation.RemovePage(addEditContactPage);
+            Navigation.RemovePage(contactDetailsPage);
+
+            // Alternative method. Looks bad but safer !!
+//            Navigation.PopAsync();
+//            Navigation.PopAsync();
+//            Navigation.PushAsync(new ContactDetailsPage(_viewModel.Contact));
         }
 
         /// <summary>

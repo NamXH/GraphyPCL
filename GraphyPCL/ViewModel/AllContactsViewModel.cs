@@ -65,6 +65,18 @@ namespace GraphyPCL
                         contactGroupContainsContactToAdd.Add(contactToAdd);
                     }
                 });
+
+            MessagingCenter.Subscribe<AddEditContactPage, Contact>(this, "Update", (sender, args) =>
+                {
+                    UpdateContact((Contact)args);
+                });
+            
+            // Workaround for a bug!!
+            // On EditContactPage, if user pushes Back button, everything will be save instead of ignored
+            MessagingCenter.Subscribe<AllContactsNavigationPage, Contact>(this, "Update", (sender, args) =>
+                {
+                    UpdateContact((Contact)args);
+                });
         }
 
         private ObservableCollection<ContactsGroup> CreateContactsGroupCollection(IList<Contact> contacts)
@@ -84,6 +96,23 @@ namespace GraphyPCL
                 group.Add(contact);
             }
             return new ObservableCollection<ContactsGroup>(contactsGroupedByFirstChar.Values.OrderBy(x => x.Title));
+        }
+
+        private void UpdateContact(Contact contactToUpdate)
+        {
+            var contactGroupContainsContactToUpdate = ContactsGroupCollection.Where(x => x.Title == contactToUpdate.FirstCharOfFullName).FirstOrDefault();
+            if (contactGroupContainsContactToUpdate == null)
+            {
+                throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToUpdate.FullName, contactToUpdate.Id));
+            }
+
+            // Remove then add back
+            var success = contactGroupContainsContactToUpdate.Remove(contactToUpdate);
+            if (!success)
+            {
+                throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToUpdate.FullName, contactToUpdate.Id));
+            }
+            contactGroupContainsContactToUpdate.Add(contactToUpdate); 
         }
     }
 }
