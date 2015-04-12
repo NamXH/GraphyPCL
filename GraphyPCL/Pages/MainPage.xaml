@@ -6,8 +6,7 @@
 		</StackLayout>
 	</ContentPage>
 	<local:AllContactsNavigationPage x:Name="_allContactsNavigationPage"/>
-	<ContentPage Title="History" Icon="clock_icon.png">
-	</ContentPage>
+  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage"/>
 	<ContentPage Title="More" Icon="etcetera_icon.png">
 	</ContentPage>
 </TabbedPage>

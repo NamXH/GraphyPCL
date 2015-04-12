@@ -132,6 +132,12 @@
     <BundleResource Include="Resources\star_icon%401x.png" />
     <BundleResource Include="Resources\star_icon%402x.png" />
     <BundleResource Include="Resources\star_icon%403x.png" />
+    <BundleResource Include="Resources\tag_icon%401x.png" />
+    <BundleResource Include="Resources\tag_icon%402x.png" />
+    <BundleResource Include="Resources\tag_icon%403x.png" />
+    <BundleResource Include="Resources\genius_icon%401x.png" />
+    <BundleResource Include="Resources\genius_icon%402x.png" />
+    <BundleResource Include="Resources\genius_icon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
