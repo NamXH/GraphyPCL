@@ -5,7 +5,7 @@
 			<Label Text="Hello, XAML!" TextColor="Green" />
 		</StackLayout>
 	</ContentPage>
-	<local:AllContactsNavigationPage x:Name="_allContactsNavigator"/>
+	<local:AllContactsNavigationPage x:Name="_allContactsNavigationPage"/>
 	<ContentPage Title="History" Icon="clock_icon.png">
 	</ContentPage>
 	<ContentPage Title="More" Icon="etcetera_icon.png">

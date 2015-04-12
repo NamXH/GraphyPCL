@@ -9,7 +9,7 @@ namespace GraphyPCL
         public MainPage()
         {
             InitializeComponent();
-            this.SelectedItem = _allContactsNavigator;
+            this.SelectedItem = _allContactsNavigationPage;
         }
     }
 }
