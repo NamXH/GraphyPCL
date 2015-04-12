@@ -218,12 +218,22 @@ namespace GraphyPCL
                     Name = "Colleague",
                             
                 });
-
             DbConnection.Insert(new Tag
                 { 
                     Id = Guid.NewGuid(),
                     Name = "Important",
                 });
+            DbConnection.Insert(new Tag
+                { 
+                    Id = Guid.NewGuid(),
+                    Name = "Created Date",
+                });
+            DbConnection.Insert(new Tag
+                { 
+                    Id = Guid.NewGuid(),
+                    Name = "Created Location",
+                });
+            
             DbConnection.Insert(new RelationshipType
                 {
                     Id = Guid.NewGuid(),

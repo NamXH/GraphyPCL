@@ -12,6 +12,10 @@ namespace GraphyPCL
     {
         private const string c_datetimeFormat = "MMM dd yyyy";
 
+        private const string c_createdDateTagName = "Created Date";
+
+        private const string c_createdLocationTagName = "Created Location";
+
         public Contact Contact { get; set; }
 
         public string Organization { get; set; }
@@ -413,7 +417,13 @@ namespace GraphyPCL
 
         public void CreateAutoAddedTags()
         {
-            var a = DateTime.Today;
+            DatabaseManager.DbConnection.Insert(new ContactTagMap
+                {
+                    Id = Guid.NewGuid(),
+                    Detail = DateTime.Now.ToString(c_datetimeFormat),
+                    ContactId = Contact.Id,
+                    TagId = DatabaseManager.GetRowsByName<Tag>(c_createdDateTagName).First().Id
+                });  
         }
 
         private void CreateContactInDatabase()

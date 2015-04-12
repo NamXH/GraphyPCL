@@ -87,6 +87,9 @@ namespace GraphyPCL
             {
                 _viewModel.CreateAutoAddedTags();
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Add", _viewModel.Contact); 
+
+                // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button0
+                Navigation.PopToRootAsync();
             }
         }
 

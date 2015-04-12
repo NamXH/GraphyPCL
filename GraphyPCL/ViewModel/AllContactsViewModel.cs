@@ -36,7 +36,7 @@ namespace GraphyPCL
                     }
                 });
 
-            MessagingCenter.Subscribe<ContactViewModel, Contact>(this, "Add", (sender, args) =>
+            MessagingCenter.Subscribe<AddEditContactPage, Contact>(this, "Add", (sender, args) =>
                 {
                     var contactToAdd = (Contact)args;
                     var firstChar = contactToAdd.FirstCharOfFullName;
