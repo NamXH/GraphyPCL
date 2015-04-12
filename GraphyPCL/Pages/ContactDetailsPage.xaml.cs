@@ -112,6 +112,20 @@ namespace GraphyPCL
                     var textCell = new TextCell();
                     textCell.Text = text;
                     textCell.Detail = CellDetail(x);
+                    if (typeof(T) == typeof(PhoneNumber))
+                    {
+                        textCell.Tapped += (object sender, EventArgs e) =>
+                        {
+                            if (Device.OS != TargetPlatform.WinPhone)
+                            {
+                                Device.OpenUri(new Uri("tel:" + text)); // Only work on a device not simulator
+                            }
+                            else
+                            {
+                                DisplayAlert("Sorry", "Platform not supported", "OK");
+                            }
+                        };
+                    }
                     tableSection.Add(textCell);
                 }
             }
@@ -139,6 +153,10 @@ namespace GraphyPCL
                 var relatedContactCell = new TextCell();
                 tableSection.Add(relatedContactCell);
                 relatedContactCell.Text = relationshipDirectionSymbol + " " + relatedContact.Contact.FullName;
+                relatedContactCell.Tapped += (object sender, EventArgs e) =>
+                {
+                    Navigation.PushAsync(new ContactDetailsPage(relatedContact.Contact));
+                };
 
                 var detailIsNotNull = !String.IsNullOrEmpty(relatedContact.RelationshipDetail);
                 if (detailIsNotNull)
