@@ -182,6 +182,7 @@ namespace GraphyPCL
 
             Contact.ImageName = randomName;
         }
+
         /// <summary>
         /// Saves the new contact and all information in this View Model to database.
         /// </summary>
@@ -410,6 +411,11 @@ namespace GraphyPCL
             }
         }
 
+        public void CreateAutoAddedTags()
+        {
+            var a = DateTime.Today;
+        }
+
         private void CreateContactInDatabase()
         {
             var db = DatabaseManager.DbConnection;
@@ -441,7 +447,7 @@ namespace GraphyPCL
         private void InsertCompleteTagToDatabase(CompleteTag completeTag)
         {
             Guid tagId;
-            if (!String.IsNullOrEmpty(completeTag.NewTagName)) // User wanted to create new tag
+            if (!String.IsNullOrEmpty(completeTag.NewTagName)) // User wanted to create new tag type
             {
                 tagId = CreateOrRetrieveTag(completeTag.NewTagName);
             }

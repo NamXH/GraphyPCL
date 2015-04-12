@@ -85,6 +85,7 @@ namespace GraphyPCL
             }
             else // Create new
             {
+                _viewModel.CreateAutoAddedTags();
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Add", _viewModel.Contact); 
             }
         }

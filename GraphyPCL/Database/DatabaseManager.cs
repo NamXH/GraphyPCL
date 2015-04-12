@@ -23,7 +23,8 @@ namespace GraphyPCL
             {
                 DbConnection = db.GetConnection();
                 InitializeDatabase();
-                CreateDummyData(); // For testing!! However, we also need to create some pre-defined tags, relationships in the db not only dummy data.
+                CreatePredefinedTagsAndRelationships();
+                CreateDummyData(); // For testing!!
             }
             else
             {
@@ -209,10 +210,36 @@ namespace GraphyPCL
             DbConnection.Delete<Contact>(contactId);
         }
 
+        private static void CreatePredefinedTagsAndRelationships()
+        {
+            DbConnection.Insert(new Tag
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Colleague",
+                            
+                });
+
+            DbConnection.Insert(new Tag
+                { 
+                    Id = Guid.NewGuid(),
+                    Name = "Important",
+                });
+            DbConnection.Insert(new RelationshipType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Advisor",
+                });
+            DbConnection.Insert(new RelationshipType
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Daughter",
+                });
+        }
+
         /// <summary>
         /// Creates the dummy data for test.
         /// </summary>
-        public static void CreateDummyData()
+        private static void CreateDummyData()
         {
             Debug.WriteLine("start adding data");
 
@@ -359,20 +386,8 @@ namespace GraphyPCL
             DbConnection.Insert(date1);
 
             // Tags
-            var tag1 = new Tag()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Colleague",
-                
-            };
-            DbConnection.Insert(tag1);
-
-            var tag2 = new Tag()
-            { 
-                Id = Guid.NewGuid(),
-                Name = "Important",
-            };
-            DbConnection.Insert(tag2);
+            var tag1 = GetRowsByName<Tag>("Colleague").First();
+            var tag2 = GetRowsByName<Tag>("Important").First();
 
             var tagMap1 = new ContactTagMap()
             {
@@ -392,18 +407,8 @@ namespace GraphyPCL
             DbConnection.Insert(tagMap2);
 
             // Relationship
-            var connType1 = new RelationshipType()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Advisor",
-            };
-            DbConnection.Insert(connType1);
-            var connType2 = new RelationshipType()
-            { 
-                Id = Guid.NewGuid(),
-                Name = "Daughter", 
-            };
-            DbConnection.Insert(connType2);
+            var connType1 = GetRowsByName<RelationshipType>("Advisor").First();
+            var connType2 = GetRowsByName<RelationshipType>("Daughter").First();
 
             var conn1 = new Relationship()
             {
