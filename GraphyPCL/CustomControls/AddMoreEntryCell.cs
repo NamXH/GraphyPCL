@@ -67,7 +67,7 @@ namespace GraphyPCL
             entry.BindingContext = item;
             layout.Children.Add(entry);
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
-//            entry.SetBinding(Entry.TextProperty, item, BindingMode.TwoWay);
+            entry.SetBinding(Entry.TextProperty, ".", BindingMode.TwoWay);
 
             ContainerTable.OnDataChanged();
         }
