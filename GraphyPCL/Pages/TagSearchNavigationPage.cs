@@ -9,7 +9,7 @@ namespace GraphyPCL
         {
             Icon = "tag_icon.png";
             Title = "Tags";
-            this.PushAsync(new Page());
+            this.PushAsync(new TagSearchPage());
         }
     }
 }

@@ -4,6 +4,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
+    // Should refactor the hierarchy of the classes extend this class. They are quite messy now!!
     public class AddMoreElementCell : ViewCell
     {
         protected readonly Color _iOSBlue = Color.FromRgb(0, 122, 255);
@@ -11,6 +12,7 @@ namespace GraphyPCL
 
         public TableSection ContainerSection { get; set; }
 
+        // Is normal TableView enough? !!
         public ExtendedTableView ContainerTable { get; set; }
 
         protected AddMoreElementCell()
