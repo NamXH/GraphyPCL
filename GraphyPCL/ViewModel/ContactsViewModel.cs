@@ -7,14 +7,17 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class AllContactsViewModel
+    public class ContactsViewModel
     {
         public ObservableCollection<ContactsGroup> ContactsGroupCollection { get; set; }
 
-        public AllContactsViewModel()
+        public IList<Contact> Contacts { get ; set; }
+
+        public ContactsViewModel(IList<Contact> contacts)
         {
-            var allContacts = DatabaseManager.GetRows<Contact>();
-            ContactsGroupCollection = CreateContactsGroupCollection(allContacts);
+//            
+            Contacts = contacts;
+            ContactsGroupCollection = CreateContactsGroupCollection(Contacts);
             MessagingCenter.Subscribe<ContactDetailsPage, Contact>(this, "Delete", (sender, args) =>
                 {
                     var contactToRemove = (Contact)args;

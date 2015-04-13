@@ -7,14 +7,15 @@ namespace GraphyPCL
 {
     public partial class AllContactsPage : ContentPage
     {
-        private AllContactsViewModel _viewModel;
+        private ContactsViewModel _viewModel;
 
         public AllContactsPage()
         {
             InitializeComponent();
             this.ToolbarItems.Add(new ToolbarItem("Add", "plus_icon.png", OnAddButtonClick));
 
-            _viewModel = new AllContactsViewModel();
+            var allContacts = DatabaseManager.GetRows<Contact>();
+            _viewModel = new ContactsViewModel(allContacts);
             BindingContext = _viewModel;
 
             _contactList.GroupDisplayBinding = new Binding("Title");
