@@ -18,7 +18,8 @@ namespace GraphyPCL
 
             _searchButton.Clicked += (object sender, EventArgs e) =>
             {
-                Navigation.PushAsync(new FilteredContactsPage());
+                var allContacts = DatabaseManager.GetRows<Contact>();
+                Navigation.PushAsync(new FilteredContactsPage(allContacts));
             };
         }
     }

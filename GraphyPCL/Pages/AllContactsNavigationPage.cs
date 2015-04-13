@@ -9,7 +9,8 @@ namespace GraphyPCL
         {
             Icon = "contact_icon.png";
             Title = "Contacts";
-            this.PushAsync(new AllContactsPage());
+            var allContacts = DatabaseManager.GetRows<Contact>();
+            this.PushAsync(new AllContactsPage(allContacts));
 
             // Workaround for a bug!!
             // On EditContactPage, if user pushes Back button, everything will be save instead of ignored

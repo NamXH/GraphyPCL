@@ -75,7 +75,8 @@ namespace GraphyPCL
             contact.SetBinding(Entry.TextProperty, new Binding("RelatedContactName", BindingMode.TwoWay));
             contact.Focused += (s, e) =>
                 {
-                    this.ParentView.Navigation.PushAsync(new SelectContactPage(completeRelationship));
+                    var allContacts = DatabaseManager.GetRows<Contact>();
+                    this.ParentView.Navigation.PushAsync(new SelectContactPage(allContacts, completeRelationship));
                 };
             pickContactLayout.Children.Add(contact);
             #endregion

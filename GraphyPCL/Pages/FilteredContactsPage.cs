@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class FilteredContactsPage : AllContactsPage
+    public class FilteredContactsPage : ContactsPage
     {
-        public FilteredContactsPage()
-            : base()
+        public FilteredContactsPage(IList<Contact> contacts)
+            : base(contacts)
         {
-            this.ToolbarItems.Clear();
             this.Title = "Search Result";
         }
     }

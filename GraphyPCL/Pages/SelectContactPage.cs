@@ -1,18 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace GraphyPCL
 {
     // Need refactor hierachy!!
     // Should exclude the contact initiates this page from the list
-    public class SelectContactPage : AllContactsPage
+    public class SelectContactPage : ContactsPage
     {
         public CompleteRelationship Relationship { get; set; }
 
-        public SelectContactPage(CompleteRelationship relationship)
-            : base()
+        public SelectContactPage(IList<Contact> contacts, CompleteRelationship relationship)
+            : base(contacts)
         {
-            this.ToolbarItems.Clear();
+            this.Title = "Pick a contact";
             Relationship = relationship;
         }
 

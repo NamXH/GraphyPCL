@@ -36,9 +36,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\AllContactsNavigationPage.cs" />
-    <Compile Include="Pages\AllContactsPage.xaml.cs">
-      <DependentUpon>AllContactsPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\ContactDetailsPage.xaml.cs">
       <DependentUpon>ContactDetailsPage.xaml</DependentUpon>
     </Compile>
@@ -94,6 +91,11 @@
     <Compile Include="CustomControls\AddMoreEntryCell.cs" />
     <Compile Include="Pages\FilteredContactsPage.cs" />
     <Compile Include="ViewModel\ContactsViewModel.cs" />
+    <Compile Include="Pages\ContactsPage.xaml.cs">
+      <DependentUpon>ContactsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AllContactsPage.cs" />
+    <Compile Include="ViewModel\AllContactsViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.4.1.6349\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.4.1.6349\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -132,9 +134,6 @@
     <EmbeddedResource Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\AllContactsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pages\ContactDetailsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -143,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pages\TagSearchPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ContactsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
