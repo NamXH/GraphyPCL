@@ -6,13 +6,18 @@ namespace GraphyPCL
 {
     public class FavoriteContactsNavigationPage : NavigationPage
     {
+        public Page TopNavigationStack {
+            get;
+            set;
+        }
 
         public FavoriteContactsNavigationPage()
         {
             Icon = "star_icon.png";
             Title = "Favorite";
 
-            this.PushAsync(new Page());
+            TopNavigationStack = new Page();
+            this.PushAsync(TopNavigationStack);
         }
 
         protected override void OnAppearing()
@@ -22,8 +27,10 @@ namespace GraphyPCL
             var favoriteContacts = DatabaseManager.GetRows<Contact>().Where(x => x.Favorite == true).ToList();
             var favoritePage = new ContactsPage(favoriteContacts);
             favoritePage.Title = "Favorite Contacts";
-            this.PopAsync(); // Looks a bit bad
+
             this.PushAsync(favoritePage);
+            this.Navigation.RemovePage(TopNavigationStack); // Hide the animation when popsync()
+            TopNavigationStack = favoritePage;
         }
     }
 }
