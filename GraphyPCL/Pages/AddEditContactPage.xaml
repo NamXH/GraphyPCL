@@ -4,12 +4,12 @@
     <TableView.Root>
       <TableRoot x:Name="_tableRoot">
         <TableSection Title=" ">
-          <ImageCell x:Name="_image" Text="Change Photo" ImageSource="{Binding Contact.Photo, Mode=OneWay}" Command="{Binding SelectContactPhotoCommand}" />
-          <EntryCell Label="First Name" Text="{Binding Contact.FirstName}" />
-          <EntryCell Label="Middle Name" Text="{Binding Contact.MiddleName}" />
-          <EntryCell Label="Last Name" Text="{Binding Contact.LastName}" />
-          <EntryCell Label="Organization" Text="{Binding Contact.Organization}" />
-          <SwitchCell Text="Favorite" On="{Binding Contact.Favorite}" />
+          <ImageCell x:Name="_image" Text="Change Photo" ImageSource="{Binding ContactCopyBasicInfo.Photo, Mode=OneWay}" Command="{Binding SelectContactPhotoCommand}" />
+          <EntryCell Label="First Name" Text="{Binding ContactCopyBasicInfo.FirstName}" />
+          <EntryCell Label="Middle Name" Text="{Binding ContactCopyBasicInfo.MiddleName}" />
+          <EntryCell Label="Last Name" Text="{Binding ContactCopyBasicInfo.LastName}" />
+          <EntryCell Label="Organization" Text="{Binding ContactCopyBasicInfo.Organization}" />
+          <SwitchCell Text="Favorite" On="{Binding ContactCopyBasicInfo.Favorite}" />
         </TableSection>
         <TableSection x:Name="_phoneSection" Title="PHONE" />
         <TableSection x:Name="_emailSection" Title="EMAIL" />

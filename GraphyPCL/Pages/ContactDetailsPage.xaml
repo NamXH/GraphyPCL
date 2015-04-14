@@ -4,8 +4,8 @@
 		<TableView.Root>
 			<TableRoot x:Name="_tableRoot">
 				<TableSection Title="{Binding Organization}">
-					<ImageCell Text="{Binding Contact.FullName}" ImageSource="{Binding Contact.Photo}" />
-					<SwitchCell Text="Favorite" On="{Binding Contact.Favorite}" />
+					<ImageCell Text="{Binding ContactCopyBasicInfo.FullName}" ImageSource="{Binding ContactCopyBasicInfo.Photo}" />
+					<SwitchCell Text="Favorite" On="{Binding ContactCopyBasicInfo.Favorite}" />
 				</TableSection>
 			</TableRoot>
 		</TableView.Root>

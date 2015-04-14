@@ -18,6 +18,8 @@ namespace GraphyPCL
 
         public Contact Contact { get; set; }
 
+        public Contact ContactCopyBasicInfo { get; set; }
+
         public string Organization { get; set; }
 
         public IList<PhoneNumber> PhoneNumbers { get; set; }
@@ -64,6 +66,7 @@ namespace GraphyPCL
         public ContactViewModel()
         {
             Contact = new Contact();
+            ContactCopyBasicInfo = new Contact();
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
 
             PhoneNumbers = new List<PhoneNumber>();
@@ -89,7 +92,12 @@ namespace GraphyPCL
             _selectContactPhotoCommand = new Command(SelectContactPhoto);
 
             this.Contact = contact;
-            Organization = contact.Organization ?? " ";
+
+            // Copy the basic info for binding, will have to copy back when user pushes Done
+            ContactCopyBasicInfo = new Contact();
+            CopyBasicInformation(Contact, ContactCopyBasicInfo);
+
+            Organization = contact.Organization ?? " "; // To display the Org as blank instead of null
 
             PhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(contact.Id);
             Emails = DatabaseManager.GetRowsRelatedToContact<Email>(contact.Id);
@@ -184,7 +192,7 @@ namespace GraphyPCL
             var imageSource = ImageSource.FromStream(() => mediaFile.Source);
             await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, randomName);
 
-            Contact.ImageName = randomName;
+            ContactCopyBasicInfo.ImageName = randomName;
         }
 
         /// <summary>
@@ -199,6 +207,7 @@ namespace GraphyPCL
                 var db = DatabaseManager.DbConnection;
 
                 // Update simple information
+                CopyBasicInformation(ContactCopyBasicInfo, Contact);
                 db.Update(Contact);
 
                 // Update list-based information like phone numbers, emails...
@@ -431,10 +440,11 @@ namespace GraphyPCL
             var db = DatabaseManager.DbConnection;
 
             // Insert new contact
+            CopyBasicInformation(ContactCopyBasicInfo, Contact);
             Contact.Id = Guid.NewGuid();
             db.Insert(Contact);
 
-            // Insert basic info of new contact
+            // Insert info of new contact
             DatabaseManager.InsertList(PhoneNumbers, Contact);
             DatabaseManager.InsertList(Emails, Contact);
             DatabaseManager.InsertList(Urls, Contact);
@@ -550,6 +560,16 @@ namespace GraphyPCL
             {
                 return oldRelationshipTypeWithSameName.Id;
             }  
+        }
+
+        private void CopyBasicInformation(Contact source, Contact target)
+        {
+            target.FirstName = source.FirstName;
+            target.MiddleName = source.MiddleName;
+            target.LastName = source.LastName;
+            target.Organization = source.Organization;
+            target.Favorite = source.Favorite;
+            target.ImageName = source.ImageName; 
         }
     }
 }

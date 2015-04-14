@@ -63,33 +63,33 @@ namespace GraphyPCL
             {
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Update", _viewModel.Contact); 
 
-                // !! Doesn't work, I don't know why !!
                 // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
-//                var blankPage = new Page(); // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button
-//                Navigation.PushAsync(blankPage);
-//
-//                var enumerator = Navigation.NavigationStack.GetEnumerator();
-//                enumerator.MoveNext(); // Pass root page
-//                enumerator.MoveNext();
-//                var contactDetailsPage = enumerator.Current;
-//                enumerator.MoveNext();
-//                var addEditContactPage = enumerator.Current;
-//
-//                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), contactDetailsPage);
-//                Navigation.RemovePage(blankPage);
-//                Navigation.RemovePage(addEditContactPage);
-//                Navigation.RemovePage(contactDetailsPage);
+                var enumerator = Navigation.NavigationStack.GetEnumerator();
+                enumerator.MoveNext(); // Pass root page
+                enumerator.MoveNext();
+                var contactDetailsPage = enumerator.Current;
+                enumerator.MoveNext();
+                var addEditContactPage = enumerator.Current;
 
-                // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button0
-                Navigation.PopToRootAsync();
+                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), contactDetailsPage);
+                Navigation.RemovePage(addEditContactPage);
+                Navigation.RemovePage(contactDetailsPage);
             }
             else // Create new
             {
                 _viewModel.CreateAutoAddedTags();
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Add", _viewModel.Contact); 
 
-                // Prevent firing the event Navigation.Popped from AddEditContactPage which interfere with the workaround for EditContactPage Back button0
-                Navigation.PopToRootAsync();
+                // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
+                var enumerator = Navigation.NavigationStack.GetEnumerator();
+                enumerator.MoveNext(); // Pass root page
+                enumerator.MoveNext();
+                var addNewContactPage = enumerator.Current;
+
+                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), addNewContactPage);
+                Navigation.RemovePage(addNewContactPage);
+
+//                Navigation.PopAsync();
             }
         }
 

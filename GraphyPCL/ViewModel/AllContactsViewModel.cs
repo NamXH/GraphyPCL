@@ -65,13 +65,6 @@ namespace GraphyPCL
                 {
                     UpdateContact((Contact)args);
                 });
-
-            // Workaround for a bug!!
-            // On EditContactPage, if user pushes Back button, everything will be save instead of ignored
-            MessagingCenter.Subscribe<AllContactsNavigationPage, Contact>(this, "Update", (sender, args) =>
-                {
-                    UpdateContact((Contact)args);
-                });
         }
 
         private void UpdateContact(Contact contactToUpdate)
