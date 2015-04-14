@@ -74,6 +74,9 @@ namespace GraphyPCL
                 Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), contactDetailsPage);
                 Navigation.RemovePage(addEditContactPage);
                 Navigation.RemovePage(contactDetailsPage);
+
+                // Altenative
+//                Navigation.PopToRootAsync();
             }
             else // Create new
             {
@@ -88,8 +91,6 @@ namespace GraphyPCL
 
                 Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), addNewContactPage);
                 Navigation.RemovePage(addNewContactPage);
-
-//                Navigation.PopAsync();
             }
         }
 
