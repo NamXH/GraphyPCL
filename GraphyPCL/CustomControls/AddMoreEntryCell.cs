@@ -8,9 +8,9 @@ namespace GraphyPCL
     {
         private const double c_labelWidth = 78;
 
-        public IList<string> Items { get; set; }
+        public IList<StringWrapper> Items { get; set; }
 
-        public AddMoreEntryCell(ExtendedTableView table, TableSection tableSection, IList<string> items)
+        public AddMoreEntryCell(ExtendedTableView table, TableSection tableSection, IList<StringWrapper> items)
             : base(table, tableSection)
         {
             Items = items;
@@ -23,13 +23,13 @@ namespace GraphyPCL
 
         protected override void OnCellClicked(object sender, EventArgs args)
         {
-            string item = String.Empty;
+            var item = new StringWrapper();
             Items.Add(item);
             CreateNewCell(item);
         }
 
         // A part of this function can go into the base class !!
-        private void CreateNewCell(string item)
+        private void CreateNewCell(StringWrapper item)
         {
             // This part go into base class !!
             var viewCell = new ViewCell();
@@ -67,7 +67,7 @@ namespace GraphyPCL
             entry.BindingContext = item;
             layout.Children.Add(entry);
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
-            entry.SetBinding(Entry.TextProperty, ".", BindingMode.TwoWay);
+            entry.SetBinding(Entry.TextProperty, "InnerString", BindingMode.TwoWay);
 
             ContainerTable.OnDataChanged();
         }

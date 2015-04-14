@@ -13,7 +13,7 @@ namespace GraphyPCL
         public SelectContactPage(IList<Contact> contacts, CompleteRelationship relationship)
             : base(contacts)
         {
-            this.Title = "Pick a contact";
+            this.Title = "Pick A Contact";
             Relationship = relationship;
         }
 

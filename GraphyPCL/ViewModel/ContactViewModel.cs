@@ -99,7 +99,7 @@ namespace GraphyPCL
             Addresses = DatabaseManager.GetRowsRelatedToContact<Address>(contact.Id);
             SpecialDates = DatabaseManager.GetRowsRelatedToContact<SpecialDate>(contact.Id);
 
-            Tags = DatabaseManager.GetRows<Tag>();
+            Tags = DatabaseManager.GetRows<Tag>(); // It seems we don't need this line !!
             ContactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
             CompleteTags = new List<CompleteTag>();
             foreach (var tagMap in ContactTagMaps)

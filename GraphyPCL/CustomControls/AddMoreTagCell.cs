@@ -86,10 +86,10 @@ namespace GraphyPCL
             tagPicker.SetBinding(Picker.SelectedIndexProperty, new Binding("TagId", BindingMode.TwoWay, new PickerGuidToIntConverter<Tag>(), ViewModel.Tags));
 
             // This feature is used to work around a potential bug in PickerGuidToIntConverter!!
-//            if (tagPicker.SelectedIndex == -1) // If the completeTag.TagId is null, selectedIndex will be -1 -> use 0 as default
-//            {
-//                tagPicker.SelectedIndex = 0;
-//            }
+            if (tagPicker.SelectedIndex == -1) // If the completeTag.TagId is null, selectedIndex will be -1 -> use 0 as default
+            {
+                tagPicker.SelectedIndex = 0;
+            }
             tagLayout.Children.Add(tagPicker);
 
             // Detail, a bit duplicate!!
