@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:GraphyPCL;assembly=GraphyPCL" x:Class="GraphyPCL.MainPage">
-	<ContentPage Title="Favorites" Icon="star_icon.png">
-		<StackLayout>
-			<Label Text="Hello, XAML!" TextColor="Green" />
-		</StackLayout>
-	</ContentPage>
-	<local:AllContactsNavigationPage x:Name="_allContactsNavigationPage"/>
-  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage"/>
-	<ContentPage Title="More" Icon="etcetera_icon.png">
-	</ContentPage>
+  <ContentPage Title="Favorites" Icon="star_icon.png">
+    <StackLayout>
+      <Label Text="Hello, XAML!" TextColor="Green" />
+    </StackLayout>
+  </ContentPage>
+  <local:AllContactsNavigationPage x:Name="_allContactsNavigationPage" />
+  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage" />
+  <local:RelationshipSearchNavigationPage x:Name="_relationshipSearchNavigationPage" />
 </TabbedPage>
