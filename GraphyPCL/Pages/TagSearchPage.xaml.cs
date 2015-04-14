@@ -52,6 +52,7 @@ namespace GraphyPCL
             {
                 var eligible = true;
                 var contactTagMaps = DatabaseManager.GetRowsRelatedToContact<ContactTagMap>(contact.Id);
+
                 foreach (var tag in criteriaTags)
                 {
                     var criteriaContactTagMap = contactTagMaps.FirstOrDefault(x => x.TagId.Equals(tag.Id));
@@ -61,6 +62,7 @@ namespace GraphyPCL
                         break;
                     }
                 }
+
                 if (eligible)
                 {
                     eligibleContacts.Add(contact);
