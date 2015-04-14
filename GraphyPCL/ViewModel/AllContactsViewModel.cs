@@ -57,7 +57,20 @@ namespace GraphyPCL
                     }
                     else
                     {
-                        contactGroupContainsContactToAdd.Add(contactToAdd);
+                        // Insert to the correct spot (ascending order). Have to do this because it is quite hard to implement Sort for ObservableCollection !! Can be performance bottle neck !!
+                        var index = 0;
+                        while ((index <= contactGroupContainsContactToAdd.Count - 1) && (String.Compare(contactGroupContainsContactToAdd[index].FullName, contactToAdd.FullName) <= 0))
+                        {
+                            index++;
+                        }
+                        if (index <= contactGroupContainsContactToAdd.Count - 1)
+                        {
+                            contactGroupContainsContactToAdd.Insert(index, contactToAdd);
+                        }
+                        else
+                        {
+                            contactGroupContainsContactToAdd.Add(contactToAdd);
+                        }
                     }
                 });
 
@@ -81,7 +94,21 @@ namespace GraphyPCL
             {
                 throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToUpdate.FullName, contactToUpdate.Id));
             }
-            contactGroupContainsContactToUpdate.Add(contactToUpdate);
+
+            // Insert to the correct spot (ascending order). Have to do this because it is quite hard to implement Sort for ObservableCollection !! Can be performance bottle neck !!
+            var index = 0;
+            while ((index <= contactGroupContainsContactToUpdate.Count - 1) && (String.Compare(contactGroupContainsContactToUpdate[index].FullName, contactToUpdate.FullName) <= 0))
+            {
+                index++;
+            }
+            if (index <= contactGroupContainsContactToUpdate.Count - 1)
+            {
+                contactGroupContainsContactToUpdate.Insert(index, contactToUpdate);
+            }
+            else
+            {
+                contactGroupContainsContactToUpdate.Add(contactToUpdate);
+            }
         }
     }
 }

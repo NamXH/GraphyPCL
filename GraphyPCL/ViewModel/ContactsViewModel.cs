@@ -31,9 +31,26 @@ namespace GraphyPCL
                 if (firstCharNotInDictionary)
                 {
                     group = new ContactsGroup(firstCharOfFullName);
+                    group.Add(contact);
                     contactsGroupedByFirstChar.Add(firstCharOfFullName, group);
                 }
-                group.Add(contact);
+                else
+                {
+                    // Insert to the correct spot (ascending order). Have to do this because it is quite hard to implement Sort for ObservableCollection !! Can be performance bottle neck !!
+                    var index = 0;
+                    while ((index <= group.Count - 1) && (String.Compare(group[index].FullName, contact.FullName) <= 0))
+                    {
+                        index++;
+                    }
+                    if (index <= group.Count - 1)
+                    {
+                        group.Insert(index, contact);
+                    }
+                    else
+                    {
+                        group.Add(contact);
+                    }
+                }
             }
             return new ObservableCollection<ContactsGroup>(contactsGroupedByFirstChar.Values.OrderBy(x => x.Title));
         }
