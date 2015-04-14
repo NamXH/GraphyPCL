@@ -13,7 +13,7 @@ namespace GraphyPCL
             this.PushAsync(new AllContactsPage(allContacts));
 
             // Workaround for a bug!!
-            // On EditContactPage, if user pushes Back button, everything will be save instead of ignored
+            // On EditContactPage, if user pushes Back button, basic information will be saved (only in memory, not in DB, Binding basic information makes it worse) instead of ignored
             this.Popped += (object sender, NavigationEventArgs e) => 
                 {
                     if (e.Page.GetType() == typeof(AddEditContactPage))

@@ -88,7 +88,7 @@ namespace GraphyPCL
             {
                 throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToUpdate.FullName, contactToUpdate.Id));
             }
-            contactGroupContainsContactToUpdate.Add(contactToUpdate); 
+            contactGroupContainsContactToUpdate.Add(contactToUpdate);
         }
     }
 }
