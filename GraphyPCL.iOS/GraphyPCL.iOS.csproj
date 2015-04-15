@@ -109,7 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Resources\contact_icon%401x.png" />
     <BundleResource Include="Resources\contact_icon%402x.png" />
     <BundleResource Include="Resources\contact_icon%403x.png" />
@@ -169,5 +168,13 @@
     <Folder Include="CustomRenderers\" />
     <Folder Include="Database\" />
     <Folder Include="XFLabs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Contents.json" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\app_icon_ipad%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\app_icon_iphone%402x.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_image_iphone%402x.jpg" />
   </ItemGroup>
 </Project>
