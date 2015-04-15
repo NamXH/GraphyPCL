@@ -175,6 +175,7 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\Default-568h%402x.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\app_icon_ipad%402x.png" />
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\app_icon_iphone%402x.png" />
-    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_image_iphone%402x.jpg" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_image_iphone%40640x1136.png" />
+    <ImageAsset Include="Resources\Images.xcassets\LaunchImage.launchimage\splash_image_iphone%40640x960.png" />
   </ItemGroup>
 </Project>
