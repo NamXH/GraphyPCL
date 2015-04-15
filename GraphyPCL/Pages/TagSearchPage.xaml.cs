@@ -20,7 +20,7 @@ namespace GraphyPCL
             _searchButton.Clicked += (object sender, EventArgs e) =>
             {
                 var contacts = SearchContacts();
-                var resultPage = new ContactsPage(contacts);
+                var resultPage = new ContactsPage(contacts, false);
                 resultPage.Title = "Search Result";
                 Navigation.PushAsync(resultPage);
             };

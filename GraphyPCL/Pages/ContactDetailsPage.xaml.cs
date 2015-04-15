@@ -10,14 +10,17 @@ namespace GraphyPCL
 
         private ContactViewModel _viewModel;
 
-        public ContactDetailsPage(Contact contact)
+        public ContactDetailsPage(Contact contact, bool enableEdit)
         {
             InitializeComponent();
             _tableView.Intent = TableIntent.Menu;
-            this.ToolbarItems.Add(new ToolbarItem("Edit", null, () =>
-                    {
-                        this.Navigation.PushAsync(new AddEditContactPage(contact));
-                    }));
+            if (enableEdit)
+            {
+                this.ToolbarItems.Add(new ToolbarItem("Edit", null, () =>
+                        {
+                            this.Navigation.PushAsync(new AddEditContactPage(contact));
+                        }));
+            }
 
             _viewModel = new ContactViewModel(contact);
             this.BindingContext = _viewModel;
@@ -155,7 +158,7 @@ namespace GraphyPCL
                 relatedContactCell.Text = relationshipDirectionSymbol + " " + relatedContact.Contact.FullName;
                 relatedContactCell.Tapped += (object sender, EventArgs e) =>
                 {
-                    Navigation.PushAsync(new ContactDetailsPage(relatedContact.Contact));
+                    Navigation.PushAsync(new ContactDetailsPage(relatedContact.Contact, false));
                 };
 
                 var detailIsNotNull = !String.IsNullOrEmpty(relatedContact.RelationshipDetail);

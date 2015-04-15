@@ -25,7 +25,7 @@ namespace GraphyPCL
             base.OnAppearing();
 
             var favoriteContacts = DatabaseManager.GetRows<Contact>().Where(x => x.Favorite == true).ToList();
-            var favoritePage = new ContactsPage(favoriteContacts);
+            var favoritePage = new ContactsPage(favoriteContacts, false);
             favoritePage.Title = "Favorite Contacts";
 
             this.PushAsync(favoritePage);

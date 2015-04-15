@@ -69,7 +69,6 @@ Global
 		{DA378D3D-990B-4FB6-AC58-ED91B0C82B40}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = GraphyPCL.iOS\GraphyPCL.iOS.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.TabWidth = 2

@@ -14,14 +14,17 @@ namespace GraphyPCL
 
         public IList<Contact> Contacts { get; set; }
 
+        private bool _enableContactEdit;
+
         /// <summary>
         /// Create a page which display the list of contacts and provide access to each contact.
         /// </summary>
         /// <param name="contacts">Contacts.</param>
-        public ContactsPage(IList<Contact> contacts)
+        public ContactsPage(IList<Contact> contacts, bool enableContactEdit)
         {
             InitializeComponent();
 
+            _enableContactEdit = enableContactEdit;
             Contacts = contacts;
             SetViewModel();
 
@@ -42,7 +45,7 @@ namespace GraphyPCL
             if (e.SelectedItem != null)
             {
                 var contact = e.SelectedItem as Contact;
-                var contactDetailsPage = new ContactDetailsPage(contact);
+                var contactDetailsPage = new ContactDetailsPage(contact, _enableContactEdit);
                 this.Navigation.PushAsync(contactDetailsPage);
                 _contactList.SelectedItem = null;
             }

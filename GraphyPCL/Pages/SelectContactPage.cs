@@ -11,7 +11,7 @@ namespace GraphyPCL
         public CompleteRelationship Relationship { get; set; }
 
         public SelectContactPage(IList<Contact> contacts, CompleteRelationship relationship)
-            : base(contacts)
+            : base(contacts, false)
         {
             this.Title = "Pick A Contact";
             Relationship = relationship;

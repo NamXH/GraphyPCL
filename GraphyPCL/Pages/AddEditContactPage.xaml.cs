@@ -71,7 +71,7 @@ namespace GraphyPCL
                 enumerator.MoveNext();
                 var addEditContactPage = enumerator.Current;
 
-                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), contactDetailsPage);
+                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact, true), contactDetailsPage);
                 Navigation.RemovePage(addEditContactPage);
                 Navigation.RemovePage(contactDetailsPage);
 
@@ -89,7 +89,7 @@ namespace GraphyPCL
                 enumerator.MoveNext();
                 var addNewContactPage = enumerator.Current;
 
-                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact), addNewContactPage);
+                Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact, true), addNewContactPage);
                 Navigation.RemovePage(addNewContactPage);
             }
         }

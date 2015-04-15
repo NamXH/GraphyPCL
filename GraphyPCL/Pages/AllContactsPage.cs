@@ -7,7 +7,7 @@ namespace GraphyPCL
     public class AllContactsPage : ContactsPage
     {
         public AllContactsPage(IList<Contact> contacts)
-            : base(contacts)
+            : base(contacts, true)
         {
             this.Title = "All Contacts";
             this.ToolbarItems.Add(new ToolbarItem("Add", "plus_icon.png", OnAddButtonClick));
