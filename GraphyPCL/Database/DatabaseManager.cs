@@ -79,7 +79,7 @@ namespace GraphyPCL
         /// </summary>
         /// <returns>The rows.</returns>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static IList<T> GetRows<T>() where T : new()
+        public static IList<T> GetRows<T>() where T : class, new()
         {
             return DbConnection.Table<T>().ToList();
         }
@@ -90,22 +90,22 @@ namespace GraphyPCL
         /// <returns>The row.</returns>
         /// <param name="id">Identifier.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static T GetRow<T>(Guid id) where T : IIdContainer, new()
+        public static T GetRow<T>(Guid id) where T : class, IIdContainer, new()
         {
             return DbConnection.Table<T>().Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public static IList<T> GetRows<T>(IList<Guid> idList) where T : IIdContainer, new()
+        public static IList<T> GetRows<T>(IList<Guid> idList) where T : class, IIdContainer, new()
         {
             return DbConnection.Table<T>().Where(x => idList.Contains(x.Id)).ToList();
         }
 
-        public static IList<T> GetRowsRelatedToContact<T>(Guid contactId) where T : IContactIdRelated, new()
+        public static IList<T> GetRowsRelatedToContact<T>(Guid contactId) where T : class, IContactIdRelated, new()
         {
             return DbConnection.Table<T>().Where(x => x.ContactId == contactId).ToList();
         }
 
-        public static IList<T> GetRowsByName<T>(string name) where T : INameContainer, new()
+        public static IList<T> GetRowsByName<T>(string name) where T : class, INameContainer, new()
         {
             return DbConnection.Table<T>().Where(x => x.Name == name).ToList();
         }
