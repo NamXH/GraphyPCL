@@ -1,22 +1,15 @@
 ﻿using System;
-
 using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class BasicSearchNavigationPage : ContentPage
+    public class BasicSearchNavigationPage : NavigationPage
     {
         public BasicSearchNavigationPage()
         {
-            Content = new StackLayout
-            { 
-                Children =
-                {
-                    new Label { Text = "Hello ContentPage" }
-                }
-            };
+            Icon = "magnifying_glass_icon.png";
+            Title = "Search";
+            this.PushAsync(new BasicSearchPage());
         }
     }
 }
-
-

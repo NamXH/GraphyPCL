@@ -8,7 +8,7 @@ namespace GraphyPCL
         public TagSearchNavigationPage()
         {
             Icon = "tag_icon.png";
-            Title = "Tags";
+            Title = "Tag";
             this.PushAsync(new TagSearchPage());
         }
     }

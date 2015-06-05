@@ -146,6 +146,9 @@
     <BundleResource Include="Resources\genius_icon%401x.png" />
     <BundleResource Include="Resources\genius_icon%402x.png" />
     <BundleResource Include="Resources\genius_icon%403x.png" />
+    <BundleResource Include="Resources\magnifying_glass_icon%401x.png" />
+    <BundleResource Include="Resources\magnifying_glass_icon%402x.png" />
+    <BundleResource Include="Resources\magnifying_glass_icon%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

@@ -8,7 +8,7 @@ namespace GraphyPCL
         public RelationshipSearchNavigationPage()
         {
             Icon = "genius_icon.png";
-            Title = "Relationships";
+            Title = "Relation";
             this.PushAsync(new RelationshipSearchPage());
         }
     }
