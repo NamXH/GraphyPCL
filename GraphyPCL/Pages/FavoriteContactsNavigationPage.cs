@@ -28,6 +28,7 @@ namespace GraphyPCL
             var favoritePage = new ContactsPage(favoriteContacts, false);
             favoritePage.Title = "Favorite Contacts";
 
+            // Everytime, push a new page with updated favorite contacts to the navigation stack then remove the old one
             this.PushAsync(favoritePage);
             this.Navigation.RemovePage(TopNavigationStack); // Hide the animation when popsync()
             TopNavigationStack = favoritePage;

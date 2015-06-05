@@ -63,9 +63,10 @@ namespace GraphyPCL
             {
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Update", _viewModel.Contact); 
 
-                // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
+                // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!! SO HARDCODED!! Need fix asap!!
                 var enumerator = Navigation.NavigationStack.GetEnumerator();
-                enumerator.MoveNext(); // Pass root page
+                enumerator.MoveNext(); // Pass loading screen
+                enumerator.MoveNext(); // Pass all contacts (root) page
                 enumerator.MoveNext();
                 var contactDetailsPage = enumerator.Current;
                 enumerator.MoveNext();
@@ -85,7 +86,8 @@ namespace GraphyPCL
 
                 // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!!
                 var enumerator = Navigation.NavigationStack.GetEnumerator();
-                enumerator.MoveNext(); // Pass root page
+                enumerator.MoveNext(); // Pass loading screen
+                enumerator.MoveNext(); // Pass all contacts (root) page
                 enumerator.MoveNext();
                 var addNewContactPage = enumerator.Current;
 

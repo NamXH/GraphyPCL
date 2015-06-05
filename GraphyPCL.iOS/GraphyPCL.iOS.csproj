@@ -110,6 +110,12 @@
     <Reference Include="SQLite.Net.Platform.XamarinIOS">
       <HintPath>..\packages\SQLite.Net-PCL.3.0.5\lib\monotouch\SQLite.Net.Platform.XamarinIOS.dll</HintPath>
     </Reference>
+    <Reference Include="Contacts.Plugin">
+      <HintPath>..\packages\Xam.Plugin.Contacts.1.0.0-alpha3\lib\MonoTouch10\Contacts.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Contacts.Plugin.Abstractions">
+      <HintPath>..\packages\Xam.Plugin.Contacts.1.0.0-alpha3\lib\MonoTouch10\Contacts.Plugin.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\contact_icon%401x.png" />
