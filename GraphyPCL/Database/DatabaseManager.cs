@@ -123,27 +123,26 @@ namespace GraphyPCL
             return DbConnection.Table<T>().Where(x => x.Name == name).ToList();
         }
 
-        public static IList<T> GetRowsByNameIgnoreCaseFirstLetter<T>(string name) where T : class, INameContainer, new()
+        public static IList<T> GetRowsContainNameIgnoreCase<T>(string name) where T : class, INameContainer, new()
         {
             if (String.IsNullOrEmpty(name))
             {
                 return new List<T>();
             }
 
-            // String.Equals does not work
-            // return DbConnection.Table<T>().Where(x => String.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)).ToList();
-
+//             String.Equals does not work
+//             return DbConnection.Table<T>().Where(x => String.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)).ToList();
             // Workaround
-            var result = new List<T>();
+//            var result = new List<T>();
+//            var nameUpper = FirstLetterToUpper(name);
+//            var nameLower = FirstLetterToLower(name);
+//            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == name));
+//            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameUpper));
+//            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameLower));
 
-            var nameUpper = FirstLetterToUpper(name);
-            var nameLower = FirstLetterToLower(name);
-
-            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == name));
-            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameUpper));
-            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameLower));
-
-            return result;
+            // For some shocking reason: String.Contains ignore case in this situation !! It is actually what we want !!
+            // We put in tolower() to prevent bugs later on. There is a faster solution using CulturalInfo. !!
+            return DbConnection.Table<T>().Where(x => x.Name.ToLower().Contains(name.ToLower())).ToList();
         }
 
         /// <summary>

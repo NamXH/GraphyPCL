@@ -81,10 +81,18 @@ namespace GraphyPCL
             {
                 foreach (var contact in contacts)
                 {
-                    if (String.Equals(contact.FirstName, criterion, StringComparison.OrdinalIgnoreCase)
-                        || String.Equals(contact.MiddleName, criterion, StringComparison.OrdinalIgnoreCase)
-                        || String.Equals(contact.LastName, criterion, StringComparison.OrdinalIgnoreCase)
-                        || String.Equals(contact.Organization, criterion, StringComparison.OrdinalIgnoreCase))
+                    // this if is not robust
+//                    if (String.Equals(contact.FirstName, criterion, StringComparison.OrdinalIgnoreCase)
+//                        || String.Equals(contact.MiddleName, criterion, StringComparison.OrdinalIgnoreCase)
+//                        || String.Equals(contact.LastName, criterion, StringComparison.OrdinalIgnoreCase)
+//                        || String.Equals(contact.Organization, criterion, StringComparison.OrdinalIgnoreCase))
+
+                    var lowerCaseCriterion = criterion.ToLower();
+
+                    if ((!String.IsNullOrEmpty(contact.FirstName) && (contact.FirstName.ToLower().Contains(lowerCaseCriterion)))
+                        || (!String.IsNullOrEmpty(contact.MiddleName) && (contact.MiddleName.ToLower().Contains(lowerCaseCriterion)))
+                        || (!String.IsNullOrEmpty(contact.LastName) && (contact.LastName.ToLower().Contains(lowerCaseCriterion)))
+                        || (!String.IsNullOrEmpty(contact.Organization) && (contact.Organization.ToLower().Contains(lowerCaseCriterion))))
                     {
                         filteredContacts.Add(contact);
                     }
@@ -106,7 +114,7 @@ namespace GraphyPCL
 
             if (!String.IsNullOrEmpty(criterion))
             {
-                var tags = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<Tag>(criterion);
+                var tags = DatabaseManager.GetRowsContainNameIgnoreCase<Tag>(criterion);
 
                 if ((tags != null) && (tags.Any()))
                 {
@@ -146,7 +154,7 @@ namespace GraphyPCL
 
             if (!String.IsNullOrEmpty(criterion))
             {
-                var relationshipTypes = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<RelationshipType>(criterion);
+                var relationshipTypes = DatabaseManager.GetRowsContainNameIgnoreCase<RelationshipType>(criterion);
 
                 if ((relationshipTypes != null) && (relationshipTypes.Any()))
                 {
