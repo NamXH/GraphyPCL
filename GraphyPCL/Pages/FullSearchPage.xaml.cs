@@ -5,6 +5,7 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
+    // Should be refactored to be more MVVM / MVC !!
     public partial class FullSearchPage : ContentPage
     {
         public IList<StringWrapper> Criteria { get; set; }
@@ -55,6 +56,13 @@ namespace GraphyPCL
                 remainingContacts.AddRange(tagEligibleContacts);
                 remainingContacts.AddRange(relationshipEligibleContacts);
             }
+
+//            // Evaluate result here (put in a function) !!
+//            foreach (var contact in remainingContacts)
+//            {
+//                // Get all tags of the contact. Compare the tags' names with the criteria. Every match counts toward Tag effectiveness.
+//                // Get all relationships of the contact. Compare the relationships' names with the criteria. Every match counts toward Tag effectiveness.
+//            }
 
             return remainingContacts;
         }
@@ -118,6 +126,7 @@ namespace GraphyPCL
                         }
                     }
 
+                    // Note: Intersect removes all duplicate
                     filteredContacts = contacts.Intersect(relatedContacts, new ContactComparer()).ToList();
                 }
             }
