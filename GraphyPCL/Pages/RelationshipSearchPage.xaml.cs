@@ -49,6 +49,7 @@ namespace GraphyPCL
                 }
             }
 
+            // Need change to be faster (like TagSearch) !!
             var allContacts = DatabaseManager.GetRows<Contact>();
             foreach (var contact in allContacts)
             {

@@ -116,8 +116,68 @@ namespace GraphyPCL
 
         public static IList<T> GetRowsByName<T>(string name) where T : class, INameContainer, new()
         {
+            if (String.IsNullOrEmpty(name))
+            {
+                return new List<T>();
+            }
             return DbConnection.Table<T>().Where(x => x.Name == name).ToList();
         }
+
+        public static IList<T> GetRowsByNameIgnoreCaseFirstLetter<T>(string name) where T : class, INameContainer, new()
+        {
+            if (String.IsNullOrEmpty(name))
+            {
+                return new List<T>();
+            }
+
+            // String.Equals does not work
+            // return DbConnection.Table<T>().Where(x => String.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            // Workaround
+            var result = new List<T>();
+
+            var nameUpper = FirstLetterToUpper(name);
+            var nameLower = FirstLetterToLower(name);
+
+            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == name));
+            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameUpper));
+            result.AddRange(DbConnection.Table<T>().Where(x => x.Name == nameLower));
+
+            return result;
+        }
+
+        /// <summary>
+        /// Firsts the letter to upper. Helper method.
+        /// </summary>
+        /// <returns>The letter to upper.</returns>
+        /// <param name="str">String.</param>
+        public static string FirstLetterToUpper(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToUpper(str[0]) + str.Substring(1);
+
+            return str.ToUpper();
+        }
+
+        /// <summary>
+        /// Firsts the letter to lower. Helper method.
+        /// </summary>
+        /// <returns>The letter to lower.</returns>
+        /// <param name="str">String.</param>
+        public static string FirstLetterToLower(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToLower(str[0]) + str.Substring(1);
+
+            return str.ToLower();
+        }
+
 
         /// <summary>
         /// Gets the relationships start from a contact to other contacts

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQLite.Net.Attributes;
 using Xamarin.Forms;
 
@@ -84,5 +85,36 @@ namespace GraphyPCL
             }
         }
         #endregion
+    }
+
+    public class ContactComparer : IEqualityComparer<Contact>
+    {
+        public bool Equals(Contact x, Contact y)
+        {
+            // Check whether the compared objects reference the same data. 
+            if (Object.ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            // Check whether any of the compared objects is null. 
+            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+            {
+                return false;
+            }
+            
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(Contact contact)
+        {
+            // Check whether the object is null. 
+            if (Object.ReferenceEquals(contact, null))
+            {
+                return 0;
+            }
+
+            return contact.Id.GetHashCode();
+        }
     }
 }

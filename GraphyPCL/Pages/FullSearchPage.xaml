@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="GraphyPCL.FullSearchPage" xmlns:local="clr-namespace:GraphyPCL;assembly=GraphyPCL">
+  <ContentPage.Title>Search</ContentPage.Title>
+  <local:ExtendedTableView x:Name="_tableView">
+    <TableView.Root>
+      <TableRoot x:Name="_tableRoot">
+        <TableSection x:Name="_criteriaSection" Title="CRITERIA" />
+        <TableSection>
+          <ViewCell>
+            <StackLayout>
+              <Button x:Name="_searchButton" Text="Start Search" />
+            </StackLayout>
+          </ViewCell>
+        </TableSection>
+      </TableRoot>
+    </TableView.Root>
+  </local:ExtendedTableView>
+</ContentPage>

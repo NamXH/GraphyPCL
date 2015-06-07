@@ -8,7 +8,7 @@ namespace GraphyPCL
         public BasicSearchNavigationPage()
         {
             Icon = "magnifying_glass_icon.png";
-            Title = "Search";
+            Title = "Info";
             this.PushAsync(new BasicSearchPage());
         }
     }

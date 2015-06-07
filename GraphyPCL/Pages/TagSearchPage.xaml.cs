@@ -50,6 +50,8 @@ namespace GraphyPCL
             }
 
             var allContacts = DatabaseManager.GetRows<Contact>();
+
+            // Need change: find all ContactTagMaps which have the Tag then find all related Contacts is much faster than this !!
             foreach (var contact in allContacts)
             {
                 var eligible = true;
