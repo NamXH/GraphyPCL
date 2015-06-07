@@ -15,7 +15,7 @@ namespace GraphyPCL
             _tableView.Intent = TableIntent.Menu;
 
             Criteria = new List<StringWrapper>();
-            new AddMoreEntryCell(_tableView, _criteriaSection, Criteria);
+            new AddMoreEntryCell(_tableView, _criteriaSection, Criteria, "Keyword");
 
             _searchButton.Clicked += (object sender, EventArgs e) =>
             {
@@ -28,10 +28,12 @@ namespace GraphyPCL
 
         public IList<Contact> SearchContacts()
         {
-            IList<Contact> eligibleContacts = new List<Contact>();
+            // Maybe IList or IEnum is enough here, we could improve performance !!
+            var remainingContacts = DatabaseManager.GetRows<Contact>().ToList(); // start with all contacts
 
-            var contacts = DatabaseManager.GetRows<Contact>();
-
+            // A contact is eligible if:
+            // With each criterion, the contact has a basic info OR a tag OR a relationship type Equals to the criterion
+            // (The contact has to satisfy all criterion)
             foreach (var criterion in Criteria)
             {
                 if (String.IsNullOrEmpty(criterion.InnerString))
@@ -39,12 +41,22 @@ namespace GraphyPCL
                     continue;
                 }
 
-//                var basicFilteredContacts = 
+                var basicInfoEligibleContacts = FilterByBasicInfo(criterion.InnerString, remainingContacts);
+                remainingContacts = remainingContacts.Except(basicInfoEligibleContacts, new ContactComparer()).ToList(); // Don't check already eligible contacts
 
+                var tagEligibleContacts = FilterByTag(criterion.InnerString, remainingContacts);
+                remainingContacts = remainingContacts.Except(tagEligibleContacts, new ContactComparer()).ToList(); // Don't check already eligible contacts
+
+                var relationshipEligibleContacts = FilterByRelationship(criterion.InnerString, remainingContacts);
+
+                // Remaining contacts is now assigned to all eligible contacts regarding this criterion (and previous criteria). Next criterion is only evaluated in the remainging contacts.
+                remainingContacts = new List<Contact>();
+                remainingContacts.AddRange(basicInfoEligibleContacts);
+                remainingContacts.AddRange(tagEligibleContacts);
+                remainingContacts.AddRange(relationshipEligibleContacts);
             }
 
-
-            return eligibleContacts;
+            return remainingContacts;
         }
 
         /// <summary>
@@ -61,7 +73,7 @@ namespace GraphyPCL
             {
                 foreach (var contact in contacts)
                 {
-                    if (String.Equals(contact.FirstName, criterion, StringComparison.OrdinalIgnoreCase) 
+                    if (String.Equals(contact.FirstName, criterion, StringComparison.OrdinalIgnoreCase)
                         || String.Equals(contact.MiddleName, criterion, StringComparison.OrdinalIgnoreCase)
                         || String.Equals(contact.LastName, criterion, StringComparison.OrdinalIgnoreCase)
                         || String.Equals(contact.Organization, criterion, StringComparison.OrdinalIgnoreCase))
@@ -86,19 +98,23 @@ namespace GraphyPCL
 
             if (!String.IsNullOrEmpty(criterion))
             {
-                var tag = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<Tag>(criterion).SingleOrDefault();
+                var tags = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<Tag>(criterion);
 
-                if (tag != null)
+                if ((tags != null) && (tags.Any()))
                 {
-                    var contactTagMaps = DatabaseManager.DbConnection.Table<ContactTagMap>().Where(x => x.TagId == tag.Id).ToList();
                     var relatedContacts = new List<Contact>();
 
-                    foreach (var contactTagMap in contactTagMaps)
+                    foreach (var tag in tags)
                     {
-                        var relatedContact = DatabaseManager.DbConnection.Table<Contact>().FirstOrDefault(x => x.Id == contactTagMap.ContactId);
-                        if (relatedContact != null)
+                        var contactTagMaps = DatabaseManager.DbConnection.Table<ContactTagMap>().Where(x => x.TagId == tag.Id).ToList();
+
+                        foreach (var contactTagMap in contactTagMaps)
                         {
-                            relatedContacts.Add(relatedContact);
+                            var relatedContact = DatabaseManager.DbConnection.Table<Contact>().FirstOrDefault(x => x.Id == contactTagMap.ContactId);
+                            if (relatedContact != null)
+                            {
+                                relatedContacts.Add(relatedContact);
+                            }
                         }
                     }
 
@@ -121,16 +137,21 @@ namespace GraphyPCL
 
             if (!String.IsNullOrEmpty(criterion))
             {
-                var relationshipType = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<RelationshipType>(criterion).SingleOrDefault();
-                if (relationshipType != null)
+                var relationshipTypes = DatabaseManager.GetRowsByNameIgnoreCaseFirstLetter<RelationshipType>(criterion);
+
+                if ((relationshipTypes != null) && (relationshipTypes.Any()))
                 {
-                    var relationships = DatabaseManager.DbConnection.Table<Relationship>().Where(x => x.RelationshipTypeId == relationshipType.Id);
                     var relatedContacts = new List<Contact>();
 
-                    foreach (var relationship in relationships)
+                    foreach (var relationshipType in relationshipTypes)
                     {
-                        relatedContacts.Add(DatabaseManager.GetRow<Contact>(relationship.FromContactId));
-                        relatedContacts.Add(DatabaseManager.GetRow<Contact>(relationship.ToContactId));
+                        var relationships = DatabaseManager.DbConnection.Table<Relationship>().Where(x => x.RelationshipTypeId == relationshipType.Id);
+
+                        foreach (var relationship in relationships)
+                        {
+                            relatedContacts.Add(DatabaseManager.GetRow<Contact>(relationship.FromContactId));
+                            relatedContacts.Add(DatabaseManager.GetRow<Contact>(relationship.ToContactId));
+                        }
                     }
 
                     filteredContacts = contacts.Intersect(relatedContacts, new ContactComparer()).ToList();

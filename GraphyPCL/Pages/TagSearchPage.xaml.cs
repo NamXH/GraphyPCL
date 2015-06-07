@@ -15,7 +15,7 @@ namespace GraphyPCL
             _tableView.Intent = TableIntent.Menu;
 
             Criteria = new List<StringWrapper>();
-            new AddMoreEntryCell(_tableView, _criteriaSection, Criteria);
+            new AddMoreEntryCell(_tableView, _criteriaSection, Criteria, "Tag Name");
 
             _searchButton.Clicked += (object sender, EventArgs e) =>
             {

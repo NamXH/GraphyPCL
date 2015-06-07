@@ -10,10 +10,17 @@ namespace GraphyPCL
 
         public IList<StringWrapper> Items { get; set; }
 
-        public AddMoreEntryCell(ExtendedTableView table, TableSection tableSection, IList<StringWrapper> items)
+        public string LabelText
+        {
+            get;
+            set;
+        }
+
+        public AddMoreEntryCell(ExtendedTableView table, TableSection tableSection, IList<StringWrapper> items, string labelText)
             : base(table, tableSection)
         {
             Items = items;
+            LabelText = labelText;
 
             foreach (var item in Items)
             {
@@ -55,13 +62,13 @@ namespace GraphyPCL
                 };
             ////////
 
-            var tagLabel = new Label
+            var label = new Label
                 {
-                    Text = "Tag Name",
+                    Text = LabelText,
                     WidthRequest = c_labelWidth,
                     VerticalOptions = LayoutOptions.Center
                 };
-            layout.Children.Add(tagLabel);
+            layout.Children.Add(label);
 
             var entry = new Entry();
             entry.BindingContext = item;
