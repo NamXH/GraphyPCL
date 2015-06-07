@@ -526,7 +526,7 @@ namespace GraphyPCL
                 {
                     Id = Guid.NewGuid(),
                     Detail = completeRelationship.Detail,
-                    RelationshipTypeId = completeRelationship.RelationshipTypeId
+                    RelationshipTypeId = relationshipTypeId
                 }; 
             if (completeRelationship.IsToRelatedContact)
             {
@@ -544,8 +544,8 @@ namespace GraphyPCL
         private Guid CreateOrRetrieveRelationshipType(string newRelationshipName)
         {
             // Create a new relationship type in db if the new relationship type has a distinct name.
-            var oldRelationshipType = DatabaseManager.GetRows<RelationshipType>();
-            var oldRelationshipTypeWithSameName = oldRelationshipType.SingleOrDefault(x => x.Name == newRelationshipName);
+            var oldRelationshipTypes = DatabaseManager.GetRows<RelationshipType>();
+            var oldRelationshipTypeWithSameName = oldRelationshipTypes.SingleOrDefault(x => x.Name == newRelationshipName);
             if (oldRelationshipTypeWithSameName == null)
             {
                 var newRelationshipType = new RelationshipType
