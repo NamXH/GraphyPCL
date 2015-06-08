@@ -21,7 +21,7 @@ namespace GraphyPCL
             _searchButton.Clicked += (object sender, EventArgs e) =>
             {
                 var contacts = SearchContacts();
-                var resultPage = new ContactsPage(contacts, false);
+                var resultPage = new ContactsPage(contacts, false, 2);
                 resultPage.Title = "Search Result";
                 Navigation.PushAsync(resultPage);
             };

@@ -22,7 +22,7 @@ namespace GraphyPCL
                     var success = contactGroupContainsContactToRemove.Remove(contactToRemove);
                     if (!success)
                     {
-                        throw new Exception(String.Format("Cannot find contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
+                        throw new Exception(String.Format("Cannot remove contact {0} with Id {1} in list of contacts", contactToRemove.FullName, contactToRemove.Id));
                     }
 
                     if (contactGroupContainsContactToRemove.Count == 0)

@@ -16,15 +16,19 @@ namespace GraphyPCL
 
         private bool _enableContactEdit;
 
+        private int _popTimesAfterDelete;
+
         /// <summary>
         /// Create a page which display the list of contacts and provide access to each contact.
         /// </summary>
         /// <param name="contacts">Contacts.</param>
-        public ContactsPage(IList<Contact> contacts, bool enableContactEdit)
+        public ContactsPage(IList<Contact> contacts, bool enableContactEdit, int popTimesAfterDelete = 1)
         {
             InitializeComponent();
 
             _enableContactEdit = enableContactEdit;
+            _popTimesAfterDelete = popTimesAfterDelete; // these 2 variable are very ugly, they are used to notify ContactDetailPage !!
+
             Contacts = contacts;
             SetViewModel();
 
@@ -45,7 +49,7 @@ namespace GraphyPCL
             if (e.SelectedItem != null)
             {
                 var contact = e.SelectedItem as Contact;
-                var contactDetailsPage = new ContactDetailsPage(contact, _enableContactEdit);
+                var contactDetailsPage = new ContactDetailsPage(contact, _enableContactEdit, _popTimesAfterDelete);
                 this.Navigation.PushAsync(contactDetailsPage);
                 _contactList.SelectedItem = null;
             }

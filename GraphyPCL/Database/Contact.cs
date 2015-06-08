@@ -85,6 +85,42 @@ namespace GraphyPCL
             }
         }
         #endregion
+
+        public override bool Equals(System.Object obj)
+        {
+            // If parameter is null return false.
+            if (obj == null)
+            {
+                return false;
+            }
+
+            // If parameter cannot be cast to Point return false.
+            Contact other = obj as Contact;
+            if ((System.Object)other == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return this.Id == other.Id;
+        }
+
+        public bool Equals(Contact other)
+        {
+            // If parameter is null return false:
+            if ((object)other == null)
+            {
+                return false;
+            }
+
+            // Return true if the fields match:
+            return this.Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 
     public class ContactComparer : IEqualityComparer<Contact>

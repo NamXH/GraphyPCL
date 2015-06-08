@@ -10,10 +10,11 @@ namespace GraphyPCL
 
         private ContactViewModel _viewModel;
 
-        public ContactDetailsPage(Contact contact, bool enableEdit)
+        public ContactDetailsPage(Contact contact, bool enableEdit, int popTimesAfterDelete = 1)
         {
             InitializeComponent();
             _tableView.Intent = TableIntent.Menu;
+
             if (enableEdit)
             {
                 this.ToolbarItems.Add(new ToolbarItem("Edit", null, () =>
@@ -81,7 +82,10 @@ namespace GraphyPCL
                 {
                     DatabaseManager.DeleteContact(contact.Id);
                     MessagingCenter.Send<ContactDetailsPage, Contact>(this, "Delete", contact);
-                    this.Navigation.PopAsync();
+                    for (int i = 1; i <= popTimesAfterDelete; i++)
+                    {
+                        this.Navigation.PopAsync();
+                    }
                 }
             };
             deleteLayout.Children.Add(deleteButton);
