@@ -20,8 +20,15 @@ namespace GraphyPCL
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.CenterAndExpand,
+                    HorizontalOptions = LayoutOptions.CenterAndExpand,
                     Children =
-                    {new ActivityIndicator
+                    {
+                        new Label
+                        {
+                            Text = "Setting up for the first time use"
+                        },
+
+                        new ActivityIndicator
                         {
                             IsRunning = true
                         },

@@ -24,7 +24,7 @@ namespace GraphyPCL
         {
             var db = DependencyService.Get<ISQLite>();
 
-            db.Delete(); // Delete DB for testing!!
+//            db.Delete(); // Delete DB for testing!!
 
             if (!db.Exists())
             {
