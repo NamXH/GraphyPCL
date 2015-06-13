@@ -7,6 +7,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
+using XLabs.Ioc;
+using XLabs.Platform.Device;
+using XLabs.Platform.Services.Media;
 
 namespace GraphyPCL.Android
 {
@@ -19,7 +22,22 @@ namespace GraphyPCL.Android
 
             Xamarin.Forms.Forms.Init(this, bundle);
 
+            if (!Resolver.IsSet)
+            {
+                SetIoc();
+            }
+
             SetPage(App.GetMainPage());
+        }
+
+        private void SetIoc()
+        {
+            var resolverContainer = new SimpleContainer();
+
+            resolverContainer.Register<IDevice>(t => AndroidDevice.CurrentDevice)
+                .Register<IMediaPicker, MediaPicker>();
+
+            Resolver.SetResolver(resolverContainer.GetResolver());
         }
     }
 }
