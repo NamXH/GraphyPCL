@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using XLabs.Ioc;
+using XLabs.Platform.Services.Media;
 
 namespace GraphyPCL
 {
@@ -175,9 +176,9 @@ namespace GraphyPCL
 
         private async void SelectContactPhoto()
         {
-//            var mediaPicker = DependencyService.Get<XLabs.Platform.Services.Media.IMediaPicker>();
-            var mediaPicker = Resolver.Resolve<XLabs.Platform.Services.Media.IMediaPicker>();
-            XLabs.Platform.Services.Media.MediaFile mediaFile = null;
+//            var mediaPicker = DependencyService.Get<IMediaPicker>(); // Old implementation
+            var mediaPicker = Resolver.Resolve<IMediaPicker>();
+            MediaFile mediaFile = null;
             try
             {
                 mediaFile = await mediaPicker.SelectPhotoAsync(new XLabs.Platform.Services.Media.CameraMediaStorageOptions

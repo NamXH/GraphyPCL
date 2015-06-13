@@ -19,6 +19,7 @@ namespace GraphyPCL.iOS
         {
             Forms.Init();
 
+            // Setup resolver for XLabs.Forms
             if (!Resolver.IsSet)
             {
                 SetIoc();
@@ -31,6 +32,7 @@ namespace GraphyPCL.iOS
             return true;
         }
 
+        // Setup resolver for XLabs.Forms
         private void SetIoc()
         {
             var resolverContainer = new SimpleContainer();
