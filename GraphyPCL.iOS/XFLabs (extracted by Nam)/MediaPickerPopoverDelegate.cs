@@ -1,4 +1,4 @@
-﻿//
+//
 //  Copyright 2011-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
 //
 
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 
 namespace GraphyPCL.iOS
 {

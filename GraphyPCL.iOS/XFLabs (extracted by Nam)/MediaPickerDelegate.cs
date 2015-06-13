@@ -1,4 +1,4 @@
-﻿//
+//
 //  Copyright 2011-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,13 @@
 //
 
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MonoTouch.AssetsLibrary;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using AssetsLibrary;
+using Foundation;
+using UIKit;
 
 namespace GraphyPCL.iOS
 {
@@ -116,7 +116,7 @@ namespace GraphyPCL.iOS
             if (hideFirst && Popover.PopoverVisible)
                 Popover.Dismiss(animated: false);
 
-            Popover.PresentFromRect(new RectangleF(x, y, width, height), View, 0, animated: true);
+            Popover.PresentFromRect(new CGRect(x, y, width, height), View, 0, animated: true);
         }
 
         private UIDeviceOrientation? orientation;

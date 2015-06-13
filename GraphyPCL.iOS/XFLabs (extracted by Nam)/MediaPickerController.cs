@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
-using MonoTouch.UIKit;
+using UIKit;
 
 namespace GraphyPCL.iOS
 {
@@ -12,7 +12,7 @@ namespace GraphyPCL.iOS
             base.Delegate = mpDelegate;
         }
 
-        public override MonoTouch.Foundation.NSObject Delegate
+        public override Foundation.NSObject Delegate
         {
             get { return base.Delegate; }
             set { throw new NotSupportedException(); }

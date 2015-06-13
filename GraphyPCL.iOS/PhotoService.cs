@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using MonoTouch.Foundation;
+using Foundation;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
