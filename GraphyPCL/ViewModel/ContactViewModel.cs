@@ -192,8 +192,10 @@ namespace GraphyPCL
             }
 
             var randomName = Guid.NewGuid().ToString() + ".jpg";
-            var imageSource = ImageSource.FromStream(() => mediaFile.Source);
-            await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, randomName);
+//            var imageSource = ImageSource.FromStream(() => mediaFile.Source);
+//            await DependencyService.Get<IPhotoService>().SaveImageToDisk(imageSource, randomName);
+
+            DependencyService.Get<IFileAccess>().WriteStream(randomName, mediaFile.Source);
 
             ContactCopyBasicInfo.ImageName = randomName;
         }
