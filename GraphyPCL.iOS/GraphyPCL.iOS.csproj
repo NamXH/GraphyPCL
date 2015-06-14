@@ -190,7 +190,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="CustomControls\ExtendedTableViewRenderer.cs" />
-    <Compile Include="CustomServices\PhotoService.cs" />
     <Compile Include="CustomServices\FileAccess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

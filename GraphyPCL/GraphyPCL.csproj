@@ -104,7 +104,6 @@
     <Compile Include="Pages\FullSearchPage.xaml.cs">
       <DependentUpon>FullSearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomServices\IPhotoService.cs" />
     <Compile Include="CustomServices\IFileAccess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

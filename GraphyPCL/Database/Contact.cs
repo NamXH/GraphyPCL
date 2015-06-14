@@ -51,9 +51,9 @@ namespace GraphyPCL
         {
             get
             {
+                // Old method using IPhotoService
 //                var img = DependencyService.Get<IPhotoService>().LoadImageFromDisk(ImageName);
 //                img = img ?? ImageSource.FromFile(c_defaultImageName);
-
 //                return img;
 
                 var imgPath = DependencyService.Get<IFileAccess>().FullPath(ImageName) ?? c_defaultImageName;
