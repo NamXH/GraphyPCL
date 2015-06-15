@@ -3,16 +3,18 @@ using Xamarin.Forms;
 
 namespace GraphyPCL
 {
-    public class App
+    public class App : Application
     {
         public App()
         {
+            MainPage = new GraphyPCL.MainPage();
         }
 
-        public static Page GetMainPage()
-        {
-            return new MainPage();
-        }
+        // Pre Xamarin.Forms 1.3
+//        public static Page GetMainPage()
+//        {
+//            return new MainPage();
+//        }
     }
 }
 
