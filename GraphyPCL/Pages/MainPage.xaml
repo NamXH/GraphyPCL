@@ -3,8 +3,7 @@
   <local:FavoriteContactsNavigationPage x:Name="_favoriteContactsNavigationPage" />
   <local:AllContactsNavigationPage x:Name="_allContactsNavigationPage" />
   <local:FullSearchNavigationPage x:Name="_fullSearchNavigationPage" />
-<!--  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage" />-->
+  <!--  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage" />-->
   <local:RelationshipSearchNavigationPage x:Name="_relationshipSearchNavigationPage" />
-<!--  <local:BasicSearchNavigationPage x:Name="_basicSearchNavigationPage" />-->
-
+  <!--  <local:BasicSearchNavigationPage x:Name="_basicSearchNavigationPage" />-->
 </TabbedPage>
