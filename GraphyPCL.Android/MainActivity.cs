@@ -13,7 +13,7 @@ using XLabs.Platform.Services.Media;
 
 namespace GraphyPCL.Android
 {
-    [Activity(Label = "GraphyPCL.Android", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, Theme = "@android:style/Theme.Holo.Light")]
+    [Activity(Label = "Graphy", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, Theme = "@android:style/Theme.Holo.Light")]
     public class MainActivity : XLabs.Forms.XFormsApplicationDroid
     {
         protected override void OnCreate(Bundle bundle)
