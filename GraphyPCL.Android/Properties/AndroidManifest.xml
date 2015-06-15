@@ -3,4 +3,6 @@
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="19" />
 	<application android:label="Graphy" android:icon="@drawable/app_icon">
 	</application>
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
