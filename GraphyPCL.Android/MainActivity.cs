@@ -27,7 +27,10 @@ namespace GraphyPCL.Android
                 SetIoc();
             }
 
-            SetPage(App.GetMainPage());
+            LoadApplication(new App());
+
+            // Pre Xamarin.Forms 1.3
+//            SetPage(App.GetMainPage());
         }
 
         private void SetIoc()
