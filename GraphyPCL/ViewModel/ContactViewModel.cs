@@ -176,6 +176,13 @@ namespace GraphyPCL
 
         private async void SelectContactPhoto()
         {
+            // MediaPicker for Android has a bug in the XLabs nuget package.
+            // Ref: https://forums.xamarin.com/discussion/33476/xlabs-imediapicker-on-android-not-working/p1
+            if (Device.OS == TargetPlatform.Android)
+            {
+                return;
+            }
+
 //            var mediaPicker = DependencyService.Get<IMediaPicker>(); // Old implementation
             var mediaPicker = Resolver.Resolve<IMediaPicker>();
             MediaFile mediaFile = null;
@@ -523,18 +530,18 @@ namespace GraphyPCL
             Guid relationshipTypeId;
             if (!String.IsNullOrEmpty(completeRelationship.NewRelationshipName)) // User wanted to create new relationship type
             {
-               relationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
+                relationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
             }
             else // User picked an existing relationship.
             {
                 relationshipTypeId = completeRelationship.RelationshipTypeId; 
             }
-            var newRelationship = new Relationship 
-                {
-                    Id = Guid.NewGuid(),
-                    Detail = completeRelationship.Detail,
-                    RelationshipTypeId = relationshipTypeId
-                }; 
+            var newRelationship = new Relationship
+            {
+                Id = Guid.NewGuid(),
+                Detail = completeRelationship.Detail,
+                RelationshipTypeId = relationshipTypeId
+            }; 
             if (completeRelationship.IsToRelatedContact)
             {
                 newRelationship.ToContactId = completeRelationship.RelatedContactId;
@@ -556,10 +563,10 @@ namespace GraphyPCL
             if (oldRelationshipTypeWithSameName == null)
             {
                 var newRelationshipType = new RelationshipType
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = newRelationshipName 
-                    };
+                {
+                    Id = Guid.NewGuid(),
+                    Name = newRelationshipName 
+                };
                 DatabaseManager.DbConnection.Insert(newRelationshipType);
                 return newRelationshipType.Id;
             }
