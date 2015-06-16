@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <ConsolePause>false</ConsolePause>
+    <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -115,19 +116,51 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
-    <AndroidResource Include="Resources\drawable\Icon.png" />
-    <AndroidResource Include="Resources\drawable\unknown.jpg" />
-    <AndroidResource Include="Resources\drawable\clock_icon.png" />
-    <AndroidResource Include="Resources\drawable\contact_icon.png" />
-    <AndroidResource Include="Resources\drawable\etcetera_icon.png" />
-    <AndroidResource Include="Resources\drawable\genius_icon.png" />
-    <AndroidResource Include="Resources\drawable\magnifying_glass_icon.png" />
-    <AndroidResource Include="Resources\drawable\minus_icon.png" />
-    <AndroidResource Include="Resources\drawable\plus_circled_icon.png" />
-    <AndroidResource Include="Resources\drawable\plus_icon.png" />
-    <AndroidResource Include="Resources\drawable\star_icon.png" />
-    <AndroidResource Include="Resources\drawable\tag_icon.png" />
-    <AndroidResource Include="Resources\drawable\app_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\app_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\clock_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\contact_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\etcetera_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\genius_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\magnifying_glass_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\minus_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\plus_circled_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\plus_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\star_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\tag_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\app_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\clock_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\contact_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\etcetera_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\genius_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\magnifying_glass_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\minus_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\plus_circled_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\plus_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\star_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\tag_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\clock_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\contact_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\etcetera_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\genius_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\magnifying_glass_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\minus_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\plus_circled_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\plus_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\star_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\tag_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\clock_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\contact_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\etcetera_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\genius_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\magnifying_glass_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\minus_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\plus_circled_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\plus_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\star_icon.png" />
+    <AndroidResource Include="Resources\drawable-ldpi\tag_icon.png" />
+    <AndroidResource Include="Resources\drawable-nodpi\unknown.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.1.4.2.6359\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.1.4.2.6359\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -141,5 +174,10 @@
     <Folder Include="Database\" />
     <Folder Include="CustomControls\" />
     <Folder Include="CustomServices\" />
+    <Folder Include="Resources\drawable-ldpi\" />
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-nodpi\" />
   </ItemGroup>
 </Project>
