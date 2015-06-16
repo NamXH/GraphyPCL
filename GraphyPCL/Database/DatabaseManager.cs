@@ -513,7 +513,6 @@ namespace GraphyPCL
         {
             if (await CrossContacts.Current.RequestPermission())
             {
-                List<Plugin.Contact> builtInContacts = null;
                 CrossContacts.Current.PreferContactAggregation = false; //recommended by author
 
                 // Maybe have to use Task to run in background
@@ -526,9 +525,9 @@ namespace GraphyPCL
                     return;
                 }
 
-                builtInContacts = CrossContacts.Current.Contacts.ToList();
+//                var a = CrossContacts.Current.Contacts.Count();
 
-                foreach (var builtInContact in builtInContacts)
+                foreach (var builtInContact in CrossContacts.Current.Contacts)
                 {
                     var contact = new Contact();
                     contact.Id = Guid.NewGuid();
@@ -583,19 +582,22 @@ namespace GraphyPCL
                     // We consider existing notes as tags
                     foreach (var builtInNote in builtInContact.Notes)
                     {
-                        var tag = new Tag();
-                        tag.Id = Guid.NewGuid();
-                        tag.Name = builtInNote.Contents;
-
-                        DatabaseManager.DbConnection.Insert(tag);
-
-                        var tagMap = new ContactTagMap
+                        if (!String.IsNullOrWhiteSpace(builtInNote.Contents))
                         {
-                            Id = Guid.NewGuid(),
-                            ContactId = contact.Id,
-                            TagId = tag.Id,
-                        };
-                        DatabaseManager.DbConnection.Insert(tagMap);
+                            var tag = new Tag();
+                            tag.Id = Guid.NewGuid();
+                            tag.Name = builtInNote.Contents;
+
+                            DatabaseManager.DbConnection.Insert(tag);
+
+                            var tagMap = new ContactTagMap
+                            {
+                                Id = Guid.NewGuid(),
+                                ContactId = contact.Id,
+                                TagId = tag.Id,
+                            };
+                            DatabaseManager.DbConnection.Insert(tagMap);
+                        }
                     }
 
                     foreach (var builtInEmail in builtInContact.Emails)

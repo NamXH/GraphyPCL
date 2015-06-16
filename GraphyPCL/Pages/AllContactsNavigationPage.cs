@@ -35,6 +35,24 @@ namespace GraphyPCL
                     }
                 }
             };
+
+            // For test
+//            var button = new Button
+//                {
+//                    Text = "Click",
+//                };
+//            button.Clicked += (object sender, EventArgs e) => 
+//                {
+//                    CreateAllContactsPage();
+//                };
+//            var load = new ContentPage();
+//            load.Title = "Loading";
+//            var layout = new StackLayout();
+//            load.Content = layout;
+//            layout.Children.Add(button);
+//            this.PushAsync(load);
+
+
             this.PushAsync(loadingScreen);
 
             CreateAllContactsPage();
