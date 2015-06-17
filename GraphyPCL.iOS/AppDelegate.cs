@@ -40,8 +40,7 @@ namespace GraphyPCL.iOS
         {
             var resolverContainer = new SimpleContainer();
 
-            resolverContainer.Register<IDevice>(t => AppleDevice.CurrentDevice)
-                .Register<IMediaPicker, MediaPicker>();
+            resolverContainer.Register<IMediaPicker, MediaPicker>();
 
             Resolver.SetResolver(resolverContainer.GetResolver());
         }

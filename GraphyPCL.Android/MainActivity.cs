@@ -37,8 +37,7 @@ namespace GraphyPCL.Android
         {
             var resolverContainer = new SimpleContainer();
 
-            resolverContainer.Register<IDevice>(t => AndroidDevice.CurrentDevice)
-                .Register<IMediaPicker, MediaPicker>();
+            resolverContainer.Register<IMediaPicker, MediaPicker>();
 
             Resolver.SetResolver(resolverContainer.GetResolver());
         }
