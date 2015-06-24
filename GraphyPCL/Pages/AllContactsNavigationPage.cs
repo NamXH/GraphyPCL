@@ -56,6 +56,8 @@ namespace GraphyPCL
             this.PushAsync(loadingScreen);
 
             CreateAllContactsPage();
+
+            GetCurrentLocation();
         }
 
         private async void CreateAllContactsPage()
@@ -65,6 +67,11 @@ namespace GraphyPCL
             var allContactsPage = new AllContactsPage(allContacts);
             SetHasBackButton(allContactsPage, false); // Prevent jumping back to the loading screen
             this.PushAsync(allContactsPage);
+        }
+
+        private async void GetCurrentLocation()
+        {
+            await GeolocationManager.UpdateGeolocation();
         }
     }
 }

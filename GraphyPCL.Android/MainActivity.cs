@@ -10,6 +10,7 @@ using Xamarin.Forms.Platform.Android;
 using XLabs.Ioc;
 using XLabs.Platform.Device;
 using XLabs.Platform.Services.Media;
+using XLabs.Platform.Services.Geolocation;
 
 namespace GraphyPCL.Android
 {
@@ -37,7 +38,8 @@ namespace GraphyPCL.Android
         {
             var resolverContainer = new SimpleContainer();
 
-            resolverContainer.Register<IMediaPicker, MediaPicker>();
+            resolverContainer.Register<IMediaPicker, MediaPicker>()
+                .Register<IGeolocator, Geolocator>();
 
             Resolver.SetResolver(resolverContainer.GetResolver());
         }

@@ -446,7 +446,18 @@ namespace GraphyPCL
                     Detail = DateTime.Now.ToString(c_datetimeFormat),
                     ContactId = Contact.Id,
                     TagId = DatabaseManager.GetRowsByName<Tag>(c_createdDateTagName).First().Id
-                });  
+                });
+
+            if ((GeolocationManager.CountrySubdivision != null) && (GeolocationManager.CountrySubdivision.AdminName != null))
+            {
+                DatabaseManager.DbConnection.Insert(new ContactTagMap
+                    {
+                        Id = Guid.NewGuid(),
+                        Detail = GeolocationManager.CountrySubdivision.AdminName + ", " + GeolocationManager.CountrySubdivision.CountryName,
+                        ContactId = Contact.Id,
+                        TagId = DatabaseManager.GetRowsByName<Tag>(c_createdLocationTagName).First().Id
+                    });
+            }
         }
 
         private void CreateContactInDatabase()

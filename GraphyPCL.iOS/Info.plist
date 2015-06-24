@@ -33,5 +33,7 @@
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Resources/Images.xcassets/LaunchImage.launchimage</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app would like to check your current location</string>
 </dict>
 </plist>

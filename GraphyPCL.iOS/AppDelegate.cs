@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using XLabs.Ioc;
 using XLabs.Platform.Services.Media;
 using XLabs.Platform.Device;
+using XLabs.Platform.Services.Geolocation;
 
 namespace GraphyPCL.iOS
 {
@@ -40,7 +41,8 @@ namespace GraphyPCL.iOS
         {
             var resolverContainer = new SimpleContainer();
 
-            resolverContainer.Register<IMediaPicker, MediaPicker>();
+            resolverContainer.Register<IMediaPicker, MediaPicker>()
+                .Register<IGeolocator>(new Geolocator());;
 
             Resolver.SetResolver(resolverContainer.GetResolver());
         }
