@@ -226,7 +226,7 @@ namespace GraphyPCL
 
                 // Update list-based information like phone numbers, emails...
                 // Maybe need to refactor to reduce code loop!!
-                #region Update list-based info region
+                #region Update list-based info 
 
                 var oldPhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(Contact.Id);
                 foreach (var number in PhoneNumbers)

@@ -59,7 +59,7 @@ namespace GraphyPCL
             // http://blog.codinghorror.com/primary-keys-ids-versus-guids/
             // Using Sqlite-net, we use Guid in C# code. When insert/query Guid will be automatically converted to Varchar and vice versa!!
             // If there is a weird behavior in the database, CHECK THIS CONVERSION!
-            var createContact = "CREATE TABLE Contact (Id VARCHAR PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Favorite BOOL DEFAULT 0)";
+            var createContact = "CREATE TABLE Contact (Id VARCHAR PRIMARY KEY NOT NULL, FirstName VARCHAR, MiddleName VARCHAR, LastName VARCHAR, Organization VARCHAR, ImageName VARCHAR, Favorite BOOL DEFAULT 0, CustomTagCount INTEGER DEFAULT 0, AutoAddedTagCount INTEGER DEFAULT 0, FieldCount INTEGER DEFAULT 0, CustomTagWeight DOUBLE DEFAULT 0, AutoAddedTagWeight DOUBLE DEFAULT 0, IsActive BOOL DEFAULT 0)";
             DbConnection.Execute(createContact);
             var createPhoneNumber = "CREATE TABLE PhoneNumber (Id VARCHAR PRIMARY KEY NOT NULL, Type VARCHAR, Number VARCHAR, ContactId VARCHAR, FOREIGN KEY(ContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createPhoneNumber);

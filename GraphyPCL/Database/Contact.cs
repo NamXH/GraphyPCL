@@ -35,6 +35,7 @@ namespace GraphyPCL
         }
 
         #region additional properties that are not in DB table
+
         public string FullName
         {
             get
@@ -87,6 +88,30 @@ namespace GraphyPCL
                 }
             }
         }
+
+        #endregion
+
+        #region properties used for gathering user data
+
+        public int CustomTagCount { get; set; }
+
+        public int AutoAddedTagCount { get; set; }
+
+        public int FieldCount { get; set; }
+
+        public double CustomTagWeight { get; set; }
+
+        public double AutoAddedTagWeight { get; set; }
+
+        /// <summary>
+        /// A contact is active (it is used during the experiment) if:
+        /// + The contact is newly created
+        /// + The contact detail page is opened
+        /// 0 = False (Default)
+        /// 1 = True
+        /// </summary>
+        public bool IsActive { get; set; }
+
         #endregion
 
         public override bool Equals(System.Object obj)
