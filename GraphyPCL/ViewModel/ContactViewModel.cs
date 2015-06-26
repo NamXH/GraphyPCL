@@ -20,6 +20,10 @@ namespace GraphyPCL
 
         public Contact Contact { get; set; }
 
+        /// <summary>
+        /// A copy of the contact used as the ViewModel.
+        /// Lesson: when edit something, bind the view to a copy of the object, in other words the viewmodel is a copy of the model. When the model changes -> viewmodel changes -> view changes; when view changes -> viewmodel changes -> if user push Done then model changes, if user push Back then discard viewmodel
+        /// </summary>
         public Contact ContactCopyBasicInfo { get; set; }
 
         public string Organization { get; set; }
@@ -222,6 +226,10 @@ namespace GraphyPCL
 
                 // Update simple information
                 CopyBasicInformation(ContactCopyBasicInfo, Contact);
+
+                // Track user data
+                UserDataManager.CalculateAndSaveUserMetrics(Contact, PhoneNumbers, Emails, Urls, IMs, Addresses, SpecialDates, CompleteTags, CompleteRelationships);
+
                 db.Update(Contact);
 
                 // Update list-based information like phone numbers, emails...
@@ -231,14 +239,17 @@ namespace GraphyPCL
                 var oldPhoneNumbers = DatabaseManager.GetRowsRelatedToContact<PhoneNumber>(Contact.Id);
                 foreach (var number in PhoneNumbers)
                 {
-                    if (oldPhoneNumbers.SingleOrDefault(x => x.Id.Equals(number.Id)) == null)
+                    if (!String.IsNullOrWhiteSpace(number.Number))
                     {
-                        number.ContactId = Contact.Id;
-                        DatabaseManager.DbConnection.Insert(number);
-                    }
-                    else
-                    {
-                        DatabaseManager.DbConnection.Update(number); 
+                        if (oldPhoneNumbers.SingleOrDefault(x => x.Id.Equals(number.Id)) == null)
+                        {
+                            number.ContactId = Contact.Id;
+                            DatabaseManager.DbConnection.Insert(number);
+                        }
+                        else
+                        {
+                            DatabaseManager.DbConnection.Update(number); 
+                        }
                     }
                 }
                 foreach (var number in oldPhoneNumbers)
@@ -252,14 +263,17 @@ namespace GraphyPCL
                 var oldEmails = DatabaseManager.GetRowsRelatedToContact<Email>(Contact.Id);
                 foreach (var email in Emails)
                 {
-                    if (oldEmails.SingleOrDefault(x => x.Id.Equals(email.Id)) == null)
+                    if (!String.IsNullOrWhiteSpace(email.Address))
                     {
-                        email.ContactId = Contact.Id;
-                        DatabaseManager.DbConnection.Insert(email);
-                    }
-                    else
-                    {
-                        DatabaseManager.DbConnection.Update(email);
+                        if (oldEmails.SingleOrDefault(x => x.Id.Equals(email.Id)) == null)
+                        {
+                            email.ContactId = Contact.Id;
+                            DatabaseManager.DbConnection.Insert(email);
+                        }
+                        else
+                        {
+                            DatabaseManager.DbConnection.Update(email);
+                        }
                     }
                 }
                 foreach (var email in oldEmails)
@@ -273,14 +287,17 @@ namespace GraphyPCL
                 var oldUrls = DatabaseManager.GetRowsRelatedToContact<Url>(Contact.Id);
                 foreach (var url in Urls)
                 {
-                    if (oldUrls.SingleOrDefault(x => x.Id.Equals(url.Id)) == null)
+                    if (!String.IsNullOrWhiteSpace(url.Link))
                     {
-                        url.ContactId = Contact.Id;
-                        DatabaseManager.DbConnection.Insert(url);
-                    }
-                    else
-                    {
-                        DatabaseManager.DbConnection.Update(url); 
+                        if (oldUrls.SingleOrDefault(x => x.Id.Equals(url.Id)) == null)
+                        {
+                            url.ContactId = Contact.Id;
+                            DatabaseManager.DbConnection.Insert(url);
+                        }
+                        else
+                        {
+                            DatabaseManager.DbConnection.Update(url); 
+                        }
                     }
                 }
                 foreach (var url in oldUrls)
@@ -294,14 +311,17 @@ namespace GraphyPCL
                 var oldInstantMessages = DatabaseManager.GetRowsRelatedToContact<InstantMessage>(Contact.Id);
                 foreach (var instantMessage in IMs)
                 {
-                    if (oldInstantMessages.SingleOrDefault(x => x.Id.Equals(instantMessage.Id)) == null)
+                    if (!String.IsNullOrWhiteSpace(instantMessage.Nickname))
                     {
-                        instantMessage.ContactId = Contact.Id;
-                        DatabaseManager.DbConnection.Insert(instantMessage);
-                    }
-                    else
-                    {
-                        DatabaseManager.DbConnection.Update(instantMessage); 
+                        if (oldInstantMessages.SingleOrDefault(x => x.Id.Equals(instantMessage.Id)) == null)
+                        {
+                            instantMessage.ContactId = Contact.Id;
+                            DatabaseManager.DbConnection.Insert(instantMessage);
+                        }
+                        else
+                        {
+                            DatabaseManager.DbConnection.Update(instantMessage); 
+                        }
                     }
                 }
                 foreach (var instantMessage in oldInstantMessages)
@@ -315,14 +335,22 @@ namespace GraphyPCL
                 var oldAddresses = DatabaseManager.GetRowsRelatedToContact<Address>(Contact.Id);
                 foreach (var address in Addresses)
                 {
-                    if (oldAddresses.SingleOrDefault(x => x.Id.Equals(address.Id)) == null)
+                    if (!String.IsNullOrWhiteSpace(address.StreetLine1)
+                        || !String.IsNullOrWhiteSpace(address.StreetLine2)
+                        || !String.IsNullOrWhiteSpace(address.City)
+                        || !String.IsNullOrWhiteSpace(address.Province)
+                        || !String.IsNullOrWhiteSpace(address.Country)
+                        || !String.IsNullOrWhiteSpace(address.PostalCode))
                     {
-                        address.ContactId = Contact.Id;
-                        DatabaseManager.DbConnection.Insert(address);
-                    }
-                    else
-                    {
-                        DatabaseManager.DbConnection.Update(address); 
+                        if (oldAddresses.SingleOrDefault(x => x.Id.Equals(address.Id)) == null)
+                        {
+                            address.ContactId = Contact.Id;
+                            DatabaseManager.DbConnection.Insert(address);
+                        }
+                        else
+                        {
+                            DatabaseManager.DbConnection.Update(address); 
+                        }
                     }
                 }
                 foreach (var address in oldAddresses)

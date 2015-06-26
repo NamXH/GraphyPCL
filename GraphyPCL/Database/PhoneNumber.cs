@@ -24,6 +24,9 @@ namespace GraphyPCL
             }
         }
 
+        /// <summary>
+        /// Reference to property Number. Only used for binding in a generic method.
+        /// </summary>
         [Ignore]
         public string Value
         {

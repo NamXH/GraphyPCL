@@ -91,17 +91,23 @@ namespace GraphyPCL
 
         #endregion
 
-        #region properties used for gathering user data
+        #region Properties and methods used for gathering user data
 
         public int CustomTagCount { get; set; }
 
         public int AutoAddedTagCount { get; set; }
 
-        public int FieldCount { get; set; }
+        public int NormalFieldCount { get; set; }
 
         public double CustomTagWeight { get; set; }
 
         public double AutoAddedTagWeight { get; set; }
+
+        public double TagWeight { get; set; }
+
+        public int RelationshipCount { get; set; }
+
+        public double RelationshipWeight { get; set; }
 
         /// <summary>
         /// A contact is active (it is used during the experiment) if:
