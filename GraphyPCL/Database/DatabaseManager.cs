@@ -17,10 +17,6 @@ namespace GraphyPCL
 
         public static SQLiteConnection DbConnection { get; private set; }
 
-        static DatabaseManager()
-        {
-        }
-
         // Maybe need to find a way to move this method to ctor !!
         public async static Task Initialize()
         {
@@ -33,6 +29,12 @@ namespace GraphyPCL
                 DbConnection = db.GetConnection();
                 SetupSchema();
 
+                // Collect user data
+                var userData = new UserData();
+                userData.Id = Guid.NewGuid();
+                UserDataManager.UserData = userData;
+                DbConnection.Insert(userData);
+
                 await ImportExistingContacts();
                 CreatePredefinedTagsAndRelationships();
                 CreateDummyData(); // For testing!!
@@ -40,6 +42,8 @@ namespace GraphyPCL
             else
             {
                 DbConnection = db.GetConnection();
+
+                UserDataManager.UserData = GetRows<UserData>().First();
             }    
         }
 
@@ -83,6 +87,9 @@ namespace GraphyPCL
             DbConnection.Execute(createRelationshipType);
             var createRelationship = "CREATE TABLE Relationship (Id VARCHAR PRIMARY KEY NOT NULL, Detail VARCHAR, FromContactId VARCHAR, ToContactId VARCHAR, RelationshipTypeId VARCHAR, FOREIGN KEY(FromContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(ToContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(RelationshipTypeId) REFERENCES RelationshipType(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createRelationship);
+
+            var createUserData = "CREATE TABLE UserData (Id VARCHAR PRIMARY KEY NOT NULL, TagSearchCount INTEGER DEFAULT 0, TagUsedInSearchCount INTEGER DEFAULT 0, RelationshipSearchCount INTEGER DEFAULT 0, RelationshipUsedInSearchCount INTEGER DEFAULT 0, AllSearchCount INTEGER DEFAULT 0, RelationshipNavigationCount INTEGER DEFAULT 0)";
+            DbConnection.Execute(createUserData);
         }
 
         /// <summary>

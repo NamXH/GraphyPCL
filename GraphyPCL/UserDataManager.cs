@@ -6,6 +6,8 @@ namespace GraphyPCL
 {
     public static class UserDataManager
     {
+        public static UserData UserData { get; set; }
+
         public static void CalculateAndSaveNormalFieldCount(Contact contact, IList<PhoneNumber> phoneNumbers, IList<Email> emails, IList<Url> urls, IList<InstantMessage> ims, IList<Address> addresses, IList<SpecialDate> specialDates)
         {
             var count = 0;
