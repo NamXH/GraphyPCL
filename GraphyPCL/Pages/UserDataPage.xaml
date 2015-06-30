@@ -4,12 +4,12 @@
     <TableView.Root>
       <TableRoot x:Name="_tableRoot">
         <TableSection Title="Search Data">
-          <EntryCell Text="{Binding TagSearchCount}" Label="Tag Search:" />
-          <EntryCell Text="{Binding TagUsedInSearchCount}" Label="Tag Used in Search:" />
-          <EntryCell Text="{Binding RelationshipSearchCount}" Label="Relationship Search:" />
-          <EntryCell Text="{Binding RelationshipUsedInSearchCount}" Label="Relationship Used in Search:" />
-          <EntryCell Text="{Binding AllSearchCount}" Label="All Search:" />
-          <EntryCell Text="{Binding RelationshipNavigationCount}" Label="Relationship Navigation:" />
+          <EntryCell Text="{Binding UserData.TagSearchCount}" Label="Tag Search:" />
+          <EntryCell Text="{Binding UserData.TagUsedInSearchCount}" Label="Tag Used in Search:" />
+          <EntryCell Text="{Binding UserData.RelationshipSearchCount}" Label="Relationship Search:" />
+          <EntryCell Text="{Binding UserData.RelationshipUsedInSearchCount}" Label="Relationship Used in Search:" />
+          <EntryCell Text="{Binding UserData.AllSearchCount}" Label="All Search:" />
+          <EntryCell Text="{Binding UserData.RelationshipNavigationCount}" Label="Relationship Navigation:" />
         </TableSection>
       </TableRoot>
     </TableView.Root>

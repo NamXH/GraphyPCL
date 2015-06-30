@@ -7,6 +7,8 @@ namespace GraphyPCL
 {
     public partial class UserDataPage : ContentPage
     {
+        private UserDataViewModel _viewModel;
+
         public UserDataPage()
         {
             InitializeComponent();
@@ -14,7 +16,9 @@ namespace GraphyPCL
 
             Title = "Summary";
             Icon = "genius_icon.png";
-            BindingContext = UserDataManager.UserData;
+
+            _viewModel = new UserDataViewModel();
+            BindingContext = _viewModel;
         }
     }
 }
