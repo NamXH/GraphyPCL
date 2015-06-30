@@ -57,12 +57,20 @@ namespace GraphyPCL
                 remainingContacts.AddRange(relationshipEligibleContacts);
             }
 
-//            // Evaluate result here (put in a function) !!
-//            foreach (var contact in remainingContacts)
-//            {
-//                // Get all tags of the contact. Compare the tags' names with the criteria. Every match counts toward Tag effectiveness.
-//                // Get all relationships of the contact. Compare the relationships' names with the criteria. Every match counts toward Tag effectiveness.
-//            }
+            #region Collect user data
+            // Can be better if we evaluate each contact while filtering above
+
+            UserDataManager.UserData.AllSearchCount++;
+
+            UserDataManager.UpdateTagSearchCount(remainingContacts, Criteria);
+            UserDataManager.UpdateTagUsedInSearchCount(remainingContacts, Criteria);
+
+            UserDataManager.UpdateRelationshipSearchCount(remainingContacts, Criteria);
+            UserDataManager.UpdateRelationshipUsedInSearchCount(remainingContacts, Criteria);
+
+            DatabaseManager.DbConnection.Update(UserDataManager.UserData);
+
+            #endregion
 
             return remainingContacts;
         }
@@ -108,7 +116,7 @@ namespace GraphyPCL
         /// <returns>The by tag.</returns>
         /// <param name="criterion">Criterion.</param>
         /// <param name="contacts">Contacts.</param>
-        public IList<Contact> FilterByTag(string criterion, IList<Contact> contacts)
+        public static IList<Contact> FilterByTag(string criterion, IList<Contact> contacts)
         {
             var filteredContacts = new List<Contact>();
 
@@ -148,7 +156,7 @@ namespace GraphyPCL
         /// <returns>The by relationship.</returns>
         /// <param name="criterion">Criterion.</param>
         /// <param name="contacts">Contacts.</param>
-        public IList<Contact> FilterByRelationship(string criterion, IList<Contact> contacts)
+        public static IList<Contact> FilterByRelationship(string criterion, IList<Contact> contacts)
         {
             var filteredContacts = new List<Contact>();
 

@@ -89,5 +89,81 @@ namespace GraphyPCL
                 contact.RelationshipWeight = (double)contact.RelationshipCount / allFieldCount;
             }
         }
+
+        /// <summary>
+        /// The tag search count is increased when the result of the search has at least 1 contact which has a tag matches the search keywords
+        /// </summary>
+        /// <returns>The tag search count.</returns>
+        /// <param name="contacts">Contacts.</param>
+        /// <param name="criteria">Criteria.</param>
+        public static int UpdateTagSearchCount(IList<Contact> contacts, IList<StringWrapper> criteria)
+        {
+            foreach (var criterion in criteria)
+            {
+                if (FullSearchPage.FilterByTag(criterion.InnerString, contacts).Any())
+                {
+                    return ++UserDataManager.UserData.TagSearchCount;
+                }
+            }
+
+            return UserDataManager.UserData.TagSearchCount;
+        }
+
+        /// <summary>
+        /// The tag used in search count is increased when: The result of a search is called remainingContacts, Foreach contact in remainingContacts, Get all tags of the contact. Compare the tags' names with the criteria. Every match counts toward Tag
+        /// </summary>
+        /// <returns>The tag used in search count.</returns>
+        /// <param name="contacts">Contacts.</param>
+        /// <param name="criteria">Criteria.</param>
+        public static int UpdateTagUsedInSearchCount(IList<Contact> contacts, IList<StringWrapper> criteria)
+        {
+            foreach (var criterion in criteria)
+            {
+                if (FullSearchPage.FilterByTag(criterion.InnerString, contacts).Any())
+                {
+                    UserDataManager.UserData.TagUsedInSearchCount++;
+                }
+            }
+
+            return UserDataManager.UserData.TagUsedInSearchCount; 
+        }
+
+        /// <summary>
+        /// The relationship search count is increased like tag search count
+        /// </summary>
+        /// <returns>The relationship search count.</returns>
+        /// <param name="contacts">Contacts.</param>
+        /// <param name="criteria">Criteria.</param>
+        public static int UpdateRelationshipSearchCount(IList<Contact> contacts, IList<StringWrapper> criteria)
+        {
+            foreach (var criterion in criteria)
+            {
+                if (FullSearchPage.FilterByRelationship(criterion.InnerString, contacts).Any())
+                {
+                    return ++UserDataManager.UserData.RelationshipSearchCount;
+                }
+            }
+
+            return UserDataManager.UserData.RelationshipSearchCount;
+        }
+
+        /// <summary>
+        /// The relationship used in search count is increased like tag used in search count
+        /// </summary>
+        /// <returns>The relationship used in search count.</returns>
+        /// <param name="contacts">Contacts.</param>
+        /// <param name="criteria">Criteria.</param>
+        public static int UpdateRelationshipUsedInSearchCount(IList<Contact> contacts, IList<StringWrapper> criteria)
+        {
+            foreach (var criterion in criteria)
+            {
+                if (FullSearchPage.FilterByRelationship(criterion.InnerString, contacts).Any())
+                {
+                    UserDataManager.UserData.RelationshipUsedInSearchCount++;
+                }
+            }
+
+            return UserDataManager.UserData.RelationshipUsedInSearchCount; 
+        }
     }
 }
