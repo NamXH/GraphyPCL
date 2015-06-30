@@ -162,6 +162,10 @@ namespace GraphyPCL
                 relatedContactCell.Text = relationshipDirectionSymbol + " " + relatedContact.Contact.FullName;
                 relatedContactCell.Tapped += (object sender, EventArgs e) =>
                 {
+                    // Collect user data
+                    UserDataManager.UserData.RelationshipNavigationCount++;
+                    DatabaseManager.DbConnection.Update(UserDataManager.UserData);
+
                     Navigation.PushAsync(new ContactDetailsPage(relatedContact.Contact, false));
                 };
 
