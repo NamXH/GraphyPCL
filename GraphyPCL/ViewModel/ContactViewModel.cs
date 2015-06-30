@@ -495,6 +495,11 @@ namespace GraphyPCL
             // Insert new contact
             CopyBasicInformation(ContactCopyBasicInfo, Contact);
             Contact.Id = Guid.NewGuid();
+
+            // Collect user data
+            // Maybe redundant because after add contact, the app go to the ContactDetailsPage which also updates contact.IsActive !!
+            Contact.IsActive = true;
+
             db.Insert(Contact);
 
             // Insert info of new contact

@@ -23,6 +23,10 @@ namespace GraphyPCL
                         }));
             }
 
+            // Collect user data
+            contact.IsActive = true;
+            DatabaseManager.DbConnection.Update(contact);
+
             _viewModel = new ContactViewModel(contact);
             this.BindingContext = _viewModel;
 
