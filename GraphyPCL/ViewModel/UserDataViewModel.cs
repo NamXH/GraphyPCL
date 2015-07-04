@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace GraphyPCL
 {
@@ -96,6 +97,34 @@ namespace GraphyPCL
         public UserDataViewModel()
         {
             UserData = UserDataManager.UserData;
+
+            var allContacts = DatabaseManager.GetRows<Contact>();
+
+            ContactTotal = allContacts.Count;
+            ActiveContactTotal = allContacts.Where(x => x.IsActive).Count();
+
+            double customTagWeightTotal = 0.0;
+            double autoAddedTagWeightTotal = 0.0;
+            double tagWeightTotal = 0.0;
+            double relationshipWeightTotal = 0.0;
+
+            foreach (var contact in allContacts)
+            {
+                CustomTagTotal += contact.CustomTagCount;
+                AutoAddedTagTotal += contact.AutoAddedTagCount;
+                TagTotal = TagTotal + contact.CustomTagCount + contact.AutoAddedTagCount;
+
+                RelationshipTotal += contact.RelationshipCount;
+
+                customTagWeightTotal += contact.CustomTagWeight;
+                autoAddedTagWeightTotal += contact.AutoAddedTagWeight;
+                tagWeightTotal += contact.TagWeight;
+
+                relationshipWeightTotal += contact.RelationshipWeight;
+            }
+
+            CustomTagAverage = (double)CustomTagTotal / ContactTotal;
+            CustomTagAverageActive = (double)CustomTagTotal / ActiveContactTotal;
         }
     }
 }
