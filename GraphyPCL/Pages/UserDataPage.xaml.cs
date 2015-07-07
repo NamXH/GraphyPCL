@@ -14,9 +14,6 @@ namespace GraphyPCL
             InitializeComponent();
             _tableView.Intent = TableIntent.Menu;
 
-            Title = "Summary";
-            Icon = "genius_icon.png";
-
             _viewModel = new UserDataViewModel();
             BindingContext = _viewModel;
         }

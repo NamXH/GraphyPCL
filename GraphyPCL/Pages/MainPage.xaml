@@ -6,5 +6,5 @@
   <!--  <local:TagSearchNavigationPage x:Name="_tagSearchNavigationPage" />-->
   <!--  <local:RelationshipSearchNavigationPage x:Name="_relationshipSearchNavigationPage" />-->
   <!--  <local:BasicSearchNavigationPage x:Name="_basicSearchNavigationPage" />-->
-  <local:UserDataPage x:Name="_userDataPage" />
+  <local:UserDataNavigationPage x:Name="_userDataNavigationPage" />
 </TabbedPage>
