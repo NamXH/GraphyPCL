@@ -228,7 +228,7 @@ namespace GraphyPCL
                 CopyBasicInformation(ContactCopyBasicInfo, Contact);
 
                 // Track user data
-                UserDataManager.CalculateAndSaveUserMetrics(Contact, PhoneNumbers, Emails, Urls, IMs, Addresses, SpecialDates, CompleteTags, CompleteRelationships);
+                UserDataManager.CalculateAndSaveUserMetrics(Contact, PhoneNumbers, Emails, Urls, IMs, Addresses, SpecialDates, CompleteTags, CompleteRelationships, false);
 
                 db.Update(Contact);
 
@@ -475,6 +475,9 @@ namespace GraphyPCL
                     ContactId = Contact.Id,
                     TagId = DatabaseManager.GetRowsByName<Tag>(c_createdDateTagName).First().Id
                 });
+            
+            // Track user data
+            Contact.AutoAddedTagCount = 1;
 
             if ((GeolocationManager.CountrySubdivision != null) && (GeolocationManager.CountrySubdivision.AdminName != null))
             {
@@ -485,6 +488,9 @@ namespace GraphyPCL
                         ContactId = Contact.Id,
                         TagId = DatabaseManager.GetRowsByName<Tag>(c_createdLocationTagName).First().Id
                     });
+
+                // Track user data
+                Contact.AutoAddedTagCount++;
             }
         }
 
@@ -520,6 +526,11 @@ namespace GraphyPCL
             {
                 InsertRelationshipToDatabase(completeRelationship);
             }
+
+            CreateAutoAddedTags();
+
+            // Track user data
+            UserDataManager.CalculateAndSaveUserMetrics(Contact, PhoneNumbers, Emails, Urls, IMs, Addresses, SpecialDates, CompleteTags, CompleteRelationships, true);
         }
 
         private void InsertCompleteTagToDatabase(CompleteTag completeTag)

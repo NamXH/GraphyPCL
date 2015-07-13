@@ -336,6 +336,7 @@ namespace GraphyPCL
             contact1.FirstName = "Andy";
             contact1.LastName = "Rubin";
             contact1.ImageName = "andy.jpg";
+//            contact1.IsActive = true;
             DbConnection.Insert(contact1);
 
             var contact2 = new Contact();
@@ -346,18 +347,21 @@ namespace GraphyPCL
             contact2.Organization = "Microsoft";
             contact2.ImageName = "bill.jpg";
             contact2.Favorite = true;
+//            contact2.IsActive = true;
             DbConnection.Insert(contact2);
 
             var contact3 = new Contact();
             contact3.Id = Guid.NewGuid();
             contact3.FirstName = "ben";
             contact3.LastName = "Afflect";
+            contact3.IsActive = true;
             DbConnection.Insert(contact3);
 
             var contact4 = new Contact();
             contact4.Id = Guid.NewGuid();
             contact4.FirstName = "Satya";
             contact4.LastName = "Nandela";
+//            contact4.IsActive = true;
             DbConnection.Insert(contact4);
 
             var contact5 = new Contact();

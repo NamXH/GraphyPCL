@@ -39,20 +39,21 @@ namespace GraphyPCL
                 + specialDates.Count;
         }
 
-        public static void CalculateAndSaveTagCount(Contact contact, IList<CompleteTag> completeTags)
+        public static void CalculateAndSaveTagCount(Contact contact, IList<CompleteTag> completeTags, bool isNewContact)
         {
-            var autoAddedTagCount = 0;
-            
-            foreach (var autoAddedTagName in DatabaseManager.AutoAddedTagNames)
-            {
-                if (completeTags.Any(x => (x.NewTagName == autoAddedTagName) || ((String.IsNullOrWhiteSpace(x.NewTagName) && (x.Name == autoAddedTagName)))))
-                {
-                    autoAddedTagCount++;
-                }
-            }
+            // Wrong, auto added tag is manually added in function CreateAutoAddedTags()
+            // Therefore, we calculate it there.
+//            var autoAddedTagCount = 0;
+//            
+//            foreach (var autoAddedTagName in DatabaseManager.AutoAddedTagNames)
+//            {
+//                if (completeTags.Any(x => (x.NewTagName == autoAddedTagName) || ((String.IsNullOrWhiteSpace(x.NewTagName) && (x.Name == autoAddedTagName)))))
+//                {
+//                    autoAddedTagCount++;
+//                }
+//            }
 
-            contact.AutoAddedTagCount = autoAddedTagCount;
-            contact.CustomTagCount = completeTags.Count - autoAddedTagCount;
+            contact.CustomTagCount = completeTags.Count;
         }
 
         public static void CalculateAndSaveRelationshipCount(Contact contact, IList<CompleteRelationship> completeRelationships)
@@ -60,10 +61,10 @@ namespace GraphyPCL
             contact.RelationshipCount = completeRelationships.Count;
         }
 
-        public static void CalculateAndSaveUserMetrics(Contact contact, IList<PhoneNumber> phoneNumbers, IList<Email> emails, IList<Url> urls, IList<InstantMessage> ims, IList<Address> addresses, IList<SpecialDate> specialDates, IList<CompleteTag> completeTags, IList<CompleteRelationship> completeRelationships)
+        public static void CalculateAndSaveUserMetrics(Contact contact, IList<PhoneNumber> phoneNumbers, IList<Email> emails, IList<Url> urls, IList<InstantMessage> ims, IList<Address> addresses, IList<SpecialDate> specialDates, IList<CompleteTag> completeTags, IList<CompleteRelationship> completeRelationships, bool isNewContact)
         {
             CalculateAndSaveNormalFieldCount(contact, phoneNumbers, emails, urls, ims, addresses, specialDates);
-            CalculateAndSaveTagCount(contact, completeTags);
+            CalculateAndSaveTagCount(contact, completeTags, isNewContact);
             CalculateAndSaveRelationshipCount(contact, completeRelationships);
 
             var allFieldCount = contact.NormalFieldCount + contact.CustomTagCount + contact.AutoAddedTagCount + contact.RelationshipCount;

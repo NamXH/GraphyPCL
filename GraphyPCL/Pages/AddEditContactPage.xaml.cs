@@ -88,7 +88,7 @@ namespace GraphyPCL
             }
             else // Create new
             {
-                _viewModel.CreateAutoAddedTags();
+//                _viewModel.CreateAutoAddedTags(); // Move to CreateContactInDatabase in viewModel
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Add", _viewModel.Contact); 
 
                 Device.OnPlatform(
