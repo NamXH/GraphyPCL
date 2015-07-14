@@ -37,7 +37,7 @@ namespace GraphyPCL
 
                 await ImportExistingContacts();
                 CreatePredefinedTagsAndRelationships();
-                CreateDummyData(); // For testing!!
+//                CreateDummyData(); // For testing!!
             }
             else
             {
