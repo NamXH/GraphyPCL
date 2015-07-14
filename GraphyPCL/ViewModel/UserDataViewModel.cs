@@ -234,6 +234,14 @@ namespace GraphyPCL
             AutoAddedTagStandardDeviation = Math.Sqrt(autoAddedTagVarianceTotal / ContactTotal);
             TagStandardDeviation = Math.Sqrt(tagVarianceTotal / ContactTotal);
 
+            CustomTagWeightStandardDeviation = Math.Sqrt(customTagWeightVarianceTotal / ContactTotal);
+            AutoAddedTagWeightStandardDeviation = Math.Sqrt(autoAddedTagWeightVarianceTotal / ContactTotal);
+            TagWeightStandardDeviation = Math.Sqrt(tagWeightVarianceTotal / ContactTotal);
+
+            CustomTagWeightStandardDeviationActive = Math.Sqrt(customTagWeightVarianceTotalActive / ActiveContactTotal);
+            AutoAddedTagWeightStandardDeviationActive = Math.Sqrt(autoAddedTagWeightVarianceTotalActive / ActiveContactTotal);
+            TagWeightStandardDeviationActive = Math.Sqrt(tagWeightVarianceTotalActive / ActiveContactTotal);
+
             CustomTagStandardDeviationActive = Math.Sqrt(customTagVarianceTotalActive / ActiveContactTotal);
             AutoAddedTagStandardDeviationActive = Math.Sqrt(autoAddedTagVarianceTotalActive / ActiveContactTotal);
             TagStandardDeviationActive = Math.Sqrt(tagVarianceTotalActive / ActiveContactTotal);

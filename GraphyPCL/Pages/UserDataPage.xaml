@@ -14,45 +14,45 @@
         <TableSection Title="Contact Data">
           <TextCell Detail="{Binding ContactTotal}" Text="ContactTotal:" />
           <TextCell Detail="{Binding ActiveContactTotal}" Text="ActiveContactTotal:" />
-          <TextCell Detail="{Binding CustomTagTotal}" Text="CustomTagTotal:" />
+<!--          <TextCell Detail="{Binding CustomTagTotal}" Text="CustomTagTotal:" />-->
           <TextCell Detail="{Binding CustomTagTotalActive}" Text="CustomTagTotalActive:" />
-          <TextCell Detail="{Binding CustomTagAverage}" Text="CustomTagAverage:" />
+<!--          <TextCell Detail="{Binding CustomTagAverage}" Text="CustomTagAverage:" />-->
           <TextCell Detail="{Binding CustomTagAverageActive}" Text="CustomTagAverageActive:" />
-          <TextCell Detail="{Binding CustomTagStandardDeviation}" Text="CustomTagStandardDeviation:" />
+<!--          <TextCell Detail="{Binding CustomTagStandardDeviation}" Text="CustomTagStandardDeviation:" />-->
           <TextCell Detail="{Binding CustomTagStandardDeviationActive}" Text="CustomTagStandardDeviationActive:" />
-          <TextCell Detail="{Binding AutoAddedTagTotal}" Text="AutoAddedTagTotal:" />
+<!--          <TextCell Detail="{Binding AutoAddedTagTotal}" Text="AutoAddedTagTotal:" />-->
           <TextCell Detail="{Binding AutoAddedTagTotalActive}" Text="AutoAddedTagTotalActive:" />
-          <TextCell Detail="{Binding AutoAddedTagAverage}" Text="AutoAddedTagAverage:" />
+<!--          <TextCell Detail="{Binding AutoAddedTagAverage}" Text="AutoAddedTagAverage:" />-->
           <TextCell Detail="{Binding AutoAddedTagAverageActive}" Text="AutoAddedTagAverageActive:" />
-          <TextCell Detail="{Binding AutoAddedTagStandardDeviation}" Text="AutoAddedTagStandardDeviation:" />
+<!--          <TextCell Detail="{Binding AutoAddedTagStandardDeviation}" Text="AutoAddedTagStandardDeviation:" />-->
           <TextCell Detail="{Binding AutoAddedTagStandardDeviationActive}" Text="AutoAddedTagStandardDeviationActive:" />
-          <TextCell Detail="{Binding TagTotal}" Text="TagTotal:" />
+<!--          <TextCell Detail="{Binding TagTotal}" Text="TagTotal:" />-->
           <TextCell Detail="{Binding TagTotalActive}" Text="TagTotalActive:" />
-          <TextCell Detail="{Binding TagAverage}" Text="TagAverage:" />
+<!--          <TextCell Detail="{Binding TagAverage}" Text="TagAverage:" />-->
           <TextCell Detail="{Binding TagAverageActive}" Text="TagAverageActive:" />
-          <TextCell Detail="{Binding TagStandardDeviation}" Text="TagStandardDeviation:" />
+<!--          <TextCell Detail="{Binding TagStandardDeviation}" Text="TagStandardDeviation:" />-->
           <TextCell Detail="{Binding TagStandardDeviationActive}" Text="TagStandardDeviationActive:" />
-          <TextCell Detail="{Binding CustomTagWeightAverage}" Text="CustomTagWeightAverage:" />
+<!--          <TextCell Detail="{Binding CustomTagWeightAverage}" Text="CustomTagWeightAverage:" />-->
           <TextCell Detail="{Binding CustomTagWeightAverageActive}" Text="CustomTagWeightAverageActive:" />
-          <TextCell Detail="{Binding CustomTagWeightStandardDeviation}" Text="CustomTagWeightStandardDeviation:" />
+<!--          <TextCell Detail="{Binding CustomTagWeightStandardDeviation}" Text="CustomTagWeightStandardDeviation:" />-->
           <TextCell Detail="{Binding CustomTagWeightStandardDeviationActive}" Text="CustomTagWeightStandardDeviationActive:" />
-          <TextCell Detail="{Binding AutoAddedTagWeightAverage}" Text="AutoAddedTagWeightAverage:" />
+<!--          <TextCell Detail="{Binding AutoAddedTagWeightAverage}" Text="AutoAddedTagWeightAverage:" />-->
           <TextCell Detail="{Binding AutoAddedTagWeightAverageActive}" Text="AutoAddedTagWeightAverageActive:" />
-          <TextCell Detail="{Binding AutoAddedTagWeightStandardDeviation}" Text="AutoAddedTagWeightStandardDeviation:" />
+<!--          <TextCell Detail="{Binding AutoAddedTagWeightStandardDeviation}" Text="AutoAddedTagWeightStandardDeviation:" />-->
           <TextCell Detail="{Binding AutoAddedTagWeightStandardDeviationActive}" Text="AutoAddedTagWeightStandardDeviationActive:" />
-          <TextCell Detail="{Binding TagWeightAverage}" Text="TagWeightAverage:" />
+<!--          <TextCell Detail="{Binding TagWeightAverage}" Text="TagWeightAverage:" />-->
           <TextCell Detail="{Binding TagWeightAverageActive}" Text="TagWeightAverageActive:" />
-          <TextCell Detail="{Binding TagWeightStandardDeviation}" Text="TagWeightStandardDeviation:" />
+<!--          <TextCell Detail="{Binding TagWeightStandardDeviation}" Text="TagWeightStandardDeviation:" />-->
           <TextCell Detail="{Binding TagWeightStandardDeviationActive}" Text="TagWeightStandardDeviationActive:" />
-          <TextCell Detail="{Binding RelationshipTotal}" Text="RelationshipTotal:" />
+<!--          <TextCell Detail="{Binding RelationshipTotal}" Text="RelationshipTotal:" />-->
           <TextCell Detail="{Binding RelationshipTotalActive}" Text="RelationshipTotalActive:" />
-          <TextCell Detail="{Binding RelationshipAverage}" Text="RelationshipAverage:" />
+<!--          <TextCell Detail="{Binding RelationshipAverage}" Text="RelationshipAverage:" />-->
           <TextCell Detail="{Binding RelationshipAverageActive}" Text="RelationshipAverageActive:" />
-          <TextCell Detail="{Binding RelationshipStandardDeviation}" Text="RelationshipStandardDeviation:" />
+<!--          <TextCell Detail="{Binding RelationshipStandardDeviation}" Text="RelationshipStandardDeviation:" />-->
           <TextCell Detail="{Binding RelationshipStandardDeviationActive}" Text="RelationshipStandardDeviationActive:" />
-          <TextCell Detail="{Binding RelationshipWeightAverage}" Text="RelationshipWeightAverage:" />
+<!--          <TextCell Detail="{Binding RelationshipWeightAverage}" Text="RelationshipWeightAverage:" />-->
           <TextCell Detail="{Binding RelationshipWeightAverageActive}" Text="RelationshipWeightAverageActive:" />
-          <TextCell Detail="{Binding RelationshipWeightStandardDeviation}" Text="RelationshipWeightStandardDeviation:" />
+<!--          <TextCell Detail="{Binding RelationshipWeightStandardDeviation}" Text="RelationshipWeightStandardDeviation:" />-->
           <TextCell Detail="{Binding RelationshipWeightStandardDeviationActive}" Text="RelationshipWeightStandardDeviationActive:" />
         </TableSection>
       </TableRoot>

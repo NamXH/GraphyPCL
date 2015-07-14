@@ -64,21 +64,21 @@ namespace GraphyPCL
                 MessagingCenter.Send<AddEditContactPage, Contact>(this, "Update", _viewModel.Contact); 
 
                 Device.OnPlatform(
-                    iOS: () => // Special implementation for better UX on iOS, does not work on Android
-                    {
-                        // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!! SO HARDCODED!! Need fix asap!!
-                        var enumerator = Navigation.NavigationStack.GetEnumerator(); // Navigation stack: LoadingPage>AllContactsPage>ContactDetailsPage>AddEditContactPage
-                        enumerator.MoveNext(); // Pass loading screen
-                        enumerator.MoveNext(); // Pass all contacts (root) page
-                        enumerator.MoveNext(); // Get ContactDetailsPage
-                        var contactDetailsPage = enumerator.Current;
-                        enumerator.MoveNext(); // Get AddEditContactPage
-                        var addEditContactPage = enumerator.Current;
-
-                        Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact, true), contactDetailsPage);
-                        Navigation.RemovePage(addEditContactPage);
-                        Navigation.RemovePage(contactDetailsPage); // Navigation stack: LoadingPage>AllContactsPage>ContactDetailsPage(new)
-                    },
+//                    iOS: () => // Special implementation for better UX on iOS, does not work on Android. Seems causing a bug on iOS too.
+//                    {
+//                        // Update the contactDetailPage by add a new (updated) one and remove 2 used ones. A bit clumsy!! SO HARDCODED!! Need fix asap!!
+//                        var enumerator = Navigation.NavigationStack.GetEnumerator(); // Navigation stack: LoadingPage>AllContactsPage>ContactDetailsPage>AddEditContactPage
+//                        enumerator.MoveNext(); // Pass loading screen
+//                        enumerator.MoveNext(); // Pass all contacts (root) page
+//                        enumerator.MoveNext(); // Get ContactDetailsPage
+//                        var contactDetailsPage = enumerator.Current;
+//                        enumerator.MoveNext(); // Get AddEditContactPage
+//                        var addEditContactPage = enumerator.Current;
+//
+//                        Navigation.InsertPageBefore(new ContactDetailsPage(_viewModel.Contact, true), contactDetailsPage);
+//                        Navigation.RemovePage(addEditContactPage);
+//                        Navigation.RemovePage(contactDetailsPage); // Navigation stack: LoadingPage>AllContactsPage>ContactDetailsPage(new)
+//                    },
                     Default: () =>
                     {
                         Navigation.PopAsync();
