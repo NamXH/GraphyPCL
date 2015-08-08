@@ -54,6 +54,8 @@
           <TextCell Detail="{Binding RelationshipWeightAverageActive}" Text="RelationshipWeightAverageActive:" />
 <!--          <TextCell Detail="{Binding RelationshipWeightStandardDeviation}" Text="RelationshipWeightStandardDeviation:" />-->
           <TextCell Detail="{Binding RelationshipWeightStandardDeviationActive}" Text="RelationshipWeightStandardDeviationActive:" />
+          <TextCell Detail="{Binding TagTypeCount}" Text="TagTypeCount:" />
+          <TextCell Detail="{Binding RelationshipTypeCount}" Text="RelationshipTypeCount:" />
         </TableSection>
       </TableRoot>
     </TableView.Root>

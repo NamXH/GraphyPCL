@@ -102,6 +102,11 @@ namespace GraphyPCL
         public double RelationshipWeightStandardDeviationActive { get; set; }
 
 
+        public int TagTypeCount { get; set; }
+
+        public int RelationshipTypeCount { get; set; }
+
+
         public UserDataViewModel()
         {
             UserData = UserDataManager.UserData; 
@@ -110,6 +115,9 @@ namespace GraphyPCL
 
         public void Calculate()
         {
+            TagTypeCount = DatabaseManager.GetRows<Tag>().Count;
+            RelationshipTypeCount = DatabaseManager.GetRows<RelationshipType>().Count;
+
             var allContacts = DatabaseManager.GetRows<Contact>();
 
             ContactTotal = allContacts.Count;
