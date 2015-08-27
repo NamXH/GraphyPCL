@@ -19,5 +19,7 @@ namespace GraphyPCL
         public int AllSearchCount { get; set; }
 
         public int RelationshipNavigationCount { get; set; }
+
+        public int AppOpenCount { get; set; }
     }
 }

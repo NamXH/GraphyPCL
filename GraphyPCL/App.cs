@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using System.Diagnostics;
 
 namespace GraphyPCL
 {
@@ -15,6 +16,15 @@ namespace GraphyPCL
 //        {
 //            return new MainPage();
 //        }
+
+        protected override void OnResume()
+        {
+            if ((DatabaseManager.DbConnection != null) && (UserDataManager.UserData != null))
+            {
+                UserDataManager.UserData.AppOpenCount++;
+                DatabaseManager.DbConnection.Update(UserDataManager.UserData);
+            }
+        }
     }
 }
 

@@ -4,6 +4,7 @@
     <TableView.Root>
       <TableRoot x:Name="_tableRoot">
         <TableSection Title="Search Data">
+          <TextCell Detail="{Binding UserData.AppOpenCount}" Text="AppOpenCount:" />
           <TextCell Detail="{Binding UserData.TagSearchCount}" Text="TagSearch:" />
           <TextCell Detail="{Binding UserData.TagUsedInSearchCount}" Text="TagUsedInSearch:" />
           <TextCell Detail="{Binding UserData.RelationshipSearchCount}" Text="RelationshipSearch:" />

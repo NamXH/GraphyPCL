@@ -32,6 +32,7 @@ namespace GraphyPCL
                 // Collect user data
                 var userData = new UserData();
                 userData.Id = Guid.NewGuid();
+                userData.AppOpenCount = 1; // First time open the app
                 UserDataManager.UserData = userData;
                 DbConnection.Insert(userData);
 
@@ -44,6 +45,9 @@ namespace GraphyPCL
                 DbConnection = db.GetConnection();
 
                 UserDataManager.UserData = GetRows<UserData>().First();
+
+                UserDataManager.UserData.AppOpenCount++;
+                DbConnection.Update(UserDataManager.UserData);
             }    
         }
 
@@ -88,7 +92,7 @@ namespace GraphyPCL
             var createRelationship = "CREATE TABLE Relationship (Id VARCHAR PRIMARY KEY NOT NULL, Detail VARCHAR, FromContactId VARCHAR, ToContactId VARCHAR, RelationshipTypeId VARCHAR, FOREIGN KEY(FromContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(ToContactId) REFERENCES Contact(Id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY(RelationshipTypeId) REFERENCES RelationshipType(Id) ON DELETE CASCADE ON UPDATE CASCADE)";
             DbConnection.Execute(createRelationship);
 
-            var createUserData = "CREATE TABLE UserData (Id VARCHAR PRIMARY KEY NOT NULL, TagSearchCount INTEGER DEFAULT 0, TagUsedInSearchCount INTEGER DEFAULT 0, RelationshipSearchCount INTEGER DEFAULT 0, RelationshipUsedInSearchCount INTEGER DEFAULT 0, AllSearchCount INTEGER DEFAULT 0, RelationshipNavigationCount INTEGER DEFAULT 0)";
+            var createUserData = "CREATE TABLE UserData (Id VARCHAR PRIMARY KEY NOT NULL, TagSearchCount INTEGER DEFAULT 0, TagUsedInSearchCount INTEGER DEFAULT 0, RelationshipSearchCount INTEGER DEFAULT 0, RelationshipUsedInSearchCount INTEGER DEFAULT 0, AllSearchCount INTEGER DEFAULT 0, RelationshipNavigationCount INTEGER DEFAULT 0, AppOpenCount INTEGER DEFAULT 0)";
             DbConnection.Execute(createUserData);
         }
 
