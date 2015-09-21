@@ -131,7 +131,8 @@ namespace GraphyPCL
                     Placeholder = "Enter relationship detail",
                     HorizontalOptions = LayoutOptions.FillAndExpand,
                     BindingContext = completeRelationship,
-                    WidthRequest = 1 // Workaround for UI BUG!! If the text is too long, the entry will overlap other UIs!!
+                    WidthRequest = 1, // Workaround for UI BUG!! If the text is too long, the entry will overlap other UIs!!
+                    Keyboard = Keyboard.Text,
                 };
             detailEntry.SetBinding(Entry.TextProperty, "Detail", BindingMode.TwoWay);
             detailLayout.Children.Add(detailEntry);
@@ -146,7 +147,8 @@ namespace GraphyPCL
                 {
                     Placeholder = "Create a new relationship",
                     HorizontalOptions = LayoutOptions.FillAndExpand,
-                    BindingContext = completeRelationship
+                    BindingContext = completeRelationship,
+                    Keyboard = Keyboard.Text,
                 };
             newRelationshipEntry.SetBinding(Entry.TextProperty, "NewRelationshipName", BindingMode.TwoWay);
             newRelationtionshipLayout.Children.Add(newRelationshipEntry);

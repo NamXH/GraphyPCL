@@ -108,7 +108,8 @@ namespace GraphyPCL
                 {
                     BindingContext = completeTag,
                     Placeholder = "Enter tag detail",
-                    HorizontalOptions = LayoutOptions.FillAndExpand
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    Keyboard = Keyboard.Text,
                 };
             detailEntry.SetBinding(Entry.TextProperty, "Detail", BindingMode.TwoWay);
             detailLayout.Children.Add(detailEntry);
@@ -120,7 +121,8 @@ namespace GraphyPCL
                 {
                     BindingContext = completeTag,
                     Placeholder = "Create a new tag name",
-                    HorizontalOptions = LayoutOptions.FillAndExpand
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                    Keyboard = Keyboard.Text,
                 };
             newTagEntry.SetBinding(Entry.TextProperty, new Binding("NewTagName", BindingMode.TwoWay));
             labelLayout.Children.Add(newTagEntry);
