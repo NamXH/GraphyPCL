@@ -420,34 +420,37 @@ namespace GraphyPCL
                 var oldRelationships = DatabaseManager.DbConnection.Table<Relationship>().Where(x => (x.FromContactId.Equals(Contact.Id)) || (x.ToContactId.Equals(Contact.Id))).ToList(); // Get all relationships connect to this Contact
                 foreach (var completeRelationship in CompleteRelationships)
                 {
-                    if (completeRelationship.RelationshipId == Guid.Empty) // newly added relationship
+                    if (completeRelationship.RelatedContactId != Guid.Empty)
                     {
-                        InsertRelationshipToDatabase(completeRelationship); 
-                    }
-                    else
-                    {
-                        // Update
-                        var oldRelationship = oldRelationships.FirstOrDefault(x => x.Id == completeRelationship.RelationshipId); // Should always find 1
-                        oldRelationship.Detail = completeRelationship.Detail;
-                        if (!String.IsNullOrEmpty(completeRelationship.NewRelationshipName))
+                        if (completeRelationship.RelationshipId == Guid.Empty) // newly added relationship
                         {
-                            oldRelationship.RelationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
+                            InsertRelationshipToDatabase(completeRelationship); 
                         }
                         else
                         {
-                            oldRelationship.RelationshipTypeId = completeRelationship.RelationshipTypeId;
+                            // Update
+                            var oldRelationship = oldRelationships.FirstOrDefault(x => x.Id == completeRelationship.RelationshipId); // Should always find 1
+                            oldRelationship.Detail = completeRelationship.Detail;
+                            if (!String.IsNullOrEmpty(completeRelationship.NewRelationshipName))
+                            {
+                                oldRelationship.RelationshipTypeId = CreateOrRetrieveRelationshipType(completeRelationship.NewRelationshipName);
+                            }
+                            else
+                            {
+                                oldRelationship.RelationshipTypeId = completeRelationship.RelationshipTypeId;
+                            }
+                            if (completeRelationship.IsToRelatedContact)
+                            {
+                                oldRelationship.ToContactId = completeRelationship.RelatedContactId;
+                                oldRelationship.FromContactId = Contact.Id;
+                            }
+                            else
+                            {
+                                oldRelationship.ToContactId = Contact.Id;
+                                oldRelationship.FromContactId = completeRelationship.RelatedContactId;
+                            }
+                            DatabaseManager.DbConnection.Update(oldRelationship);
                         }
-                        if (completeRelationship.IsToRelatedContact)
-                        {
-                            oldRelationship.ToContactId = completeRelationship.RelatedContactId;
-                            oldRelationship.FromContactId = Contact.Id;
-                        }
-                        else
-                        {
-                            oldRelationship.ToContactId = Contact.Id;
-                            oldRelationship.FromContactId = completeRelationship.RelatedContactId;
-                        }
-                        DatabaseManager.DbConnection.Update(oldRelationship);
                     }
                 }
                 foreach (var relationship in oldRelationships)
