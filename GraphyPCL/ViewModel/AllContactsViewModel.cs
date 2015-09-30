@@ -48,7 +48,7 @@ namespace GraphyPCL
                         else
                         {
                             var index = 0;
-                            while (String.Compare(ContactsGroupCollection[index].Title, firstChar) < 0)
+                            while ((index <= ContactsGroupCollection.Count - 1) && (String.Compare(ContactsGroupCollection[index].Title, firstChar) < 0))
                             {
                                 index++;
                             }
