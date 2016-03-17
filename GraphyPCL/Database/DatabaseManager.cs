@@ -57,7 +57,10 @@ namespace GraphyPCL
             var foreignKeyOn = "PRAGMA foreign_keys = ON";
             DbConnection.Execute(foreignKeyOn);
 
-            // Create tables using SQL commands
+            // Create tables using SQL commands.
+            // We have to do this instead of using built-in SQLite.NET functions because SQLite.NET doesn't support cascading on foreign keys.
+            // Another library called SQLite.Net Extension does support cascading but it is not popular.
+            //
             // It seems SQLite-net make query base on table name. Therefore, our custom tables still work with
             // their queries even the database objects may have more properties than the fields in the table.
             // For example: DbConnection.Insert(new Contact()) still insert to the Contact table.
